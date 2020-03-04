@@ -1,0 +1,137 @@
+isComponent(web,0).
+isComponent(mysql,0).
+isComponent(lbproxy,0).
+isComponent(s0,0).
+isComponent(c0,0).
+
+methodInvocation(web,c0,connect,0).
+methodInvocation(c0,s0,fgets,0).
+methodInvocation(c0,s0,shell_exec,0).
+methodInvocation(c0,s0,echo,0).
+methodInvocation(c0,s0,imagecreatefrompng,0).	 
+methodInvocation(c0,s0,header,0).
+methodInvocation(c0,s0,setcookie,0).
+methodInvocation(c0,s0,include,0).
+methodInvocation(c0,lbproxy,conn,0).
+methodInvocation(lbproxy,s0,conn,0).
+methodInvocation(s0,mysql,load,0).
+
+
+
+compVulnExists(mysql,load,cwe284).
+compVulnExists(mysql,load,cwe200).
+compVulnExists(mysql,load,dwe119).
+compVulnExists(mysql,load,cwe89).
+compVulnExists(s0,fopen,cwe862).
+compVulnExists(s0,fgets,cwe200).
+compVulnExists(s0,shell_exec,cwe78).
+compVulnExists(s0,echo,cwe79).
+compVulnExists(s0,imagecreatefromgif,cwe200).
+compVulnExists(s0,imagecreatefrompng,cwe200).
+compVulnExists(s0,header,cwe601).
+compVulnExists(s0,setcookie,cwe384).
+compVulnExists(s0,include,cwe98).
+compVulnExists(c0,connect,cwe79).
+compVulnExists(c0,connect,cwe287).
+compVulnExists(c0,connect,cwe20).
+compVulnExists(c0,connect,cwe787).
+compVulnExists(c0,connect,cwe416).
+compVulnExists(c0,connect,cwe476).
+compVulnExists(c0,connect,cwe19).
+compVulnExists(c0,connect,cwe93).
+compVulnExists(c0,connect,cwe310).
+compVulnExists(c0,connect,cwe264).
+compVulnExists(c0,connect,cwe399).
+compVulnExists(c0,connect,cwe362).
+
+
+isComponent(web,1).
+isComponent(mysql,1).
+isComponent(lbproxy,1).
+isComponent(s0,1).
+isComponent(c0,1).
+isComponent(s1,1).
+isComponent(c1,1).
+
+
+methodInvocation(web,c0,connect,1).
+methodInvocation(c0,s0,fgets,1).
+methodInvocation(c0,s0,shell_exec,1).
+methodInvocation(c0,s0,echo,1).
+methodInvocation(c0,s0,imagecreatefrompng,1).	 
+methodInvocation(c0,s0,header,1).
+methodInvocation(c0,s0,setcookie,1).
+methodInvocation(c0,s0,include,1).
+methodInvocation(c0,lbproxy,conn,1).
+methodInvocation(lbproxy,s0,conn,1).
+methodInvocation(s0,mysql,load,1).
+methodInvocation(web,c1,connect,1).
+methodInvocation(c1,s1,fgets,1).
+methodInvocation(c1,s1,shell_exec,1).
+methodInvocation(c1,s1,echo,1).
+methodInvocation(c1,s1,imagecreatefrompng,1).	 
+methodInvocation(c1,s1,header,1).
+methodInvocation(c1,s1,setcookie,1).
+methodInvocation(c1,s1,include,1).
+methodInvocation(c1,lbproxy,conn,1).
+methodInvocation(lbproxy,s1,conn,1).
+methodInvocation(s1,mysql,load,1).
+
+
+
+
+
+adaptationConfiguration(0).
+adaptationConfiguration(1).
+adaptationStep(0,1).
+
+externalInterface(mysql).
+externalInterface(lbproxy).
+externalVulnerability(mysql,cwe119).
+externalVulnerability(mysql,cwe89).
+externalVulnerability(mysql,cwe200).
+externalVulnerability(lbproxy,cwe287).
+externalVulnerability(lbproxy,cwe20).
+externalVulnerability(lbproxy,cwe787).
+externalVulnerability(lbproxy,cwe416).
+externalVulnerability(lbproxy,cwe476).
+externalVulnerability(lbproxy,cwe19).
+externalVulnerability(lbproxy,cwe93).
+externalVulnerability(lbproxy,cwe310).
+externalVulnerability(lbproxy,cwe264).
+externalVulnerability(lbproxy,cwe399).
+externalVulnerability(lbproxy,cwe362).
+externalVulnerability(lbproxy,cwe79).
+
+/*Known VulnTypes */
+vulnType(cwe19). /* lbproxy */
+vulnType(cwe20). /* lbproxy */
+vulnType(cwe78). /* s1,s2,s3,s0 */
+vulnType(cwe79). /* lbproxy s1,s2,s3,s0 */
+vulnType(cwe89). /* mysql */
+vulnType(cwe93). /* lbproxy */
+vulnType(cwe98). /* s1,s2,s3,s0 */
+vulnType(cwe119).
+vulnType(cwe200). /* lbproxy*,mysql, s1,s2,s3,s0 */
+vulnType(cwe264). /* lbproxy */
+vulnType(cwe284). /* mysql */
+vulnType(cwe287). /* lbproxy */
+vulnType(cwe310). /* lbproxy */
+vulnType(cwe362). /* lbproxy */
+vulnType(cwe384). /* s1,s2,s3,s0 */	
+vulnType(cwe399). /* lbproxy */
+vulnType(cwe416). /* lbproxy*/
+vulnType(cwe476). /* lbproxy */
+vulnType(cwe601).  /* s1,s2,s3,s0 */
+vulnType(cwe787). /*lbproxy*/
+vulnType(cwe862). /* s1,s2,s3,s0 */
+
+attackerLocated(web,0).
+attackGoal( systemDown(_)).
+theSystem(ZNewsSys).
+
+
+
+
+
+

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>//architectures
+const int t1=0;
+const int t2=1;
+int step=t1;
+
+//automata types
+const int CC=0;
+const int BA=1;
+const int CA=2;
+const int CI=3;
+const int II=4;
+const int AI=5;
+const int SD=6;
+
+
+
+
+const int N=70;
+const int SYSTEMDOWN_INSECUREDOCUMENTSTORE = 0;
+const int SYSTEMCOMPROMISED_ACCOUNTMANAGER = 1;
+const int INTEGRITYCOMPROMISED_ACCOUNTMANAGER = 2;
+const int CANDELETEDOC_ACCOUNTMANAGER_2 = 3;
+const int CANLEAKDOC_ACCOUNTMANAGER_2 = 4;
+const int CANPRIVESC_ACCOUNTMANAGER_2 = 5;
+const int CANINJECTCOMMAND_ACCOUNTMANAGER_2 = 6;
+const int ISCOMPROMISED_ACCOUNTMANAGER_2_USERLOOKUP = 7;
+const int ISCOMPROMISED_BACKEND_2_LOGIN = 8;
+const int ISCOMPROMISED_FRONTEND0_2_CONNECT = 9;
+const int ISCOMPROMISED_WEB_2_ENTRYPOINT = 10;
+const int ISCOMPROMISED_FRONTEND1_2_CONNECT = 11;
+const int ISCOMPROMISED_FRONTEND2_2_CONNECT = 12;
+const int CANSPOOFUSR_ACCOUNTMANAGER_2 = 13;
+const int CANDELETEDOC_ACCOUNTMANAGER_3 = 14;
+const int CANLEAKDOC_ACCOUNTMANAGER_3 = 15;
+const int CANPRIVESC_ACCOUNTMANAGER_3 = 16;
+const int CANINJECTCOMMAND_ACCOUNTMANAGER_3 = 17;
+const int ISCOMPROMISED_ACCOUNTMANAGER_3_USERLOOKUP = 18;
+const int ISCOMPROMISED_BACKEND_3_LOGIN = 19;
+const int ISCOMPROMISED_FRONTEND0_3_CONNECT = 20;
+const int ISCOMPROMISED_WEB_3_ENTRYPOINT = 21;
+const int ISCOMPROMISED_FRONTEND1_3_CONNECT = 22;
+const int ISCOMPROMISED_FRONTEND2_3_CONNECT = 23;
+const int ISCOMPROMISED_FRONTEND3_3_CONNECT = 24;
+const int CANSPOOFUSR_ACCOUNTMANAGER_3 = 25;
+const int CONFIDENTIALITYCOMPROMISED_ACCOUNTMANAGER = 26;
+const int SYSTEMCOMPROMISED_BACKEND = 27;
+const int INTEGRITYCOMPROMISED_BACKEND = 28;
+const int CANDELETEDOC_BACKEND_2 = 29;
+const int CANLEAKDOC_BACKEND_2 = 30;
+const int CANPRIVESC_BACKEND_2 = 31;
+const int CANINJECTCOMMAND_BACKEND_2 = 32;
+const int CANSPOOFUSR_BACKEND_2 = 33;
+const int CANDELETEDOC_BACKEND_3 = 34;
+const int CANLEAKDOC_BACKEND_3 = 35;
+const int CANPRIVESC_BACKEND_3 = 36;
+const int CANINJECTCOMMAND_BACKEND_3 = 37;
+const int CANSPOOFUSR_BACKEND_3 = 38;
+const int CONFIDENTIALITYCOMPROMISED_BACKEND = 39;
+const int SYSTEMCOMPROMISED_DATABASEMANAGER = 40;
+const int INTEGRITYCOMPROMISED_DATABASEMANAGER = 41;
+const int CANDELETEDOC_DATABASEMANAGER_2 = 42;
+const int CANLEAKDOC_DATABASEMANAGER_2 = 43;
+const int CANPRIVESC_DATABASEMANAGER_2 = 44;
+const int CANINJECTCOMMAND_DATABASEMANAGER_2 = 45;
+const int ISCOMPROMISED_DATABASEMANAGER_2_EXECUTEQUERY = 46;
+const int ISCOMPROMISED_DOCUMENTMANAGER_2_DOCLOOKUP = 47;
+const int CANSPOOFUSR_DATABASEMANAGER_2 = 48;
+const int CANDELETEDOC_DATABASEMANAGER_3 = 49;
+const int CANLEAKDOC_DATABASEMANAGER_3 = 50;
+const int CANPRIVESC_DATABASEMANAGER_3 = 51;
+const int CANINJECTCOMMAND_DATABASEMANAGER_3 = 52;
+const int ISCOMPROMISED_DATABASEMANAGER_3_EXECUTEQUERY = 53;
+const int ISCOMPROMISED_DOCUMENTMANAGER_3_DOCLOOKUP = 54;
+const int CANSPOOFUSR_DATABASEMANAGER_3 = 55;
+const int CONFIDENTIALITYCOMPROMISED_DATABASEMANAGER = 56;
+const int SYSTEMCOMPROMISED_DOCUMENTMANAGER = 57;
+const int INTEGRITYCOMPROMISED_DOCUMENTMANAGER = 58;
+const int CANDELETEDOC_DOCUMENTMANAGER_2 = 59;
+const int CANLEAKDOC_DOCUMENTMANAGER_2 = 60;
+const int CANPRIVESC_DOCUMENTMANAGER_2 = 61;
+const int CANINJECTCOMMAND_DOCUMENTMANAGER_2 = 62;
+const int CANSPOOFUSR_DOCUMENTMANAGER_2 = 63;
+const int CANDELETEDOC_DOCUMENTMANAGER_3 = 64;
+const int CANLEAKDOC_DOCUMENTMANAGER_3 = 65;
+const int CANPRIVESC_DOCUMENTMANAGER_3 = 66;
+const int CANINJECTCOMMAND_DOCUMENTMANAGER_3 = 67;
+const int CANSPOOFUSR_DOCUMENTMANAGER_3 = 68;
+const int CONFIDENTIALITYCOMPROMISED_DOCUMENTMANAGER = 69;
+bool achieved[N]={ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+
+const int num_methods=7;
+broadcast chan methods[num_methods];
+const int none=0;
+const int userLookUp=1;
+const int executeQuery=2;
+const int entrypoint=3;
+const int connect=4;
+const int docLookUp=5;
+const int login=6;
+bool syn[num_methods]={
+false,
+true,
+true,
+false,
+true,
+true,
+true};
+</declaration>
+	<template>
+		<name x="5" y="5">InternalBehaviour</name>
+		<location id="id0" x="663" y="229">
+			<name x="491" y="297">FE2</name>
+			<label kind="exponentialrate" x="653" y="263">1</label>
+		</location>
+		<location id="id1" x="756" y="42">
+			<name x="746" y="8">FE1</name>
+			<label kind="exponentialrate" x="746" y="76">1</label>
+		</location>
+		<location id="id2" x="1045" y="221">
+			<name x="1035" y="187">GU</name>
+			<label kind="exponentialrate" x="1035" y="255">1</label>
+		</location>
+		<location id="id3" x="391" y="-42">
+			<name x="381" y="-76">WEB</name>
+			<label kind="exponentialrate" x="381" y="-8">1</label>
+		</location>
+		<location id="id4" x="1673" y="42">
+			<name x="1663" y="8">DB</name>
+			<label kind="exponentialrate" x="1663" y="76">1</label>
+		</location>
+		<location id="id5" x="1427" y="42">
+			<name x="1417" y="8">DBM</name>
+			<label kind="exponentialrate" x="1417" y="76">1</label>
+		</location>
+		<location id="id6" x="1215" y="127">
+			<name x="1198" y="93">DM</name>
+			<label kind="exponentialrate" x="1205" y="161">1</label>
+		</location>
+		<location id="id7" x="1215" y="-25">
+			<name x="1207" y="-59">AM</name>
+			<label kind="exponentialrate" x="1205" y="9">1</label>
+		</location>
+		<location id="id8" x="1037" y="68">
+			<name x="1027" y="34">BE</name>
+			<label kind="exponentialrate" x="1027" y="102">1</label>
+		</location>
+		<location id="id9" x="748" y="-76">
+			<name x="738" y="-110">FE0</name>
+			<label kind="exponentialrate" x="738" y="-42">1</label>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id0"/>
+			<nail x="841" y="272"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="612" y="187">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id8"/>
+			<nail x="858" y="136"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<nail x="586" y="119"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="790" y="25">methods[login]!</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="552" y="0">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id2"/>
+			<nail x="969" y="186"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id8"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id3"/>
+			<nail x="535" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="518" y="-77">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id9"/>
+			<nail x="935" y="-68"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="1053" y="42">methods[docLookUp]!</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="1028" y="-9">methods[userLookUp]!</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id8"/>
+			<nail x="1215" y="-103"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="1232" y="42">methods[executeQuery]!</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="1274" y="-17">methods[executeQuery]!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="824" y="-34">methods[login]!</label>
+		</transition>
+	</template>
+	<template>
+		<name>Rule</name>
+		<parameter>const int this,const int P,const int method</parameter>
+		<declaration>bool prerequisites(const int node){
+if(node == INTEGRITYCOMPROMISED_DATABASEMANAGER){
+return achieved[CANDELETEDOC_DATABASEMANAGER_3 ];
+}
+if(node == SYSTEMCOMPROMISED_DATABASEMANAGER){
+return achieved[CONFIDENTIALITYCOMPROMISED_DATABASEMANAGER ];
+}
+if(node == CANDELETEDOC_BACKEND_3){
+return achieved[CANLEAKDOC_BACKEND_3 ] &amp;&amp; achieved[CANSPOOFUSR_BACKEND_3 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_BACKEND){
+return achieved[CANLEAKDOC_BACKEND_3 ];
+}
+if(node == CANSPOOFUSR_BACKEND_2){
+return achieved[CANPRIVESC_BACKEND_2 ];
+}
+if(node == CANINJECTCOMMAND_BACKEND_2){
+return achieved[ISCOMPROMISED_BACKEND_2_LOGIN ];
+}
+if(node == CANDELETEDOC_DATABASEMANAGER_2){
+return achieved[CANLEAKDOC_DATABASEMANAGER_2 ] &amp;&amp; achieved[CANSPOOFUSR_DATABASEMANAGER_2 ];
+}
+if(node == ISCOMPROMISED_DATABASEMANAGER_2_EXECUTEQUERY){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_FRONTEND1_3_CONNECT){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANINJECTCOMMAND_ACCOUNTMANAGER_3){
+return achieved[ISCOMPROMISED_ACCOUNTMANAGER_3_USERLOOKUP ];
+}
+if(node == CANPRIVESC_DOCUMENTMANAGER_3){
+return achieved[CANINJECTCOMMAND_DOCUMENTMANAGER_3 ];
+}
+if(node == ISCOMPROMISED_FRONTEND3_3_CONNECT){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANLEAKDOC_DOCUMENTMANAGER_3){
+return achieved[CANPRIVESC_DOCUMENTMANAGER_3 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_ACCOUNTMANAGER){
+return achieved[CANLEAKDOC_ACCOUNTMANAGER_3 ];
+}
+if(node == CANDELETEDOC_ACCOUNTMANAGER_3){
+return achieved[CANLEAKDOC_ACCOUNTMANAGER_3 ] &amp;&amp; achieved[CANSPOOFUSR_ACCOUNTMANAGER_3 ];
+}
+if(node == CANSPOOFUSR_ACCOUNTMANAGER_2){
+return achieved[CANPRIVESC_ACCOUNTMANAGER_2 ];
+}
+if(node == CANSPOOFUSR_ACCOUNTMANAGER_3){
+return achieved[CANPRIVESC_ACCOUNTMANAGER_3 ];
+}
+if(node == CANPRIVESC_ACCOUNTMANAGER_3){
+return achieved[CANINJECTCOMMAND_ACCOUNTMANAGER_3 ];
+}
+if(node == CANLEAKDOC_ACCOUNTMANAGER_3){
+return achieved[CANPRIVESC_ACCOUNTMANAGER_3 ];
+}
+if(node == CANDELETEDOC_DATABASEMANAGER_3){
+return achieved[CANLEAKDOC_DATABASEMANAGER_3 ] &amp;&amp; achieved[CANSPOOFUSR_DATABASEMANAGER_3 ];
+}
+if(node == ISCOMPROMISED_WEB_2_ENTRYPOINT){
+return  true;
+}
+if(node == ISCOMPROMISED_BACKEND_2_LOGIN){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == CANINJECTCOMMAND_DOCUMENTMANAGER_3){
+return achieved[ISCOMPROMISED_DOCUMENTMANAGER_3_DOCLOOKUP ];
+}
+if(node == ISCOMPROMISED_FRONTEND0_2_CONNECT){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_FRONTEND2_2_CONNECT){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == CANINJECTCOMMAND_DOCUMENTMANAGER_2){
+return achieved[ISCOMPROMISED_DOCUMENTMANAGER_2_DOCLOOKUP ];
+}
+if(node == SYSTEMDOWN_INSECUREDOCUMENTSTORE){
+return achieved[SYSTEMCOMPROMISED_DOCUMENTMANAGER ];
+}
+if(node == INTEGRITYCOMPROMISED_BACKEND){
+return achieved[CANDELETEDOC_BACKEND_3 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_DOCUMENTMANAGER){
+return achieved[CANLEAKDOC_DOCUMENTMANAGER_3 ];
+}
+if(node == SYSTEMCOMPROMISED_BACKEND){
+return achieved[CONFIDENTIALITYCOMPROMISED_BACKEND ];
+}
+if(node == SYSTEMCOMPROMISED_ACCOUNTMANAGER){
+return achieved[CONFIDENTIALITYCOMPROMISED_ACCOUNTMANAGER ];
+}
+if(node == CANSPOOFUSR_DATABASEMANAGER_3){
+return achieved[CANPRIVESC_DATABASEMANAGER_3 ];
+}
+if(node == INTEGRITYCOMPROMISED_ACCOUNTMANAGER){
+return achieved[CANDELETEDOC_ACCOUNTMANAGER_3 ];
+}
+if(node == CANDELETEDOC_ACCOUNTMANAGER_2){
+return achieved[CANLEAKDOC_ACCOUNTMANAGER_2 ] &amp;&amp; achieved[CANSPOOFUSR_ACCOUNTMANAGER_2 ];
+}
+if(node == CANPRIVESC_BACKEND_2){
+return achieved[CANINJECTCOMMAND_BACKEND_2 ];
+}
+if(node == CANLEAKDOC_BACKEND_2){
+return achieved[CANPRIVESC_BACKEND_2 ];
+}
+if(node == CANLEAKDOC_BACKEND_3){
+return achieved[CANPRIVESC_BACKEND_3 ];
+}
+if(node == CANPRIVESC_BACKEND_3){
+return achieved[CANINJECTCOMMAND_BACKEND_3 ];
+}
+if(node == CANINJECTCOMMAND_BACKEND_3){
+return achieved[ISCOMPROMISED_BACKEND_3_LOGIN ];
+}
+if(node == CANSPOOFUSR_BACKEND_3){
+return achieved[CANPRIVESC_BACKEND_3 ];
+}
+if(node == CANDELETEDOC_BACKEND_2){
+return achieved[CANLEAKDOC_BACKEND_2 ] &amp;&amp; achieved[CANSPOOFUSR_BACKEND_2 ];
+}
+if(node == CANSPOOFUSR_DOCUMENTMANAGER_3){
+return achieved[CANPRIVESC_DOCUMENTMANAGER_3 ];
+}
+if(node == ISCOMPROMISED_DOCUMENTMANAGER_3_DOCLOOKUP){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANLEAKDOC_DOCUMENTMANAGER_2){
+return achieved[CANPRIVESC_DOCUMENTMANAGER_2 ];
+}
+if(node == CANPRIVESC_DOCUMENTMANAGER_2){
+return achieved[CANINJECTCOMMAND_DOCUMENTMANAGER_2 ];
+}
+if(node == CANSPOOFUSR_DOCUMENTMANAGER_2){
+return achieved[CANPRIVESC_DOCUMENTMANAGER_2 ];
+}
+if(node == ISCOMPROMISED_FRONTEND2_3_CONNECT){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_DOCUMENTMANAGER_2_DOCLOOKUP){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_ACCOUNTMANAGER_3_USERLOOKUP){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_FRONTEND0_3_CONNECT){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANINJECTCOMMAND_DATABASEMANAGER_2){
+return achieved[ISCOMPROMISED_DATABASEMANAGER_2_EXECUTEQUERY ];
+}
+if(node == CANPRIVESC_DATABASEMANAGER_2){
+return achieved[CANINJECTCOMMAND_DATABASEMANAGER_2 ];
+}
+if(node == ISCOMPROMISED_WEB_3_ENTRYPOINT){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_BACKEND_3_LOGIN){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANLEAKDOC_ACCOUNTMANAGER_2){
+return achieved[CANPRIVESC_ACCOUNTMANAGER_2 ];
+}
+if(node == CANLEAKDOC_DATABASEMANAGER_2){
+return achieved[CANPRIVESC_DATABASEMANAGER_2 ];
+}
+if(node == CANPRIVESC_ACCOUNTMANAGER_2){
+return achieved[CANINJECTCOMMAND_ACCOUNTMANAGER_2 ];
+}
+if(node == CANINJECTCOMMAND_ACCOUNTMANAGER_2){
+return achieved[ISCOMPROMISED_ACCOUNTMANAGER_2_USERLOOKUP ];
+}
+if(node == ISCOMPROMISED_ACCOUNTMANAGER_2_USERLOOKUP){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_FRONTEND1_2_CONNECT){
+return achieved[ISCOMPROMISED_WEB_2_ENTRYPOINT ];
+}
+if(node == CANDELETEDOC_DOCUMENTMANAGER_2){
+return achieved[CANLEAKDOC_DOCUMENTMANAGER_2 ] &amp;&amp; achieved[CANSPOOFUSR_DOCUMENTMANAGER_2 ];
+}
+if(node == CANINJECTCOMMAND_DATABASEMANAGER_3){
+return achieved[ISCOMPROMISED_DATABASEMANAGER_3_EXECUTEQUERY ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_DATABASEMANAGER){
+return achieved[CANLEAKDOC_DATABASEMANAGER_3 ];
+}
+if(node == ISCOMPROMISED_DATABASEMANAGER_3_EXECUTEQUERY){
+return achieved[ISCOMPROMISED_WEB_3_ENTRYPOINT ];
+}
+if(node == CANDELETEDOC_DOCUMENTMANAGER_3){
+return achieved[CANLEAKDOC_DOCUMENTMANAGER_3 ] &amp;&amp; achieved[CANSPOOFUSR_DOCUMENTMANAGER_3 ];
+}
+if(node == CANSPOOFUSR_DATABASEMANAGER_2){
+return achieved[CANPRIVESC_DATABASEMANAGER_2 ];
+}
+if(node == SYSTEMCOMPROMISED_DOCUMENTMANAGER){
+return achieved[CONFIDENTIALITYCOMPROMISED_DOCUMENTMANAGER ];
+}
+if(node == CANPRIVESC_DATABASEMANAGER_3){
+return achieved[CANINJECTCOMMAND_DATABASEMANAGER_3 ];
+}
+if(node == INTEGRITYCOMPROMISED_DOCUMENTMANAGER){
+return achieved[CANDELETEDOC_DOCUMENTMANAGER_3 ];
+}
+if(node == CANLEAKDOC_DATABASEMANAGER_3){
+return achieved[CANPRIVESC_DATABASEMANAGER_3 ];
+}
+return false;
+}
+
+</declaration>
+		<location id="id10" x="-144" y="-238">
+			<label kind="exponentialrate" x="-154" y="-204">1</label>
+		</location>
+		<location id="id11" x="153" y="-238">
+			<name x="143" y="-272">S</name>
+			<label kind="exponentialrate" x="143" y="-204">1</label>
+		</location>
+		<location id="id12" x="-374" y="-238">
+			<name x="-384" y="-272">I</name>
+			<label kind="exponentialrate" x="-384" y="-204">1</label>
+		</location>
+		<branchpoint id="id13" x="42" y="-238">
+		</branchpoint>
+		<init ref="id12"/>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-340" y="-374">!syn[method]</label>
+			<nail x="-289" y="-357"/>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="probability" x="-136" y="-195">100-P</label>
+			<nail x="-136" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-126" y="-272">prerequisites(this)</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-356" y="-272">syn[method]</label>
+			<label kind="synchronisation" x="-356" y="-255">methods[method]?</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id11"/>
+			<label kind="assignment" x="60" y="-284">achieved[this]=true</label>
+			<label kind="probability" x="76" y="-263">P</label>
+		</transition>
+	</template>
+	<template>
+		<name>addFrontend</name>
+		<location id="id14" x="-654" y="-187">
+			<name x="-671" y="-221">T1</name>
+		</location>
+		<location id="id15" x="-654" y="-297">
+			<name x="-664" y="-331">T0</name>
+			<label kind="exponentialrate" x="-664" y="-263">1</label>
+		</location>
+		<init ref="id15"/>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id14"/>
+			<label kind="assignment" x="-654" y="-255">step=t2</label>
+		</transition>
+	</template>
+	<system>call_graph=InternalBehaviour();
+tactic_tree=addFrontend();
+
+
+systemDown_insecureDocumentStore=Rule(SYSTEMDOWN_INSECUREDOCUMENTSTORE,97,none);
+systemCompromised_accountManager=Rule(SYSTEMCOMPROMISED_ACCOUNTMANAGER,77,none);
+integrityCompromised_accountManager=Rule(INTEGRITYCOMPROMISED_ACCOUNTMANAGER,49,none);
+canDeleteDoc_accountManager_2=Rule(CANDELETEDOC_ACCOUNTMANAGER_2,34,none);
+canLeakDoc_accountManager_2=Rule(CANLEAKDOC_ACCOUNTMANAGER_2,65,none);
+canPrivEsc_accountManager_2=Rule(CANPRIVESC_ACCOUNTMANAGER_2,82,none);
+canInjectCommand_accountManager_2=Rule(CANINJECTCOMMAND_ACCOUNTMANAGER_2,72,none);
+isCompromised_accountManager_2_userLookUp=Rule(ISCOMPROMISED_ACCOUNTMANAGER_2_USERLOOKUP,90,userLookUp);
+isCompromised_backend_2_login=Rule(ISCOMPROMISED_BACKEND_2_LOGIN,86,login);
+isCompromised_frontend0_2_connect=Rule(ISCOMPROMISED_FRONTEND0_2_CONNECT,51,connect);
+isCompromised_web_2_entrypoint=Rule(ISCOMPROMISED_WEB_2_ENTRYPOINT,80,entrypoint);
+isCompromised_frontend1_2_connect=Rule(ISCOMPROMISED_FRONTEND1_2_CONNECT,51,connect);
+isCompromised_frontend2_2_connect=Rule(ISCOMPROMISED_FRONTEND2_2_CONNECT,51,connect);
+canSpoofUsr_accountManager_2=Rule(CANSPOOFUSR_ACCOUNTMANAGER_2,65,none);
+canDeleteDoc_accountManager_3=Rule(CANDELETEDOC_ACCOUNTMANAGER_3,38,none);
+canLeakDoc_accountManager_3=Rule(CANLEAKDOC_ACCOUNTMANAGER_3,68,none);
+canPrivEsc_accountManager_3=Rule(CANPRIVESC_ACCOUNTMANAGER_3,86,none);
+canInjectCommand_accountManager_3=Rule(CANINJECTCOMMAND_ACCOUNTMANAGER_3,78,none);
+isCompromised_accountManager_3_userLookUp=Rule(ISCOMPROMISED_ACCOUNTMANAGER_3_USERLOOKUP,98,userLookUp);
+isCompromised_backend_3_login=Rule(ISCOMPROMISED_BACKEND_3_LOGIN,97,login);
+isCompromised_frontend0_3_connect=Rule(ISCOMPROMISED_FRONTEND0_3_CONNECT,65,connect);
+isCompromised_web_3_entrypoint=Rule(ISCOMPROMISED_WEB_3_ENTRYPOINT,64,entrypoint);
+isCompromised_frontend1_3_connect=Rule(ISCOMPROMISED_FRONTEND1_3_CONNECT,65,connect);
+isCompromised_frontend2_3_connect=Rule(ISCOMPROMISED_FRONTEND2_3_CONNECT,65,connect);
+isCompromised_frontend3_3_connect=Rule(ISCOMPROMISED_FRONTEND3_3_CONNECT,40,connect);
+canSpoofUsr_accountManager_3=Rule(CANSPOOFUSR_ACCOUNTMANAGER_3,68,none);
+confidentialityCompromised_accountManager=Rule(CONFIDENTIALITYCOMPROMISED_ACCOUNTMANAGER,78,none);
+systemCompromised_backend=Rule(SYSTEMCOMPROMISED_BACKEND,77,none);
+integrityCompromised_backend=Rule(INTEGRITYCOMPROMISED_BACKEND,48,none);
+canDeleteDoc_backend_2=Rule(CANDELETEDOC_BACKEND_2,32,none);
+canLeakDoc_backend_2=Rule(CANLEAKDOC_BACKEND_2,64,none);
+canPrivEsc_backend_2=Rule(CANPRIVESC_BACKEND_2,80,none);
+canInjectCommand_backend_2=Rule(CANINJECTCOMMAND_BACKEND_2,69,none);
+canSpoofUsr_backend_2=Rule(CANSPOOFUSR_BACKEND_2,64,none);
+canDeleteDoc_backend_3=Rule(CANDELETEDOC_BACKEND_3,37,none);
+canLeakDoc_backend_3=Rule(CANLEAKDOC_BACKEND_3,68,none);
+canPrivEsc_backend_3=Rule(CANPRIVESC_BACKEND_3,85,none);
+canInjectCommand_backend_3=Rule(CANINJECTCOMMAND_BACKEND_3,78,none);
+canSpoofUsr_backend_3=Rule(CANSPOOFUSR_BACKEND_3,68,none);
+confidentialityCompromised_backend=Rule(CONFIDENTIALITYCOMPROMISED_BACKEND,78,none);
+systemCompromised_databaseManager=Rule(SYSTEMCOMPROMISED_DATABASEMANAGER,79,none);
+integrityCompromised_databaseManager=Rule(INTEGRITYCOMPROMISED_DATABASEMANAGER,52,none);
+canDeleteDoc_databaseManager_2=Rule(CANDELETEDOC_DATABASEMANAGER_2,38,none);
+canLeakDoc_databaseManager_2=Rule(CANLEAKDOC_DATABASEMANAGER_2,69,none);
+canPrivEsc_databaseManager_2=Rule(CANPRIVESC_DATABASEMANAGER_2,86,none);
+canInjectCommand_databaseManager_2=Rule(CANINJECTCOMMAND_DATABASEMANAGER_2,79,none);
+isCompromised_databaseManager_2_executeQuery=Rule(ISCOMPROMISED_DATABASEMANAGER_2_EXECUTEQUERY,99,executeQuery);
+isCompromised_documentManager_2_docLookUp=Rule(ISCOMPROMISED_DOCUMENTMANAGER_2_DOCLOOKUP,90,docLookUp);
+canSpoofUsr_databaseManager_2=Rule(CANSPOOFUSR_DATABASEMANAGER_2,69,none);
+canDeleteDoc_databaseManager_3=Rule(CANDELETEDOC_DATABASEMANAGER_3,38,none);
+canLeakDoc_databaseManager_3=Rule(CANLEAKDOC_DATABASEMANAGER_3,69,none);
+canPrivEsc_databaseManager_3=Rule(CANPRIVESC_DATABASEMANAGER_3,87,none);
+canInjectCommand_databaseManager_3=Rule(CANINJECTCOMMAND_DATABASEMANAGER_3,79,none);
+isCompromised_databaseManager_3_executeQuery=Rule(ISCOMPROMISED_DATABASEMANAGER_3_EXECUTEQUERY,99,executeQuery);
+isCompromised_documentManager_3_docLookUp=Rule(ISCOMPROMISED_DOCUMENTMANAGER_3_DOCLOOKUP,98,docLookUp);
+canSpoofUsr_databaseManager_3=Rule(CANSPOOFUSR_DATABASEMANAGER_3,69,none);
+confidentialityCompromised_databaseManager=Rule(CONFIDENTIALITYCOMPROMISED_DATABASEMANAGER,80,none);
+systemCompromised_documentManager=Rule(SYSTEMCOMPROMISED_DOCUMENTMANAGER,77,none);
+integrityCompromised_documentManager=Rule(INTEGRITYCOMPROMISED_DOCUMENTMANAGER,49,none);
+canDeleteDoc_documentManager_2=Rule(CANDELETEDOC_DOCUMENTMANAGER_2,34,none);
+canLeakDoc_documentManager_2=Rule(CANLEAKDOC_DOCUMENTMANAGER_2,65,none);
+canPrivEsc_documentManager_2=Rule(CANPRIVESC_DOCUMENTMANAGER_2,82,none);
+canInjectCommand_documentManager_2=Rule(CANINJECTCOMMAND_DOCUMENTMANAGER_2,72,none);
+canSpoofUsr_documentManager_2=Rule(CANSPOOFUSR_DOCUMENTMANAGER_2,65,none);
+canDeleteDoc_documentManager_3=Rule(CANDELETEDOC_DOCUMENTMANAGER_3,38,none);
+canLeakDoc_documentManager_3=Rule(CANLEAKDOC_DOCUMENTMANAGER_3,68,none);
+canPrivEsc_documentManager_3=Rule(CANPRIVESC_DOCUMENTMANAGER_3,86,none);
+canInjectCommand_documentManager_3=Rule(CANINJECTCOMMAND_DOCUMENTMANAGER_3,78,none);
+canSpoofUsr_documentManager_3=Rule(CANSPOOFUSR_DOCUMENTMANAGER_3,68,none);
+confidentialityCompromised_documentManager=Rule(CONFIDENTIALITYCOMPROMISED_DOCUMENTMANAGER,78,none);
+
+
+
+
+system call_graph,tactic_tree, systemDown_insecureDocumentStore, systemCompromised_accountManager, integrityCompromised_accountManager, canDeleteDoc_accountManager_2, canLeakDoc_accountManager_2, canPrivEsc_accountManager_2, canInjectCommand_accountManager_2, isCompromised_accountManager_2_userLookUp, isCompromised_backend_2_login, isCompromised_frontend0_2_connect, isCompromised_web_2_entrypoint, isCompromised_frontend1_2_connect, isCompromised_frontend2_2_connect, canSpoofUsr_accountManager_2, canDeleteDoc_accountManager_3, canLeakDoc_accountManager_3, canPrivEsc_accountManager_3, canInjectCommand_accountManager_3, isCompromised_accountManager_3_userLookUp, isCompromised_backend_3_login, isCompromised_frontend0_3_connect, isCompromised_web_3_entrypoint, isCompromised_frontend1_3_connect, isCompromised_frontend2_3_connect, isCompromised_frontend3_3_connect, canSpoofUsr_accountManager_3, confidentialityCompromised_accountManager, systemCompromised_backend, integrityCompromised_backend, canDeleteDoc_backend_2, canLeakDoc_backend_2, canPrivEsc_backend_2, canInjectCommand_backend_2, canSpoofUsr_backend_2, canDeleteDoc_backend_3, canLeakDoc_backend_3, canPrivEsc_backend_3, canInjectCommand_backend_3, canSpoofUsr_backend_3, confidentialityCompromised_backend, systemCompromised_databaseManager, integrityCompromised_databaseManager, canDeleteDoc_databaseManager_2, canLeakDoc_databaseManager_2, canPrivEsc_databaseManager_2, canInjectCommand_databaseManager_2, isCompromised_databaseManager_2_executeQuery, isCompromised_documentManager_2_docLookUp, canSpoofUsr_databaseManager_2, canDeleteDoc_databaseManager_3, canLeakDoc_databaseManager_3, canPrivEsc_databaseManager_3, canInjectCommand_databaseManager_3, isCompromised_databaseManager_3_executeQuery, isCompromised_documentManager_3_docLookUp, canSpoofUsr_databaseManager_3, confidentialityCompromised_databaseManager, systemCompromised_documentManager, integrityCompromised_documentManager, canDeleteDoc_documentManager_2, canLeakDoc_documentManager_2, canPrivEsc_documentManager_2, canInjectCommand_documentManager_2, canSpoofUsr_documentManager_2, canDeleteDoc_documentManager_3, canLeakDoc_documentManager_3, canPrivEsc_documentManager_3, canInjectCommand_documentManager_3, canSpoofUsr_documentManager_3, confidentialityCompromised_documentManager; 
+
+</system>
+	<queries>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt; exists(i:int[0,N-1]) achieved[CONFIDENTIALITYCOMPROMISED_BACKEND] )
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt; achieved[SYSTEMCOMPROMISED_BACKEND])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>(exists(i:int[0,N-1]) achieved[i]) --&gt; achieved[SYSTEMDOWN_INSECUREDOCUMENTSTORE]
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt;achieved[SYSTEMDOWN_INSECUREDOCUMENTSTORE])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

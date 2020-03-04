@@ -1,0 +1,897 @@
+/******************************************************/
+/****       Primitive Predicates                  *****/
+/******************************************************/
+
+primitive(adaptationConfiguration(_configuration)).
+/*Adaptation Steps*/
+primitive(adaptationStep(_prev,_next)).
+
+/*internal component vulnerabilities*/
+primitive(isComponent(_component,_step)).
+primitive(vulnType(_vulnType)).
+primitive(methodInvocation(_methodName,_compFrom,_compTo,_step)).
+primitive(compVulnExists(_component,_methodName,_vulnType)).
+
+/*external component vulnerabilities*/
+primitive(extComponent(_component)).
+primitive(externalVulnerability(_extComponent,_vulnType)).
+
+/*Interfacing internal to externalComponents */
+primitive(canCauseExternalVulnerability(_intComponent,_vulnType,_method)).
+primitive(externalInvocation(_extComponent,_intComponent,_method)).
+
+primitive(attackerLocated(_component,_adaptationStep)).
+meta(attackGoal(_)).
+
+/*External Components being accessible outside the managed system*/
+primitive(externalInterface(_excomponent)).
+
+
+/* The system predicate for aggregation trick */
+primitive(theSystem(_system)).
+
+/******************************************************/
+/****       Derived Predicates                  *****/
+/******************************************************/
+
+
+/*Exploitation Phase*/
+derived(canInvoke(_compFrom, _compTo,_methodName,_adaptationStep)).
+derived(isCompromised(_component,_adaptationStep)).
+derived(exCompromised(_excomponent)).
+
+
+
+/*Vulnerabilities Enabling Attacks to InsecureDocumentStore*/
+derived(canCWE19(_component,_adaptationStep)).
+derived(canCWE20(_component,_adaptationStep)).
+derived(canCWE78(_component,_adaptationStep)).
+derived(canCWE79(_component,_adaptationStep)).
+derived(canCWE89(_component,_adaptationStep)).
+derived(canCWE93(_component,_adaptationStep)).
+derived(canCWE98(_component,_adaptationStep)).
+derived(canCWE119(_component,_adaptationStep)).
+derived(canCWE200(_component,_adaptationStep)).
+derived(canCWE264(_component,_adaptationStep)).
+derived(canCWE284(_component,_adaptationStep)).
+derived(canCWE287(_component,_adaptationStep)).
+derived(canCWE310(_component,_adaptationStep)).
+derived(canCWE362(_component,_adaptationStep)).
+derived(canCWE384(_component,_adaptationStep)).
+derived(canCWE399(_component,_adaptationStep)).
+derived(canCWE416(_component,_adaptationStep)).
+derived(canCWE476(_component,_adaptationStep)).
+derived(canCWE601(_component,_adaptationStep)).
+derived(canCWE787(_component,_adaptationStep)).
+derived(canCWE862(_component,_adaptationStep)).
+
+/*Concrete Attacks to  Znn */
+derived(dos(_component_adaptationStep)).
+derived(informationDiscosure(_component,_adaptationStep)).
+derived(commandInjection(_component,_adaptationStep)).
+derived(xss(_component,_adaptationStep)).
+derived(httpRSpl(_component,_adaptationStep)).
+derived(sqlInjection(_component,_adaptationStep)).
+derived(fileInclusion(_component,_adaptationStep)).
+derived(overflow(_component,_adaptationStep)).
+derived(unauthorizedAccess(_component,_adaptationStep)).
+derived(bypass(_component,_adaptationStep)).
+derived(sessionFixation(_component,_adaptationStep)).
+derived(crash(_component,_adaptationStep)).
+derived(headerInjection(_component,_adaptationStep)).
+derived(idor(_component,_adaptationStep)).
+derived(codeExecution(_component,_adaptationStep)).
+
+/*Combinatory Attacks */
+derived(maliciousSite(_component,_adaptationStep)).
+derived(dataExtraction(_component,_adaptationStep)).
+derived(newsInjection(_component,_adaptationStep)).
+derived(maliciousRedirect(_component,_adaptationStep)).
+derived(memoryDisclosure(_component,_adaptationStep)).
+
+
+/* Effects of attacks to InsecureDocumentStore */
+derived(confidentialityCompromised(_component)).
+derived(integrityCompromised(_component)).
+derived(availabilityCompromised(_component)).
+derived(systemCompromised(_component)).
+/* Trick to gather all causes for the system's downfal */
+derived(systemDown(_system)).
+
+
+
+/******************************************************/
+/****         Tabling Predicates                  *****/
+/*   All derived predicates should be tabled          */
+/******************************************************/
+
+/*Exploit Chains */
+:- table isCompromised/2.
+:- table canInvoke/4.
+:- table exCompromised/1.
+/* Vulns */
+:- table canCWE19/2.
+:- table canCWE20/2.
+:- table canCWE78/2.
+:- table canCWE79/2.
+:- table  canCWE89/2.
+:- table  canCWE93/2.
+:- table  canCWE98/2.
+:- table  canCWE119/2.
+:- table  canCWE200/2.
+:- table  canCWE264/2.
+:- table  canCWE284/2.
+:- table  canCWE287/2.
+:- table  canCWE310/2.
+:- table  canCWE362/2.
+:- table  canCWE384/2.
+:- table  canCWE399/2.
+:- table  canCWE416/2.
+:- table  canCWE476/2.
+:- table  canCWE601/2.
+:- table  canCWE787/2.
+:- table  canCWE862/2.
+
+/* Attacks */
+:- table dos/2.
+:- table informationDiscosure/2.
+:- table commandInjection/2.
+:- table xss/2.
+:- table codeExecution/2.
+:- table sqlInjection/2.
+:- table fileInclusion/2.
+:- table overflow/2.
+:- table unauthorizedAccess/2.
+:- table bypass/2.
+:- table sessionFixation/2.
+:- table crash/2.
+:- table headerInjection/2.
+:- table idor/2.
+:- table httpRSpl/2.
+
+:- table maliciousSite/2.
+:- table dataExtraction/2.
+:- table newsInjection/2.
+:- table maliciousRedirect/2.
+:- table memoryDisclosure/2.
+
+/* Effects */
+:- table confidentialityCompromised/1.
+:- table integrityCompromised/1.
+:- table availabilityCompromised/1.
+:- table systemCompromised/1.
+:- table systeDown/1.
+
+/******************************************************/
+/****         Interaction Rules                   *****/
+/******************************************************/
+
+/****** Section  canInvoke*******/
+interaction_rule(
+    (canInvoke(CompFrom, CompTo,MethodName,AS) :-
+	 canInvoke(CompFrom,CompNext,_,AS),
+	 canInvoke(CompNext,CompTo,MethodName,AS)),
+    rule_desc('Indirect Method Invocation',1)).
+
+
+interaction_rule(
+    (canInvoke(CompFrom, CompTo,MethodName,AS) :-
+	 methodInvocation(CompFrom,CompTo,MethodName,AS)),
+    rule_desc('Direct Method Invocation', 2)).
+
+
+/******** Section isCompromised ********/
+
+interaction_rule(
+    (isCompromised(Component,AS):-
+	 attackerLocated(Component,AS)),
+    rule_desc('Attacker Controlled Component',3)).
+
+interaction_rule(
+    (isCompromised(Component,AS):-
+	 isCompromised(Component,ASP),
+	 isComponent(Component,AS),
+	 adaptationStep(ASP,AS)),
+    rule_desc('Compromised in Past',3)).
+
+
+
+interaction_rule(
+    (
+	isCompromised(Component,AS):-
+	    canInvoke(ComponentPrev,Component,MethodName,AS),
+	    isCompromised(ComponentPrev,AS),
+	    compVulnExists(Component,MethodName,_)),
+    rule_desc('Compromised by method invocation of compromised component',4)).
+
+
+
+/**** Section can* refering to vulnerability enablement ****/
+
+
+interaction_rule(
+    (canCWE19(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe19),
+	 vulnType(cwe19))
+    ,rule_desc('CWE19 Is possible',7)).
+
+interaction_rule(
+    (canCWE20(ExComponent,AS):-
+	 isCompromised(Excomponent,AS),
+	 compVulnExists(ExComponent,_,cwe20),
+	 vulnType(cwe20))
+    ,rule_desc('CWE20 Is possible',8)).
+
+interaction_rule(
+    (canCWE78(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe78),
+	 vulnType(cwe78))
+    ,rule_desc('CWE78 possible',9)).
+
+interaction_rule(
+    (canCWE79(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe79),
+	 vulnType(cwe79))
+    ,rule_desc('CWE79 Is possible',10)).
+
+interaction_rule(
+    (canCWE89(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe89),
+	 vulnType(cwe89))
+    ,rule_desc('CWE89 Is possible',12)).
+
+interaction_rule(
+    (canCWE93(ExComponent,AS):-
+	 exCompromised(Excomponent,AS),
+	 externalVulnerability(ExComponent,cwe93),
+	 vulnType(cwe93))
+    ,rule_desc('CWE93 Is possible',13)).
+
+interaction_rule(
+    (canCWE98(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe98),
+	 vulnType(cwe98))
+    ,rule_desc('CWE98 possible',14)).
+
+interaction_rule(
+    (canCWE119(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe119),
+	 vulnType(cwe119))
+    ,rule_desc('CWE93 Is possible',15)).
+
+
+interaction_rule(
+    (canCWE200(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe200),
+	 vulnType(cwe200))
+    ,rule_desc('CWE200 possible',17)).
+
+interaction_rule(
+    (canCWE264(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe264),
+	 vulnType(cwe264))
+    ,rule_desc('CWE264 Is possible',18)).
+
+interaction_rule(
+    (canCWE284(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe284),
+	 vulnType(cwe284))
+    ,rule_desc('CWE284 Is possible',19)).
+
+interaction_rule(
+    (canCWE287(ExComponent,AS):-
+	 isCompromised(Excomponent,AS),
+	 compVulnExists(ExComponent,cwe287),
+	 vulnType(cwe287))
+    ,rule_desc('CWE287 Is possible',20)).
+
+interaction_rule(
+    (canCWE310(ExComponent,AS):-
+	 isCompromised(Excomponent,AS),
+	 compVulnExists(ExComponent,cwe310),
+	 vulnType(cwe310))
+    ,rule_desc('CWE310 Is possible',21)).
+
+interaction_rule(
+    (canCWE362(ExComponent,AS):-
+	 isCompromised(Excomponent,AS),
+	 compVulnExists(ExComponent,_,cwe362),
+	 vulnType(cwe362))
+    ,rule_desc('CWE362 Is possible',22)).
+
+interaction_rule(
+    (canCWE384(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe384),
+	 vulnType(cwe384))
+    ,rule_desc('CWE384 possible',23)).
+
+interaction_rule(
+    (canCWE399(ExComponent,AS):-
+	 isCompromised(ExComponent,AS),
+	 compVulnExists(ExComponent,_,cwe399),
+	 vulnType(cwe399))
+    ,rule_desc('CWE399 Is possible',24)).
+
+interaction_rule(
+    (canCWE416(ExComponent,AS):-
+	 isCompromised(ExComponent,AS),
+	 compVulnExists(ExComponent,_,cwe416),
+	 vulnType(cwe416))
+    ,rule_desc('CWE416 Is possible',25)).
+
+interaction_rule(
+    (canCWE476(ExComponent,AS):-
+	 isCompromised(ExComponent,AS),
+	 compVulnExists(ExComponent,_,cwe476),
+	 vulnType(cwe476))
+    ,rule_desc('CWE476 Is possible',26)).
+
+interaction_rule(
+    (canCWE601(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe601),
+	 vulnType(cwe601))
+    ,rule_desc('CWE601 possible',27)).
+
+interaction_rule(
+    (canCWE787(ExComponent,AS):-
+	 isCompromised(ExComponent,AS),
+	 compVulnExists(ExComponent,_,cwe787),
+	 vulnType(cwe787))
+    ,rule_desc('CWE787 Is possible',28)).
+
+interaction_rule(
+    (canCWE862(Component,AS):-
+	 isCompromised(Component,AS),
+	 compVulnExists(Component,_,cwe862),
+	 vulnType(cwe862))
+    ,rule_desc('CWE862 possible',29)).
+
+
+
+
+/**** Section Concrete Attacks *****/
+interaction_rule(
+    (httpRSpl(Component,AS):-
+	 canCWE19(Component,AS))
+    ,rule_desc('Http Resource Spill',30)).
+
+interaction_rule(
+    (httpRSpl(Component,AS):-
+	 canCWE93(Component,AS))
+    ,rule_desc('Http Resource Spill',30)).
+
+interaction_rule(
+    (dos(Component,AS):-
+	 canCWE20(Component,AS))
+    ,rule_desc('dos attack by improper input validation',30)).
+
+interaction_rule(
+    (dos(Component,AS):-
+	 canCWE362(Component,AS))
+    ,rule_desc('dos attack by race condition',31)).
+
+interaction_rule(
+    (dos(Component,AS):-
+	 canCWE362(Component,AS))
+    ,rule_desc('dos attack by resource managment error',32)).
+
+interaction_rule(
+    (dos(Component,AS):-
+	 canCWE787(Component,AS))
+    ,rule_desc('dos attack by out of bounds write',33)).
+
+interaction_rule(
+    (informationDiscosure(Component,AS):-
+	 canCWE20(Component,AS))
+    ,rule_desc('Information Disclosure by Improper Input Validation',34)).
+
+interaction_rule(
+    (informationDiscosure(Component,AS):-
+	 canCWE200(Component,AS))
+    ,rule_desc('Information Disclosure by Information Exposure',35)).
+
+interaction_rule(
+    (informationDiscosure(Component,AS):-
+	 canCWE362(Component,AS))
+    ,rule_desc('Information Disclosure via Race Condition',36)).
+
+
+interaction_rule(
+    (commandInjection(Component,AS):-
+	 canCWE78(Component,AS))
+    ,rule_desc('Command Injection via OS',37)).
+
+interaction_rule(
+    (xss(Component,AS):-
+	 canCWE78(Component,AS))
+    ,rule_desc('cross site scripting ',38)).
+
+interaction_rule(
+    (sqlInjection(Component,AS):-
+	 canCWE89(Component,AS))
+    ,rule_desc('sql injection vuln',39)).
+
+interaction_rule(
+    (fileInclusion(Component,AS):-
+	 canCWE98(Component,AS))
+    ,rule_desc('Php File Inclusion',40)).
+
+interaction_rule(
+    (overflow(Component,AS):-
+	 canCWE119(Component,AS))
+    ,rule_desc('Overflow by out of bounds operation',41)).
+
+interaction_rule(
+    (overflow(Component,AS):-
+	 canCWE362(Component,AS))
+    ,rule_desc('Overflow by race condition',42)).
+
+interaction_rule(
+    (unauthorizedAccess(Component,AS):-
+	 canCWE362(Component,AS))
+    ,rule_desc('unauthorized Access by Improper Access Control',43)).
+
+interaction_rule(
+    (bypass(Component,AS):-
+	 canCWE264(Component,AS))
+    ,rule_desc('bypassing permision, access control or privilege',44)).
+
+
+interaction_rule(
+    (bypass(Component,AS):-
+	 canCWE264(Component,AS))
+    ,rule_desc('bypassing through improper authentication',45)).
+
+interaction_rule(
+    (sessionFixation(Component,AS):-
+	 canCWE384(Component,AS))
+    ,rule_desc('Session Fixation',46)).
+
+interaction_rule(
+    (crash(Component,AS):-
+	 canCWE416(Component,AS))
+    ,rule_desc('crash  by use after free',47)).
+
+interaction_rule(
+    (crash(Component,AS):-
+	 canCWE476(Component,AS))
+    ,rule_desc('crash  by NULL pointer dereference',48)).
+
+interaction_rule(
+    (headerInjection(Component,AS):-
+	 canCWE601(Component,AS))
+    ,rule_desc('header injection by open redirection',49)).
+
+
+interaction_rule(
+    (idor(Component,AS):-
+	 canCWE862(Component,AS) )
+    ,rule_desc('idor by missing authorization',50)).
+
+interaction_rule(
+    (codeExecution(Component,AS):-
+	 canCWE89(Component,AS)),
+		 rule_desc('Code Execution via SQL Injection',50)).
+interaction_rule(
+    (codeExecution(Component,AS):-
+	 canCWE119(Component,AS)),
+		 rule_desc('Code Execution by out of bounds operation',50)).
+interaction_rule(
+    (codeExecution(Component,AS):-
+	 canCWE362(Component,AS)),
+    rule_desc('Code Execution by race condition',50)).
+interaction_rule(
+    (codeExecution(Component,AS):-
+	 canCWE416(Component,AS)),
+    rule_desc('Code Execution by use after free',50)).
+
+/**** Section Attack Effects ****/
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	 informationDiscosure(Component,_))
+    ,rule_desc('Loss of Confidentiality due to information disclosure',55)).
+
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	    codeExecution(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Code Execution',55)).
+
+interaction_rule(
+    (integrityCompromised(Component):-
+	    codeExecution(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Code Execution',55)).
+interaction_rule(
+    (availabilityCompromised(Component):-
+	    codeExecution(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Code Execution',55)).
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	    unauthorizedAccess(Component,_) )
+    ,rule_desc('Loss of Confidentiality due to unauthorized access',56)).
+
+interaction_rule(
+    (
+	confidentialityCompromised(Component):-
+	    idor(Component,_)
+    )
+    ,rule_desc('Loss of Confidentiality due to idor',57)).
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	    sessionFixation(Component,_))
+    ,rule_desc('Loss of Confidentiality due to information disclosure',58)).
+
+
+interaction_rule(
+    (integrityCompromised(Component):-
+	    headerInjection(Component,_))
+    ,rule_desc('Loss of Integrity due to Header Injection',60)).
+
+
+interaction_rule(
+    (integrityCompromised(Component):-
+	    fileInclusion(Component,_))
+    ,rule_desc('Loss of Integrity due to Command Injection',62)).
+
+interaction_rule(
+    (availabilityCompromised(Component):-
+	    dos(Component,_))
+    ,rule_desc('Loss of Availability due to Denial of Service',63)).
+
+interaction_rule(
+    (availabilityCompromised(Component):-
+	    crash(Component,_) )
+    ,rule_desc('Loss of Availability due to Crash',64)).
+
+
+/*Combinatory attacks */
+
+interaction_rule(
+    (maliciousSite(s1,AS):-
+	 codeExecution(s1,AS),
+	 fileInclusion(s1,A)),
+    rule_desc('Malicious Page Inclusion',50)).
+
+interaction_rule(
+    (maliciousSite(s1,AS):-
+	 commandInjection(s1,AS),
+	 fileInclusion(s1,AS)),
+    rule_desc('Malicious Page Inclusion',50)).
+
+interaction_rule(
+    (dataExtraction(s1,AS):-
+	 informationDiscosure(s1,AS),
+	 idor(s1,AS)),
+    rule_desc('Disclosing file through idor',50)).
+
+
+
+interaction_rule(
+    (newsInjection(s1,AS):-
+	 sqlInjection(mysql,AS),
+	 fileInclusion(s1,AS)),
+    rule_desc('Injecting File via SQLInjection',50)).
+
+interaction_rule(
+    (newsInjection(s1,AS):-
+	 codeExecution(mysql,AS),
+	 fileInclusion(s1,AS)),
+    rule_desc('Injecting File via code execution and xss',50)).
+
+interaction_rule(
+    (maliciousRedirect(lbproxy,AS):-
+	 headerInjection(s1,AS),
+	 httpRSpl(lbproxy,AS)),
+    rule_desc('Malicious redirection via header injection and httpRSpl',50)).
+
+/* Combinatory Attack Effects */
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	 maliciousSite(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55)).
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	 dataExtraction(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55)).
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	 newsInjection(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55)).
+
+interaction_rule(
+    (integrityCompromised(Component):-
+	 newsInjection(Component,_))
+    ,rule_desc('Loss of Integrity due to News Injection',55)).
+
+interaction_rule(
+    (confidentialityCompromised(Component):-
+	 maliciousRedirect(Component,_))
+    ,rule_desc('Loss of Confidentiality due to Malicious Redirect',55)).
+
+interaction_rule(
+    (integrityCompromised(Component):-
+	 maliciousRedirect(Component,_))
+    ,rule_desc('Loss of Integrity due to Malicious  Redirect',55)).
+
+
+/***** Section System Compromised => Security Property Violated *****/
+
+interaction_rule(
+    (systemCompromised(Component):-
+	    integrityCompromised(Component))
+    ,rule_desc('System Compromised due to Integrity being compromised',65)).
+
+
+interaction_rule(
+    (systemCompromised(Component):-
+	    confidentialityCompromised(Component))
+    ,rule_desc('System Compromised due to Confidentiality being compromised',66)).
+
+
+interaction_rule(
+    (systemCompromised(Excomponent):-
+	    availabilityCompromised(Excomponent))
+    ,rule_desc('System Compromised due to Availability being compromised',67)).
+
+
+
+
+
+
+interaction_rule(
+    (systemDown(System):-
+	    systemCompromised(_any),
+	    theSystem(System))
+    ,rule_desc('Blame Component',1)).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Blame debug
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE19(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE20(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE78(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE79(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE89(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE93(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE98(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE119(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE200(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE264(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE284(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE287(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE310(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE362(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE384(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE399(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE416(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE476(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE601(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE787(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      canCWE862(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).
+
+*/

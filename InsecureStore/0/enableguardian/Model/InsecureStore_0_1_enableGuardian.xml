@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>//architectures
+const int t0=0;
+const int t1=1;
+int step=t0;
+
+//automata types
+const int CC=0;
+const int BA=1;
+const int CA=2;
+const int CI=3;
+const int II=4;
+const int AI=5;
+const int SD=6;
+
+
+const int N=20;
+const int SYSTEMDOWN_INSECUREDOCUMENTSTORE = 0;
+const int SYSTEMCOMPROMISED_BACKEND = 1;
+const int INTEGRITYCOMPROMISED_BACKEND = 2;
+const int CANDELETEDOC_BACKEND_0 = 3;
+const int CANLEAKDOC_BACKEND_0 = 4;
+const int CANPRIVESC_BACKEND_0 = 5;
+const int CANINJECTCOMMAND_BACKEND_0 = 6;
+const int ISCOMPROMISED_BACKEND_0_LOGIN = 7;
+const int ISCOMPROMISED_FRONTEND0_0_CONNECT = 8;
+const int ISCOMPROMISED_WEB_0_ENTRYPOINT = 9;
+const int CANSPOOFUSR_BACKEND_0 = 10;
+const int CANDELETEDOC_BACKEND_1 = 11;
+const int CANLEAKDOC_BACKEND_1 = 12;
+const int CANPRIVESC_BACKEND_1 = 13;
+const int CANINJECTCOMMAND_BACKEND_1 = 14;
+const int ISCOMPROMISED_BACKEND_1_LOGIN = 15;
+const int ISCOMPROMISED_FRONTEND0_1_CONNECT = 16;
+const int ISCOMPROMISED_WEB_1_ENTRYPOINT = 17;
+const int CANSPOOFUSR_BACKEND_1 = 18;
+const int CONFIDENTIALITYCOMPROMISED_BACKEND = 19;
+bool achieved[N]={ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+const int num_methods=7;
+broadcast chan methods[num_methods];
+const int none=0;
+const int userLookUp=1;
+const int executeQuery=2;
+const int entrypoint=3;
+const int connect=4;
+const int docLookUp=5;
+const int login=6;
+bool syn[num_methods]={
+false,
+true,
+true,
+false,
+true,
+true,
+true};</declaration>
+	<template>
+		<name x="5" y="5">InternalBehaviour</name>
+		<location id="id0" x="1045" y="221">
+			<name x="1035" y="187">GU</name>
+			<label kind="exponentialrate" x="1035" y="255">1</label>
+		</location>
+		<location id="id1" x="416" y="17">
+			<name x="406" y="-17">WEB</name>
+			<label kind="exponentialrate" x="406" y="51">1</label>
+		</location>
+		<location id="id2" x="1673" y="42">
+			<name x="1663" y="8">DB</name>
+			<label kind="exponentialrate" x="1663" y="76">1</label>
+		</location>
+		<location id="id3" x="1427" y="42">
+			<name x="1417" y="8">DBM</name>
+			<label kind="exponentialrate" x="1417" y="76">1</label>
+		</location>
+		<location id="id4" x="1215" y="85">
+			<name x="1198" y="51">DM</name>
+			<label kind="exponentialrate" x="1205" y="119">1</label>
+		</location>
+		<location id="id5" x="1215" y="-9">
+			<name x="1207" y="-43">AM</name>
+			<label kind="exponentialrate" x="1205" y="25">1</label>
+		</location>
+		<location id="id6" x="1037" y="68">
+			<name x="1027" y="34">BE</name>
+			<label kind="exponentialrate" x="1027" y="102">1</label>
+		</location>
+		<location id="id7" x="748" y="17">
+			<name x="738" y="-17">FE0</name>
+			<label kind="exponentialrate" x="738" y="51">1</label>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id0"/>
+			<nail x="969" y="186"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id6"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id1"/>
+			<nail x="569" y="-43"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="518" y="-77">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<nail x="918" y="-43"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="1053" y="42">methods[docLookUp]!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="1028" y="-9">methods[userLookUp]!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<nail x="1215" y="-103"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="1232" y="42">methods[executeQuery]!</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="1274" y="-17">methods[executeQuery]!</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="799" y="8">methods[login]!</label>
+		</transition>
+	</template>
+	<template>
+		<name>Rule</name>
+		<parameter>const int this,const int P,const int method</parameter>
+		<declaration>
+
+bool prerequisites(const int node){
+if(node == CANLEAKDOC_BACKEND_0){
+return achieved[CANPRIVESC_BACKEND_0 ];
+}
+if(node == CANPRIVESC_BACKEND_0){
+return achieved[CANINJECTCOMMAND_BACKEND_0 ];
+}
+if(node == ISCOMPROMISED_FRONTEND0_0_CONNECT){
+return achieved[ISCOMPROMISED_WEB_0_ENTRYPOINT ];
+}
+if(node == CANINJECTCOMMAND_BACKEND_0){
+return achieved[ISCOMPROMISED_BACKEND_0_LOGIN ];
+}
+if(node == ISCOMPROMISED_BACKEND_1_LOGIN){
+return achieved[ISCOMPROMISED_WEB_1_ENTRYPOINT ];
+}
+if(node == ISCOMPROMISED_WEB_0_ENTRYPOINT){
+return  true;
+}
+if(node == CANINJECTCOMMAND_BACKEND_1){
+return achieved[ISCOMPROMISED_BACKEND_1_LOGIN ];
+}
+if(node == ISCOMPROMISED_BACKEND_0_LOGIN){
+return achieved[ISCOMPROMISED_WEB_0_ENTRYPOINT ];
+}
+if(node == CANPRIVESC_BACKEND_1){
+return achieved[CANINJECTCOMMAND_BACKEND_1 ];
+}
+if(node == CANLEAKDOC_BACKEND_1){
+return achieved[CANPRIVESC_BACKEND_1 ];
+}
+if(node == CANSPOOFUSR_BACKEND_0){
+return achieved[CANPRIVESC_BACKEND_0 ];
+}
+if(node == CANDELETEDOC_BACKEND_1){
+return achieved[CANLEAKDOC_BACKEND_1 ] &amp;&amp; achieved[CANSPOOFUSR_BACKEND_1 ];
+}
+if(node == SYSTEMDOWN_INSECUREDOCUMENTSTORE){
+return achieved[SYSTEMCOMPROMISED_BACKEND ];
+}
+if(node == ISCOMPROMISED_WEB_1_ENTRYPOINT){
+return achieved[ISCOMPROMISED_WEB_0_ENTRYPOINT ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_BACKEND){
+return achieved[CANLEAKDOC_BACKEND_1 ];
+}
+if(node == SYSTEMCOMPROMISED_BACKEND){
+return achieved[CONFIDENTIALITYCOMPROMISED_BACKEND ];
+}
+if(node == CANSPOOFUSR_BACKEND_1){
+return achieved[CANPRIVESC_BACKEND_1 ];
+}
+if(node == INTEGRITYCOMPROMISED_BACKEND){
+return achieved[CANDELETEDOC_BACKEND_1 ];
+}
+if(node == CANDELETEDOC_BACKEND_0){
+return achieved[CANLEAKDOC_BACKEND_0 ] &amp;&amp; achieved[CANSPOOFUSR_BACKEND_0 ];
+}
+if(node == ISCOMPROMISED_FRONTEND0_1_CONNECT){
+return achieved[ISCOMPROMISED_WEB_1_ENTRYPOINT ];
+}
+return false;
+}
+
+</declaration>
+		<location id="id8" x="-144" y="-238">
+			<label kind="exponentialrate" x="-154" y="-204">1</label>
+		</location>
+		<location id="id9" x="153" y="-238">
+			<name x="143" y="-272">S</name>
+			<label kind="exponentialrate" x="143" y="-204">1</label>
+		</location>
+		<location id="id10" x="-374" y="-238">
+			<name x="-384" y="-272">I</name>
+			<label kind="exponentialrate" x="-384" y="-204">1</label>
+		</location>
+		<branchpoint id="id11" x="42" y="-238">
+		</branchpoint>
+		<init ref="id10"/>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-340" y="-374">!syn[method]</label>
+			<nail x="-289" y="-357"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="probability" x="-136" y="-195">100-P</label>
+			<nail x="-136" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id11"/>
+			<label kind="guard" x="-126" y="-272">prerequisites(this)</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-356" y="-272">syn[method]</label>
+			<label kind="synchronisation" x="-356" y="-255">methods[method]?</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id9"/>
+			<label kind="assignment" x="60" y="-284">achieved[this]=true</label>
+			<label kind="probability" x="76" y="-263">P</label>
+		</transition>
+	</template>
+	<template>
+		<name>EnableGuardian</name>
+		<location id="id12" x="-654" y="-187">
+			<name x="-671" y="-221">T1</name>
+		</location>
+		<location id="id13" x="-654" y="-297">
+			<name x="-664" y="-331">T0</name>
+			<label kind="exponentialrate" x="-664" y="-263">1</label>
+		</location>
+		<init ref="id13"/>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="assignment" x="-654" y="-255">step=t1</label>
+		</transition>
+	</template>
+	<system>call_graph=InternalBehaviour();
+tactic_tree=EnableGuardian();
+
+
+systemDown_insecureDocumentStore=Rule(SYSTEMDOWN_INSECUREDOCUMENTSTORE,52,none);
+systemCompromised_backend=Rule(SYSTEMCOMPROMISED_BACKEND,65,none);
+integrityCompromised_backend=Rule(INTEGRITYCOMPROMISED_BACKEND,32,none);
+canDeleteDoc_backend_0=Rule(CANDELETEDOC_BACKEND_0,17,none);
+canLeakDoc_backend_0=Rule(CANLEAKDOC_BACKEND_0,46,none);
+canPrivEsc_backend_0=Rule(CANPRIVESC_BACKEND_0,57,none);
+canInjectCommand_backend_0=Rule(CANINJECTCOMMAND_BACKEND_0,43,none);
+isCompromised_backend_0_login=Rule(ISCOMPROMISED_BACKEND_0_LOGIN,54,login);
+isCompromised_frontend0_0_connect=Rule(ISCOMPROMISED_FRONTEND0_0_CONNECT,51,connect);
+isCompromised_web_0_entrypoint=Rule(ISCOMPROMISED_WEB_0_ENTRYPOINT,80,entrypoint);
+canSpoofUsr_backend_0=Rule(CANSPOOFUSR_BACKEND_0,46,none);
+canDeleteDoc_backend_1=Rule(CANDELETEDOC_BACKEND_1,27,none);
+canLeakDoc_backend_1=Rule(CANLEAKDOC_BACKEND_1,58,none);
+canPrivEsc_backend_1=Rule(CANPRIVESC_BACKEND_1,73,none);
+canInjectCommand_backend_1=Rule(CANINJECTCOMMAND_BACKEND_1,60,none);
+isCompromised_backend_1_login=Rule(ISCOMPROMISED_BACKEND_1_LOGIN,75,login);
+isCompromised_frontend0_1_connect=Rule(ISCOMPROMISED_FRONTEND0_1_CONNECT,65,connect);
+isCompromised_web_1_entrypoint=Rule(ISCOMPROMISED_WEB_1_ENTRYPOINT,64,entrypoint);
+canSpoofUsr_backend_1=Rule(CANSPOOFUSR_BACKEND_1,58,none);
+confidentialityCompromised_backend=Rule(CONFIDENTIALITYCOMPROMISED_BACKEND,66,none);
+
+
+
+
+system call_graph,tactic_tree, systemDown_insecureDocumentStore, systemCompromised_backend, integrityCompromised_backend, canDeleteDoc_backend_0, canLeakDoc_backend_0, canPrivEsc_backend_0, canInjectCommand_backend_0, isCompromised_backend_0_login, isCompromised_frontend0_0_connect, isCompromised_web_0_entrypoint, canSpoofUsr_backend_0, canDeleteDoc_backend_1, canLeakDoc_backend_1, canPrivEsc_backend_1, canInjectCommand_backend_1, isCompromised_backend_1_login, isCompromised_frontend0_1_connect, isCompromised_web_1_entrypoint, canSpoofUsr_backend_1, confidentialityCompromised_backend; 
+
+</system>
+	<queries>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt; exists(i:int[0,N-1]) achieved[CONFIDENTIALITYCOMPROMISED_BACKEND] )
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt; achieved[SYSTEMCOMPROMISED_BACKEND])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>(exists(i:int[0,N-1]) achieved[i]) --&gt; achieved[SYSTEMDOWN_INSECUREDOCUMENTSTORE]
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=20](&lt;&gt;achieved[SYSTEMDOWN_INSECUREDOCUMENTSTORE])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

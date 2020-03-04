@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>const int N=136;
+const int SYSTEMDOWN__ = 0;
+const int SYSTEMCOMPROMISED_C0 = 1;
+const int CONFIDENTIALITYCOMPROMISED_C0 = 2;
+const int INFORMATIONDISCOSURE_C0_0 = 3;
+const int CANCWE20_C0_0 = 4;
+const int ISCOMPROMISED_C0_0 = 5;
+const int ISCOMPROMISED_WEB_0 = 6;
+const int ISCOMPROMISED_LBPROXY_0 = 7;
+const int ISCOMPROMISED_MYSQL_0 = 8;
+const int ISCOMPROMISED_S0_0 = 9;
+const int CANCWE362_C0_0 = 10;
+const int INFORMATIONDISCOSURE_C0_1 = 11;
+const int CANCWE20_C0_1 = 12;
+const int ISCOMPROMISED_C0_1 = 13;
+const int ISCOMPROMISED_WEB_1 = 14;
+const int ISCOMPROMISED_LBPROXY_1 = 15;
+const int ISCOMPROMISED_MYSQL_1 = 16;
+const int ISCOMPROMISED_S0_1 = 17;
+const int CANCWE362_C0_1 = 18;
+const int INFORMATIONDISCOSURE_C0_2 = 19;
+const int CANCWE20_C0_2 = 20;
+const int ISCOMPROMISED_C0_2 = 21;
+const int ISCOMPROMISED_WEB_2 = 22;
+const int ISCOMPROMISED_LBPROXY_2 = 23;
+const int ISCOMPROMISED_MYSQL_2 = 24;
+const int ISCOMPROMISED_S0_2 = 25;
+const int CANCWE362_C0_2 = 26;
+const int CODEEXECUTION_C0_0 = 27;
+const int CANCWE416_C0_0 = 28;
+const int CODEEXECUTION_C0_1 = 29;
+const int CANCWE416_C0_1 = 30;
+const int CODEEXECUTION_C0_2 = 31;
+const int CANCWE416_C0_2 = 32;
+const int UNAUTHORIZEDACCESS_C0_0 = 33;
+const int UNAUTHORIZEDACCESS_C0_1 = 34;
+const int UNAUTHORIZEDACCESS_C0_2 = 35;
+const int AVAILABILITYCOMPROMISED_C0 = 36;
+const int DOS_C0_0 = 37;
+const int CANCWE787_C0_0 = 38;
+const int DOS_C0_1 = 39;
+const int CANCWE787_C0_1 = 40;
+const int DOS_C0_2 = 41;
+const int CANCWE787_C0_2 = 42;
+const int CRASH_C0_0 = 43;
+const int CANCWE476_C0_0 = 44;
+const int CRASH_C0_1 = 45;
+const int CANCWE476_C0_1 = 46;
+const int CRASH_C0_2 = 47;
+const int CANCWE476_C0_2 = 48;
+const int INTEGRITYCOMPROMISED_C0 = 49;
+const int SYSTEMCOMPROMISED_LBPROXY = 50;
+const int CONFIDENTIALITYCOMPROMISED_LBPROXY = 51;
+const int INFORMATIONDISCOSURE_LBPROXY_0 = 52;
+const int CANCWE20_LBPROXY_0 = 53;
+const int CANCWE362_LBPROXY_0 = 54;
+const int INFORMATIONDISCOSURE_LBPROXY_1 = 55;
+const int CANCWE20_LBPROXY_1 = 56;
+const int CANCWE362_LBPROXY_1 = 57;
+const int INFORMATIONDISCOSURE_LBPROXY_2 = 58;
+const int CANCWE20_LBPROXY_2 = 59;
+const int CANCWE362_LBPROXY_2 = 60;
+const int CODEEXECUTION_LBPROXY_0 = 61;
+const int CANCWE416_LBPROXY_0 = 62;
+const int CODEEXECUTION_LBPROXY_1 = 63;
+const int CANCWE416_LBPROXY_1 = 64;
+const int CODEEXECUTION_LBPROXY_2 = 65;
+const int CANCWE416_LBPROXY_2 = 66;
+const int UNAUTHORIZEDACCESS_LBPROXY_0 = 67;
+const int UNAUTHORIZEDACCESS_LBPROXY_1 = 68;
+const int UNAUTHORIZEDACCESS_LBPROXY_2 = 69;
+const int AVAILABILITYCOMPROMISED_LBPROXY = 70;
+const int DOS_LBPROXY_0 = 71;
+const int CANCWE787_LBPROXY_0 = 72;
+const int DOS_LBPROXY_1 = 73;
+const int CANCWE787_LBPROXY_1 = 74;
+const int DOS_LBPROXY_2 = 75;
+const int CANCWE787_LBPROXY_2 = 76;
+const int CRASH_LBPROXY_0 = 77;
+const int CANCWE476_LBPROXY_0 = 78;
+const int CRASH_LBPROXY_1 = 79;
+const int CANCWE476_LBPROXY_1 = 80;
+const int CRASH_LBPROXY_2 = 81;
+const int CANCWE476_LBPROXY_2 = 82;
+const int INTEGRITYCOMPROMISED_LBPROXY = 83;
+const int SYSTEMCOMPROMISED_MYSQL = 84;
+const int CONFIDENTIALITYCOMPROMISED_MYSQL = 85;
+const int INFORMATIONDISCOSURE_MYSQL_0 = 86;
+const int CANCWE200_MYSQL_0 = 87;
+const int INFORMATIONDISCOSURE_MYSQL_1 = 88;
+const int CANCWE200_MYSQL_1 = 89;
+const int INFORMATIONDISCOSURE_MYSQL_2 = 90;
+const int CANCWE200_MYSQL_2 = 91;
+const int CODEEXECUTION_MYSQL_0 = 92;
+const int CANCWE89_MYSQL_0 = 93;
+const int CANCWE119_MYSQL_0 = 94;
+const int CODEEXECUTION_MYSQL_1 = 95;
+const int CANCWE89_MYSQL_1 = 96;
+const int CANCWE119_MYSQL_1 = 97;
+const int CODEEXECUTION_MYSQL_2 = 98;
+const int CANCWE89_MYSQL_2 = 99;
+const int CANCWE119_MYSQL_2 = 100;
+const int AVAILABILITYCOMPROMISED_MYSQL = 101;
+const int INTEGRITYCOMPROMISED_MYSQL = 102;
+const int SYSTEMCOMPROMISED_S0 = 103;
+const int CONFIDENTIALITYCOMPROMISED_S0 = 104;
+const int INFORMATIONDISCOSURE_S0_0 = 105;
+const int CANCWE200_S0_0 = 106;
+const int INFORMATIONDISCOSURE_S0_1 = 107;
+const int CANCWE200_S0_1 = 108;
+const int INFORMATIONDISCOSURE_S0_2 = 109;
+const int CANCWE200_S0_2 = 110;
+const int IDOR_S0_0 = 111;
+const int CANCWE862_S0_0 = 112;
+const int IDOR_S0_1 = 113;
+const int CANCWE862_S0_1 = 114;
+const int IDOR_S0_2 = 115;
+const int CANCWE862_S0_2 = 116;
+const int SESSIONFIXATION_S0_0 = 117;
+const int CANCWE384_S0_0 = 118;
+const int SESSIONFIXATION_S0_1 = 119;
+const int CANCWE384_S0_1 = 120;
+const int SESSIONFIXATION_S0_2 = 121;
+const int CANCWE384_S0_2 = 122;
+const int INTEGRITYCOMPROMISED_S0 = 123;
+const int HEADERINJECTION_S0_0 = 124;
+const int CANCWE601_S0_0 = 125;
+const int HEADERINJECTION_S0_1 = 126;
+const int CANCWE601_S0_1 = 127;
+const int HEADERINJECTION_S0_2 = 128;
+const int CANCWE601_S0_2 = 129;
+const int FILEINCLUSION_S0_0 = 130;
+const int CANCWE98_S0_0 = 131;
+const int FILEINCLUSION_S0_1 = 132;
+const int CANCWE98_S0_1 = 133;
+const int FILEINCLUSION_S0_2 = 134;
+const int CANCWE98_S0_2 = 135;
+bool achieved[N]={ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+const int num_methods=14;
+broadcast chan methods[num_methods];
+const int load=0;
+const int none=1;
+const int setcookie=2;
+const int imagefrompng=3;
+const int header=4;
+const int shell_exec=5;
+const int echo=6;
+const int connect=10;
+const int fgets=11;
+const int include=12;
+const int conn=13;
+bool syn[num_methods]={
+false,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true,
+true};
+</declaration>
+	<template>
+		<name x="5" y="5">InternalBehaviour</name>
+		<location id="id0" x="1054" y="-739">
+			<name x="1044" y="-773">s1</name>
+			<label kind="exponentialrate" x="1044" y="-705">1</label>
+		</location>
+		<location id="id1" x="510" y="-756">
+			<name x="500" y="-790">c1</name>
+			<label kind="exponentialrate" x="500" y="-722">1</label>
+		</location>
+		<location id="id2" x="1411" y="-144">
+			<name x="1401" y="-178">mysql</name>
+			<label kind="exponentialrate" x="1401" y="-110">1</label>
+		</location>
+		<location id="id3" x="1241" y="-144">
+			<name x="1231" y="-178">s0</name>
+			<label kind="exponentialrate" x="1231" y="-110">1</label>
+		</location>
+		<location id="id4" x="1079" y="-144">
+			<name x="1069" y="-178">lbproxy</name>
+			<label kind="exponentialrate" x="1069" y="-110">1</label>
+		</location>
+		<location id="id5" x="433" y="-34">
+			<name x="423" y="-68">c0</name>
+			<label kind="exponentialrate" x="423" y="0">1</label>
+		</location>
+		<location id="id6" x="204" y="-246">
+			<name x="194" y="-280">WEB</name>
+			<label kind="exponentialrate" x="194" y="-212">1</label>
+		</location>
+		<location id="id7" x="867" y="246">
+			<name x="857" y="212">c2</name>
+			<label kind="exponentialrate" x="857" y="280">1</label>
+		</location>
+		<location id="id8" x="1411" y="263">
+			<name x="1401" y="229">s2</name>
+			<label kind="exponentialrate" x="1401" y="297">1</label>
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="1429" y="140">methods[load]!</label>
+			<nail x="1538" y="51"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id8"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id8"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="409" y="339">methods[connect]!</label>
+			<nail x="391" y="467"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<nail x="467" y="357"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-913">methods[setcookie]!</label>
+			<nail x="714" y="-1037"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-866">methods[header]!</label>
+			<nail x="739" y="-943"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-837">methods[imagefrompng]!</label>
+			<nail x="756" y="-884"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-820">methods[echo]!</label>
+			<nail x="748" y="-850"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-658">methods[conn]!</label>
+			<nail x="807" y="-527"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-684">methods[fgets]!</label>
+			<nail x="799" y="-578"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="528" y="-730">methods[shell_exec]!</label>
+			<nail x="833" y="-671"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="569" y="-773">methods[include]!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<nail x="1334" y="-374"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="1181" y="-297">methods[load]!</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="1037" y="-314">methods[conn]!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="280" y="-399">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="604" y="9">methods[include]!</label>
+			<nail x="688" y="-212"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="63">methods[setcookie]!</label>
+			<nail x="595" y="195"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="29">methods[header]!</label>
+			<nail x="646" y="127"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="4">methods[imagefrompng]!</label>
+			<nail x="637" y="76"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="476" y="-119">methods[shell_exec]!</label>
+			<nail x="637" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="-21">methods[echo]!</label>
+			<nail x="654" y="25"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="-89">methods[fgets]!</label>
+			<nail x="646" y="-110"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<nail x="1326" y="-93"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<nail x="331" y="8"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="1259" y="-161">methods[load]!</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="1097" y="-161">methods[conn]!</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="451" y="-51">methods[conn]!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="273" y="-51">methods[connect]!</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="89">methods[setcookie]!</label>
+			<nail x="1071" y="-35"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="136">methods[header]!</label>
+			<nail x="1096" y="59"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="165">methods[imagefrompng]!</label>
+			<nail x="1113" y="118"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="182">methods[echo]!</label>
+			<nail x="1105" y="152"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="344">methods[conn]!</label>
+			<nail x="1164" y="475"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="318">methods[fgets]!</label>
+			<nail x="1156" y="424"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="885" y="272">methods[shell_exec]!</label>
+			<nail x="1190" y="331"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="926" y="229">methods[include]!</label>
+		</transition>
+	</template>
+	<template>
+		<name>Rule</name>
+		<parameter>const int this,const int P,const int method</parameter>
+		<declaration>bool prerequisites(const int node){
+if(node == CRASH_LBPROXY_2){
+return achieved[CANCWE476_LBPROXY_2 ];
+}
+if(node == CANCWE384_S0_2){
+return achieved[ISCOMPROMISED_S0_2 ];
+}
+if(node == FILEINCLUSION_S0_2){
+return achieved[CANCWE98_S0_2 ];
+}
+if(node == ISCOMPROMISED_MYSQL_2){
+return  true;
+}
+if(node == CANCWE476_LBPROXY_2){
+return achieved[ISCOMPROMISED_LBPROXY_2 ];
+}
+if(node == CANCWE384_S0_1){
+return achieved[ISCOMPROMISED_S0_1 ];
+}
+if(node == INTEGRITYCOMPROMISED_LBPROXY){
+return achieved[CODEEXECUTION_LBPROXY_2 ];
+}
+if(node == SESSIONFIXATION_S0_2){
+return achieved[CANCWE384_S0_2 ];
+}
+if(node == SYSTEMDOWN__){
+return achieved[SYSTEMCOMPROMISED_S0] || achieved[SYSTEMCOMPROMISED_S0] ;
+}
+if(node == CANCWE98_S0_2){
+return achieved[ISCOMPROMISED_S0_2 ];
+}
+if(node == CANCWE416_LBPROXY_0){
+return achieved[ISCOMPROMISED_LBPROXY_0 ];
+}
+if(node == CODEEXECUTION_LBPROXY_0){
+return achieved[CANCWE416_LBPROXY_0 ];
+}
+if(node == CANCWE362_LBPROXY_2){
+return achieved[ISCOMPROMISED_LBPROXY_2 ];
+}
+if(node == ISCOMPROMISED_S0_1){
+return achieved[ISCOMPROMISED_WEB_1 ];
+}
+if(node == HEADERINJECTION_S0_1){
+return achieved[CANCWE601_S0_1 ];
+}
+if(node == SYSTEMCOMPROMISED_C0){
+return achieved[INTEGRITYCOMPROMISED_C0 ];
+}
+if(node == INFORMATIONDISCOSURE_C0_0){
+return achieved[CANCWE362_C0_0 ];
+}
+if(node == ISCOMPROMISED_LBPROXY_1){
+return  true;
+}
+if(node == ISCOMPROMISED_MYSQL_1){
+return  true;
+}
+if(node == AVAILABILITYCOMPROMISED_C0){
+return achieved[CRASH_C0_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_C0_2){
+return achieved[CANCWE362_C0_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_LBPROXY_0){
+return achieved[CANCWE362_LBPROXY_0 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_MYSQL){
+return achieved[CODEEXECUTION_MYSQL_2 ];
+}
+if(node == INFORMATIONDISCOSURE_MYSQL_0){
+return achieved[CANCWE200_MYSQL_0 ];
+}
+if(node == DOS_C0_0){
+return achieved[CANCWE787_C0_0 ];
+}
+if(node == SYSTEMCOMPROMISED_MYSQL){
+return achieved[INTEGRITYCOMPROMISED_MYSQL ];
+}
+if(node == ISCOMPROMISED_C0_1){
+return achieved[ISCOMPROMISED_WEB_1 ];
+}
+if(node == CANCWE20_C0_1){
+return achieved[ISCOMPROMISED_WEB_1 ];
+}
+if(node == ISCOMPROMISED_WEB_1){
+return achieved[ISCOMPROMISED_WEB_0 ];
+}
+if(node == ISCOMPROMISED_C0_0){
+return achieved[ISCOMPROMISED_WEB_0 ];
+}
+if(node == CANCWE20_LBPROXY_2){
+return achieved[ISCOMPROMISED_LBPROXY_2 ];
+}
+if(node == CRASH_C0_0){
+return achieved[CANCWE476_C0_0 ];
+}
+if(node == CANCWE20_LBPROXY_1){
+return achieved[ISCOMPROMISED_LBPROXY_1 ];
+}
+if(node == CANCWE362_LBPROXY_1){
+return achieved[ISCOMPROMISED_LBPROXY_1 ];
+}
+if(node == INFORMATIONDISCOSURE_LBPROXY_2){
+return achieved[CANCWE362_LBPROXY_2 ];
+}
+if(node == CODEEXECUTION_LBPROXY_2){
+return achieved[CANCWE416_LBPROXY_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_C0_1){
+return achieved[CANCWE362_C0_1 ];
+}
+if(node == CANCWE416_LBPROXY_1){
+return achieved[ISCOMPROMISED_LBPROXY_1 ];
+}
+if(node == CODEEXECUTION_LBPROXY_1){
+return achieved[CANCWE416_LBPROXY_1 ];
+}
+if(node == CANCWE416_C0_2){
+return achieved[ISCOMPROMISED_C0_2 ];
+}
+if(node == DOS_LBPROXY_2){
+return achieved[CANCWE787_LBPROXY_2 ];
+}
+if(node == CANCWE416_LBPROXY_2){
+return achieved[ISCOMPROMISED_LBPROXY_2 ];
+}
+if(node == CANCWE787_LBPROXY_2){
+return achieved[ISCOMPROMISED_LBPROXY_2 ];
+}
+if(node == ISCOMPROMISED_MYSQL_0){
+return  true;
+}
+if(node == CANCWE384_S0_0){
+return achieved[ISCOMPROMISED_S0_0 ];
+}
+if(node == SESSIONFIXATION_S0_0){
+return achieved[CANCWE384_S0_0 ];
+}
+if(node == CANCWE862_S0_2){
+return achieved[ISCOMPROMISED_S0_2 ];
+}
+if(node == IDOR_S0_2){
+return achieved[CANCWE862_S0_2 ];
+}
+if(node == INTEGRITYCOMPROMISED_S0){
+return achieved[FILEINCLUSION_S0_2 ];
+}
+if(node == DOS_C0_2){
+return achieved[CANCWE787_C0_2 ];
+}
+if(node == CANCWE787_C0_1){
+return achieved[ISCOMPROMISED_C0_1 ];
+}
+if(node == ISCOMPROMISED_LBPROXY_2){
+return  true;
+}
+if(node == CANCWE476_LBPROXY_1){
+return achieved[ISCOMPROMISED_LBPROXY_1 ];
+}
+if(node == INFORMATIONDISCOSURE_S0_2){
+return achieved[CANCWE200_S0_2 ];
+}
+if(node == CANCWE200_S0_2){
+return achieved[ISCOMPROMISED_S0_2 ];
+}
+if(node == CANCWE476_LBPROXY_0){
+return achieved[ISCOMPROMISED_LBPROXY_0 ];
+}
+if(node == CRASH_LBPROXY_0){
+return achieved[CANCWE476_LBPROXY_0 ];
+}
+if(node == IDOR_S0_0){
+return achieved[CANCWE862_S0_0 ];
+}
+if(node == CRASH_LBPROXY_1){
+return achieved[CANCWE476_LBPROXY_1 ];
+}
+if(node == SESSIONFIXATION_S0_1){
+return achieved[CANCWE384_S0_1 ];
+}
+if(node == CANCWE476_C0_0){
+return achieved[ISCOMPROMISED_C0_0 ];
+}
+if(node == SYSTEMCOMPROMISED_S0){
+return achieved[INTEGRITYCOMPROMISED_S0 ];
+}
+if(node == CANCWE862_S0_0){
+return achieved[ISCOMPROMISED_S0_0 ];
+}
+if(node == IDOR_S0_1){
+return achieved[CANCWE862_S0_1 ];
+}
+if(node == CANCWE862_S0_1){
+return achieved[ISCOMPROMISED_S0_1 ];
+}
+if(node == DOS_C0_1){
+return achieved[CANCWE787_C0_1 ];
+}
+if(node == CANCWE787_C0_0){
+return achieved[ISCOMPROMISED_C0_0 ];
+}
+if(node == CANCWE200_S0_1){
+return achieved[ISCOMPROMISED_S0_1 ];
+}
+if(node == INFORMATIONDISCOSURE_S0_1){
+return achieved[CANCWE200_S0_1 ];
+}
+if(node == INFORMATIONDISCOSURE_C0_1){
+return achieved[CANCWE362_C0_1 ];
+}
+if(node == CANCWE362_C0_0){
+return achieved[ISCOMPROMISED_WEB_0 ];
+}
+if(node == CANCWE416_C0_1){
+return achieved[ISCOMPROMISED_C0_1 ];
+}
+if(node == CODEEXECUTION_C0_1){
+return achieved[CANCWE416_C0_1 ];
+}
+if(node == CANCWE416_C0_0){
+return achieved[ISCOMPROMISED_C0_0 ];
+}
+if(node == INFORMATIONDISCOSURE_MYSQL_1){
+return achieved[CANCWE200_MYSQL_1 ];
+}
+if(node == CODEEXECUTION_C0_2){
+return achieved[CANCWE416_C0_2 ];
+}
+if(node == CANCWE476_C0_2){
+return achieved[ISCOMPROMISED_C0_2 ];
+}
+if(node == ISCOMPROMISED_S0_2){
+return achieved[ISCOMPROMISED_WEB_2 ];
+}
+if(node == CANCWE476_C0_1){
+return achieved[ISCOMPROMISED_C0_1 ];
+}
+if(node == CRASH_C0_2){
+return achieved[CANCWE476_C0_2 ];
+}
+if(node == ISCOMPROMISED_WEB_2){
+return achieved[ISCOMPROMISED_WEB_1 ];
+}
+if(node == INFORMATIONDISCOSURE_S0_0){
+return achieved[CANCWE200_S0_0 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_S0){
+return achieved[SESSIONFIXATION_S0_2 ];
+}
+if(node == CANCWE20_C0_2){
+return achieved[ISCOMPROMISED_WEB_2 ];
+}
+if(node == CANCWE200_S0_0){
+return achieved[ISCOMPROMISED_S0_0 ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_C0){
+return achieved[UNAUTHORIZEDACCESS_C0_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_C0_0){
+return achieved[CANCWE362_C0_0 ];
+}
+if(node == CANCWE20_C0_0){
+return achieved[ISCOMPROMISED_WEB_0 ];
+}
+if(node == CODEEXECUTION_C0_0){
+return achieved[CANCWE416_C0_0 ];
+}
+if(node == CANCWE362_C0_2){
+return achieved[ISCOMPROMISED_WEB_2 ];
+}
+if(node == CANCWE787_C0_2){
+return achieved[ISCOMPROMISED_C0_2 ];
+}
+if(node == ISCOMPROMISED_WEB_0){
+return  true;
+}
+if(node == CANCWE89_MYSQL_1){
+return achieved[ISCOMPROMISED_MYSQL_1 ];
+}
+if(node == CODEEXECUTION_MYSQL_1){
+return achieved[CANCWE119_MYSQL_1 ];
+}
+if(node == CRASH_C0_1){
+return achieved[CANCWE476_C0_1 ];
+}
+if(node == CANCWE119_MYSQL_0){
+return achieved[ISCOMPROMISED_MYSQL_0 ];
+}
+if(node == DOS_LBPROXY_0){
+return achieved[CANCWE787_LBPROXY_0 ];
+}
+if(node == AVAILABILITYCOMPROMISED_LBPROXY){
+return achieved[CRASH_LBPROXY_2 ];
+}
+if(node == CANCWE200_MYSQL_1){
+return achieved[ISCOMPROMISED_MYSQL_1 ];
+}
+if(node == INFORMATIONDISCOSURE_C0_2){
+return achieved[CANCWE362_C0_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_LBPROXY_1){
+return achieved[CANCWE362_LBPROXY_1 ];
+}
+if(node == ISCOMPROMISED_S0_0){
+return achieved[ISCOMPROMISED_WEB_0 ];
+}
+if(node == INTEGRITYCOMPROMISED_MYSQL){
+return achieved[CODEEXECUTION_MYSQL_2 ];
+}
+if(node == AVAILABILITYCOMPROMISED_MYSQL){
+return achieved[CODEEXECUTION_MYSQL_2 ];
+}
+if(node == INFORMATIONDISCOSURE_MYSQL_2){
+return achieved[CANCWE200_MYSQL_2 ];
+}
+if(node == CANCWE362_C0_1){
+return achieved[ISCOMPROMISED_WEB_1 ];
+}
+if(node == CANCWE200_MYSQL_0){
+return achieved[ISCOMPROMISED_MYSQL_0 ];
+}
+if(node == INFORMATIONDISCOSURE_LBPROXY_0){
+return achieved[CANCWE362_LBPROXY_0 ];
+}
+if(node == CANCWE20_LBPROXY_0){
+return achieved[ISCOMPROMISED_LBPROXY_0 ];
+}
+if(node == CANCWE362_LBPROXY_0){
+return achieved[ISCOMPROMISED_LBPROXY_0 ];
+}
+if(node == INFORMATIONDISCOSURE_LBPROXY_1){
+return achieved[CANCWE362_LBPROXY_1 ];
+}
+if(node == CANCWE119_MYSQL_1){
+return achieved[ISCOMPROMISED_MYSQL_1 ];
+}
+if(node == CODEEXECUTION_MYSQL_2){
+return achieved[CANCWE119_MYSQL_2 ];
+}
+if(node == ISCOMPROMISED_LBPROXY_0){
+return  true;
+}
+if(node == CANCWE89_MYSQL_2){
+return achieved[ISCOMPROMISED_MYSQL_2 ];
+}
+if(node == CANCWE787_LBPROXY_0){
+return achieved[ISCOMPROMISED_LBPROXY_0 ];
+}
+if(node == DOS_LBPROXY_1){
+return achieved[CANCWE787_LBPROXY_1 ];
+}
+if(node == CANCWE787_LBPROXY_1){
+return achieved[ISCOMPROMISED_LBPROXY_1 ];
+}
+if(node == CANCWE98_S0_0){
+return achieved[ISCOMPROMISED_S0_0 ];
+}
+if(node == CANCWE98_S0_1){
+return achieved[ISCOMPROMISED_S0_1 ];
+}
+if(node == FILEINCLUSION_S0_1){
+return achieved[CANCWE98_S0_1 ];
+}
+if(node == CANCWE89_MYSQL_0){
+return achieved[ISCOMPROMISED_MYSQL_0 ];
+}
+if(node == CANCWE119_MYSQL_2){
+return achieved[ISCOMPROMISED_MYSQL_2 ];
+}
+if(node == CODEEXECUTION_MYSQL_0){
+return achieved[CANCWE119_MYSQL_0 ];
+}
+if(node == ISCOMPROMISED_C0_2){
+return achieved[ISCOMPROMISED_WEB_2 ];
+}
+if(node == CANCWE200_MYSQL_2){
+return achieved[ISCOMPROMISED_MYSQL_2 ];
+}
+if(node == UNAUTHORIZEDACCESS_LBPROXY_2){
+return achieved[CANCWE362_LBPROXY_2 ];
+}
+if(node == HEADERINJECTION_S0_0){
+return achieved[CANCWE601_S0_0 ];
+}
+if(node == CANCWE601_S0_0){
+return achieved[ISCOMPROMISED_S0_0 ];
+}
+if(node == HEADERINJECTION_S0_2){
+return achieved[CANCWE601_S0_2 ];
+}
+if(node == INTEGRITYCOMPROMISED_C0){
+return achieved[CODEEXECUTION_C0_2 ];
+}
+if(node == CANCWE601_S0_2){
+return achieved[ISCOMPROMISED_S0_2 ];
+}
+if(node == CANCWE601_S0_1){
+return achieved[ISCOMPROMISED_S0_1 ];
+}
+if(node == SYSTEMCOMPROMISED_LBPROXY){
+return achieved[INTEGRITYCOMPROMISED_LBPROXY ];
+}
+if(node == CONFIDENTIALITYCOMPROMISED_LBPROXY){
+return achieved[UNAUTHORIZEDACCESS_LBPROXY_2 ];
+}
+if(node == FILEINCLUSION_S0_0){
+return achieved[CANCWE98_S0_0 ];
+}
+return false;
+}
+</declaration>
+		<location id="id9" x="-144" y="-238">
+			<label kind="exponentialrate" x="-154" y="-204">1</label>
+		</location>
+		<location id="id10" x="119" y="-297">
+			<name x="109" y="-331">S</name>
+			<label kind="exponentialrate" x="109" y="-263">1</label>
+		</location>
+		<location id="id11" x="-374" y="-238">
+			<name x="-384" y="-272">I</name>
+			<label kind="exponentialrate" x="-384" y="-204">1</label>
+		</location>
+		<branchpoint id="id12" x="42" y="-238">
+		</branchpoint>
+		<init ref="id11"/>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id11"/>
+			<label kind="probability" x="-118" y="-195">100-P</label>
+			<nail x="-136" y="-153"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-356" y="-314">!syn[method]</label>
+			<nail x="-280" y="-323"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id12"/>
+			<label kind="guard" x="-126" y="-272">prerequisites(this)</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-348" y="-272">syn[method]</label>
+			<label kind="synchronisation" x="-356" y="-255">methods[method]?</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id10"/>
+			<label kind="assignment" x="60" y="-284">achieved[this]=true</label>
+			<label kind="probability" x="60" y="-267">P</label>
+		</transition>
+	</template>
+	<template>
+		<name>variedReduce</name>
+		<location id="id13" x="-663" y="-119">
+			<name x="-673" y="-153">T2</name>
+			<label kind="exponentialrate" x="-673" y="-85">1</label>
+		</location>
+		<location id="id14" x="-654" y="-212">
+			<name x="-664" y="-246">T1</name>
+			<label kind="exponentialrate" x="-664" y="-178">1</label>
+		</location>
+		<location id="id15" x="-654" y="-297">
+			<name x="-664" y="-331">T0</name>
+			<label kind="exponentialrate" x="-680" y="-297">1</label>
+		</location>
+		<init ref="id15"/>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id13"/>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id14"/>
+		</transition>
+	</template>
+	<system>call_graph=InternalBehaviour();
+tactic_tree=variedReduce();
+
+systemDown__=Rule(SYSTEMDOWN__,99,none);
+systemCompromised_c0=Rule(SYSTEMCOMPROMISED_C0,99,none);
+confidentialityCompromised_c0=Rule(CONFIDENTIALITYCOMPROMISED_C0,100,none);
+informationDiscosure_c0_0=Rule(INFORMATIONDISCOSURE_C0_0,95,none);
+canCWE20_c0_0=Rule(CANCWE20_C0_0,99,none);
+isCompromised_c0_0=Rule(ISCOMPROMISED_C0_0,99,0);
+isCompromised_web_0=Rule(ISCOMPROMISED_WEB_0,80,0);
+isCompromised_lbproxy_0=Rule(ISCOMPROMISED_LBPROXY_0,100,0);
+isCompromised_mysql_0=Rule(ISCOMPROMISED_MYSQL_0,100,0);
+isCompromised_s0_0=Rule(ISCOMPROMISED_S0_0,100,0);
+canCWE362_c0_0=Rule(CANCWE362_C0_0,99,none);
+informationDiscosure_c0_1=Rule(INFORMATIONDISCOSURE_C0_1,95,none);
+canCWE20_c0_1=Rule(CANCWE20_C0_1,99,none);
+isCompromised_c0_1=Rule(ISCOMPROMISED_C0_1,99,1);
+isCompromised_web_1=Rule(ISCOMPROMISED_WEB_1,64,1);
+isCompromised_lbproxy_1=Rule(ISCOMPROMISED_LBPROXY_1,100,1);
+isCompromised_mysql_1=Rule(ISCOMPROMISED_MYSQL_1,100,1);
+isCompromised_s0_1=Rule(ISCOMPROMISED_S0_1,100,1);
+canCWE362_c0_1=Rule(CANCWE362_C0_1,99,none);
+informationDiscosure_c0_2=Rule(INFORMATIONDISCOSURE_C0_2,95,none);
+canCWE20_c0_2=Rule(CANCWE20_C0_2,99,none);
+isCompromised_c0_2=Rule(ISCOMPROMISED_C0_2,99,2);
+isCompromised_web_2=Rule(ISCOMPROMISED_WEB_2,51,2);
+isCompromised_lbproxy_2=Rule(ISCOMPROMISED_LBPROXY_2,100,2);
+isCompromised_mysql_2=Rule(ISCOMPROMISED_MYSQL_2,100,2);
+isCompromised_s0_2=Rule(ISCOMPROMISED_S0_2,100,2);
+canCWE362_c0_2=Rule(CANCWE362_C0_2,99,none);
+codeExecution_c0_0=Rule(CODEEXECUTION_C0_0,92,none);
+canCWE416_c0_0=Rule(CANCWE416_C0_0,79,none);
+codeExecution_c0_1=Rule(CODEEXECUTION_C0_1,92,none);
+canCWE416_c0_1=Rule(CANCWE416_C0_1,79,none);
+codeExecution_c0_2=Rule(CODEEXECUTION_C0_2,92,none);
+canCWE416_c0_2=Rule(CANCWE416_C0_2,79,none);
+unauthorizedAccess_c0_0=Rule(UNAUTHORIZEDACCESS_C0_0,79,none);
+unauthorizedAccess_c0_1=Rule(UNAUTHORIZEDACCESS_C0_1,79,none);
+unauthorizedAccess_c0_2=Rule(UNAUTHORIZEDACCESS_C0_2,79,none);
+availabilityCompromised_c0=Rule(AVAILABILITYCOMPROMISED_C0,100,none);
+dos_c0_0=Rule(DOS_C0_0,99,none);
+canCWE787_c0_0=Rule(CANCWE787_C0_0,79,none);
+dos_c0_1=Rule(DOS_C0_1,99,none);
+canCWE787_c0_1=Rule(CANCWE787_C0_1,79,none);
+dos_c0_2=Rule(DOS_C0_2,99,none);
+canCWE787_c0_2=Rule(CANCWE787_C0_2,79,none);
+crash_c0_0=Rule(CRASH_C0_0,87,none);
+canCWE476_c0_0=Rule(CANCWE476_C0_0,79,none);
+crash_c0_1=Rule(CRASH_C0_1,87,none);
+canCWE476_c0_1=Rule(CANCWE476_C0_1,79,none);
+crash_c0_2=Rule(CRASH_C0_2,86,none);
+canCWE476_c0_2=Rule(CANCWE476_C0_2,79,none);
+integrityCompromised_c0=Rule(INTEGRITYCOMPROMISED_C0,98,none);
+systemCompromised_lbproxy=Rule(SYSTEMCOMPROMISED_LBPROXY,99,none);
+confidentialityCompromised_lbproxy=Rule(CONFIDENTIALITYCOMPROMISED_LBPROXY,99,none);
+informationDiscosure_lbproxy_0=Rule(INFORMATIONDISCOSURE_LBPROXY_0,87,none);
+canCWE20_lbproxy_0=Rule(CANCWE20_LBPROXY_0,80,none);
+canCWE362_lbproxy_0=Rule(CANCWE362_LBPROXY_0,80,none);
+informationDiscosure_lbproxy_1=Rule(INFORMATIONDISCOSURE_LBPROXY_1,87,none);
+canCWE20_lbproxy_1=Rule(CANCWE20_LBPROXY_1,80,none);
+canCWE362_lbproxy_1=Rule(CANCWE362_LBPROXY_1,80,none);
+informationDiscosure_lbproxy_2=Rule(INFORMATIONDISCOSURE_LBPROXY_2,87,none);
+canCWE20_lbproxy_2=Rule(CANCWE20_LBPROXY_2,80,none);
+canCWE362_lbproxy_2=Rule(CANCWE362_LBPROXY_2,80,none);
+codeExecution_lbproxy_0=Rule(CODEEXECUTION_LBPROXY_0,87,none);
+canCWE416_lbproxy_0=Rule(CANCWE416_LBPROXY_0,80,none);
+codeExecution_lbproxy_1=Rule(CODEEXECUTION_LBPROXY_1,87,none);
+canCWE416_lbproxy_1=Rule(CANCWE416_LBPROXY_1,80,none);
+codeExecution_lbproxy_2=Rule(CODEEXECUTION_LBPROXY_2,87,none);
+canCWE416_lbproxy_2=Rule(CANCWE416_LBPROXY_2,80,none);
+unauthorizedAccess_lbproxy_0=Rule(UNAUTHORIZEDACCESS_LBPROXY_0,64,none);
+unauthorizedAccess_lbproxy_1=Rule(UNAUTHORIZEDACCESS_LBPROXY_1,64,none);
+unauthorizedAccess_lbproxy_2=Rule(UNAUTHORIZEDACCESS_LBPROXY_2,64,none);
+availabilityCompromised_lbproxy=Rule(AVAILABILITYCOMPROMISED_LBPROXY,100,none);
+dos_lbproxy_0=Rule(DOS_LBPROXY_0,98,none);
+canCWE787_lbproxy_0=Rule(CANCWE787_LBPROXY_0,80,none);
+dos_lbproxy_1=Rule(DOS_LBPROXY_1,98,none);
+canCWE787_lbproxy_1=Rule(CANCWE787_LBPROXY_1,80,none);
+dos_lbproxy_2=Rule(DOS_LBPROXY_2,98,none);
+canCWE787_lbproxy_2=Rule(CANCWE787_LBPROXY_2,80,none);
+crash_lbproxy_0=Rule(CRASH_LBPROXY_0,87,none);
+canCWE476_lbproxy_0=Rule(CANCWE476_LBPROXY_0,80,none);
+crash_lbproxy_1=Rule(CRASH_LBPROXY_1,87,none);
+canCWE476_lbproxy_1=Rule(CANCWE476_LBPROXY_1,80,none);
+crash_lbproxy_2=Rule(CRASH_LBPROXY_2,87,none);
+canCWE476_lbproxy_2=Rule(CANCWE476_LBPROXY_2,80,none);
+integrityCompromised_lbproxy=Rule(INTEGRITYCOMPROMISED_LBPROXY,97,none);
+systemCompromised_mysql=Rule(SYSTEMCOMPROMISED_MYSQL,99,none);
+confidentialityCompromised_mysql=Rule(CONFIDENTIALITYCOMPROMISED_MYSQL,99,none);
+informationDiscosure_mysql_0=Rule(INFORMATIONDISCOSURE_MYSQL_0,76,none);
+canCWE200_mysql_0=Rule(CANCWE200_MYSQL_0,96,none);
+informationDiscosure_mysql_1=Rule(INFORMATIONDISCOSURE_MYSQL_1,76,none);
+canCWE200_mysql_1=Rule(CANCWE200_MYSQL_1,96,none);
+informationDiscosure_mysql_2=Rule(INFORMATIONDISCOSURE_MYSQL_2,76,none);
+canCWE200_mysql_2=Rule(CANCWE200_MYSQL_2,96,none);
+codeExecution_mysql_0=Rule(CODEEXECUTION_MYSQL_0,91,none);
+canCWE89_mysql_0=Rule(CANCWE89_MYSQL_0,96,none);
+canCWE119_mysql_0=Rule(CANCWE119_MYSQL_0,80,none);
+codeExecution_mysql_1=Rule(CODEEXECUTION_MYSQL_1,91,none);
+canCWE89_mysql_1=Rule(CANCWE89_MYSQL_1,96,none);
+canCWE119_mysql_1=Rule(CANCWE119_MYSQL_1,80,none);
+codeExecution_mysql_2=Rule(CODEEXECUTION_MYSQL_2,91,none);
+canCWE89_mysql_2=Rule(CANCWE89_MYSQL_2,96,none);
+canCWE119_mysql_2=Rule(CANCWE119_MYSQL_2,80,none);
+availabilityCompromised_mysql=Rule(AVAILABILITYCOMPROMISED_MYSQL,98,none);
+integrityCompromised_mysql=Rule(INTEGRITYCOMPROMISED_MYSQL,98,none);
+systemCompromised_s0=Rule(SYSTEMCOMPROMISED_S0,95,none);
+confidentialityCompromised_s0=Rule(CONFIDENTIALITYCOMPROMISED_S0,99,none);
+informationDiscosure_s0_0=Rule(INFORMATIONDISCOSURE_S0_0,79,none);
+canCWE200_s0_0=Rule(CANCWE200_S0_0,99,none);
+informationDiscosure_s0_1=Rule(INFORMATIONDISCOSURE_S0_1,79,none);
+canCWE200_s0_1=Rule(CANCWE200_S0_1,99,none);
+informationDiscosure_s0_2=Rule(INFORMATIONDISCOSURE_S0_2,79,none);
+canCWE200_s0_2=Rule(CANCWE200_S0_2,99,none);
+idor_s0_0=Rule(IDOR_S0_0,64,none);
+canCWE862_s0_0=Rule(CANCWE862_S0_0,80,none);
+idor_s0_1=Rule(IDOR_S0_1,64,none);
+canCWE862_s0_1=Rule(CANCWE862_S0_1,80,none);
+idor_s0_2=Rule(IDOR_S0_2,64,none);
+canCWE862_s0_2=Rule(CANCWE862_S0_2,80,none);
+sessionFixation_s0_0=Rule(SESSIONFIXATION_S0_0,64,none);
+canCWE384_s0_0=Rule(CANCWE384_S0_0,80,none);
+sessionFixation_s0_1=Rule(SESSIONFIXATION_S0_1,64,none);
+canCWE384_s0_1=Rule(CANCWE384_S0_1,80,none);
+sessionFixation_s0_2=Rule(SESSIONFIXATION_S0_2,64,none);
+canCWE384_s0_2=Rule(CANCWE384_S0_2,80,none);
+integrityCompromised_s0=Rule(INTEGRITYCOMPROMISED_S0,98,none);
+headerInjection_s0_0=Rule(HEADERINJECTION_S0_0,64,none);
+canCWE601_s0_0=Rule(CANCWE601_S0_0,80,none);
+headerInjection_s0_1=Rule(HEADERINJECTION_S0_1,64,none);
+canCWE601_s0_1=Rule(CANCWE601_S0_1,80,none);
+headerInjection_s0_2=Rule(HEADERINJECTION_S0_2,64,none);
+canCWE601_s0_2=Rule(CANCWE601_S0_2,80,none);
+fileInclusion_s0_0=Rule(FILEINCLUSION_S0_0,64,none);
+canCWE98_s0_0=Rule(CANCWE98_S0_0,80,none);
+fileInclusion_s0_1=Rule(FILEINCLUSION_S0_1,64,none);
+canCWE98_s0_1=Rule(CANCWE98_S0_1,80,none);
+fileInclusion_s0_2=Rule(FILEINCLUSION_S0_2,64,none);
+canCWE98_s0_2=Rule(CANCWE98_S0_2,80,none);
+
+
+
+
+system call_graph,tactic_tree, systemDown__, systemCompromised_c0, confidentialityCompromised_c0, informationDiscosure_c0_0, canCWE20_c0_0, isCompromised_c0_0, isCompromised_web_0, isCompromised_lbproxy_0, isCompromised_mysql_0, isCompromised_s0_0, canCWE362_c0_0, informationDiscosure_c0_1, canCWE20_c0_1, isCompromised_c0_1, isCompromised_web_1, isCompromised_lbproxy_1, isCompromised_mysql_1, isCompromised_s0_1, canCWE362_c0_1, informationDiscosure_c0_2, canCWE20_c0_2, isCompromised_c0_2, isCompromised_web_2, isCompromised_lbproxy_2, isCompromised_mysql_2, isCompromised_s0_2, canCWE362_c0_2, codeExecution_c0_0, canCWE416_c0_0, codeExecution_c0_1, canCWE416_c0_1, codeExecution_c0_2, canCWE416_c0_2, unauthorizedAccess_c0_0, unauthorizedAccess_c0_1, unauthorizedAccess_c0_2, availabilityCompromised_c0, dos_c0_0, canCWE787_c0_0, dos_c0_1, canCWE787_c0_1, dos_c0_2, canCWE787_c0_2, crash_c0_0, canCWE476_c0_0, crash_c0_1, canCWE476_c0_1, crash_c0_2, canCWE476_c0_2, integrityCompromised_c0, systemCompromised_lbproxy, confidentialityCompromised_lbproxy, informationDiscosure_lbproxy_0, canCWE20_lbproxy_0, canCWE362_lbproxy_0, informationDiscosure_lbproxy_1, canCWE20_lbproxy_1, canCWE362_lbproxy_1, informationDiscosure_lbproxy_2, canCWE20_lbproxy_2, canCWE362_lbproxy_2, codeExecution_lbproxy_0, canCWE416_lbproxy_0, codeExecution_lbproxy_1, canCWE416_lbproxy_1, codeExecution_lbproxy_2, canCWE416_lbproxy_2, unauthorizedAccess_lbproxy_0, unauthorizedAccess_lbproxy_1, unauthorizedAccess_lbproxy_2, availabilityCompromised_lbproxy, dos_lbproxy_0, canCWE787_lbproxy_0, dos_lbproxy_1, canCWE787_lbproxy_1, dos_lbproxy_2, canCWE787_lbproxy_2, crash_lbproxy_0, canCWE476_lbproxy_0, crash_lbproxy_1, canCWE476_lbproxy_1, crash_lbproxy_2, canCWE476_lbproxy_2, integrityCompromised_lbproxy, systemCompromised_mysql, confidentialityCompromised_mysql, informationDiscosure_mysql_0, canCWE200_mysql_0, informationDiscosure_mysql_1, canCWE200_mysql_1, informationDiscosure_mysql_2, canCWE200_mysql_2, codeExecution_mysql_0, canCWE89_mysql_0, canCWE119_mysql_0, codeExecution_mysql_1, canCWE89_mysql_1, canCWE119_mysql_1, codeExecution_mysql_2, canCWE89_mysql_2, canCWE119_mysql_2, availabilityCompromised_mysql, integrityCompromised_mysql, systemCompromised_s0, confidentialityCompromised_s0, informationDiscosure_s0_0, canCWE200_s0_0, informationDiscosure_s0_1, canCWE200_s0_1, informationDiscosure_s0_2, canCWE200_s0_2, idor_s0_0, canCWE862_s0_0, idor_s0_1, canCWE862_s0_1, idor_s0_2, canCWE862_s0_2, sessionFixation_s0_0, canCWE384_s0_0, sessionFixation_s0_1, canCWE384_s0_1, sessionFixation_s0_2, canCWE384_s0_2, integrityCompromised_s0, headerInjection_s0_0, canCWE601_s0_0, headerInjection_s0_1, canCWE601_s0_1, headerInjection_s0_2, canCWE601_s0_2, fileInclusion_s0_0, canCWE98_s0_0, fileInclusion_s0_1, canCWE98_s0_1, fileInclusion_s0_2, canCWE98_s0_2; 
+
+</system>
+	<queries>
+		<query>
+			<formula>Pr[&lt;=100](&lt;&gt; exists(i:int[0,N-1]) achieved[INTEGRITYCOMPROMISED_LBPROXY] || achieved[CONFIDENTIALITYCOMPROMISED_LBPROXY] )
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=100](&lt;&gt; achieved[SYSTEMCOMPROMISED_LBPROXY])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>(exists(i:int[0,N-1]) achieved[i]) --&gt; achieved[SYSTEMDOWN__]
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>Pr[&lt;=10000] (&lt;&gt;achieved[SYSTEMDOWN__])
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>

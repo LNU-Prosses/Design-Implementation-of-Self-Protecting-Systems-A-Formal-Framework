@@ -1,0 +1,206 @@
+:-(mvTrc(canInvoke(_h3716,_h3717,_h3718,_h3719,0)),','(mvTrc(canInvoke(_h3716,_h3725,_h3726,_h3719,_h3767)),','(mvTrc(canInvoke(_h3725,_h3717,_h3718,_h3719,_h3815)),assert_trace(because(0,rule_desc('Indirect Method Invocation',1),canInvoke(_h3716,_h3717,_h3718,_h3719),[canInvoke(_h3725,_h3717,_h3718,_h3719),canInvoke(_h3716,_h3725,_h3726,_h3719)]))))).
+
+:-(mvTrc(canInvoke(_h3716,_h3717,_h3718,_h3719,1)),','(methodInvocation(_h3716,_h3717,_h3718,_h3719),assert_trace(because(1,rule_desc('Direct Method Invocation',2),canInvoke(_h3716,_h3717,_h3718,_h3719),[methodInvocation(_h3716,_h3717,_h3718,_h3719)])))).
+
+:-(mvTrc(isCompromised(_h3716,_h3717,2)),','(attackerLocated(_h3716,_h3717),assert_trace(because(2,rule_desc('Attacker Controlled Component',3),isCompromised(_h3716,_h3717),[attackerLocated(_h3716,_h3717)])))).
+
+:-(mvTrc(isCompromised(_h3716,_h3717,3)),','(mvTrc(isCompromised(_h3716,_h3723,_h3767)),','(isComponent(_h3716,_h3717),','(adaptationStep(_h3723,_h3717),assert_trace(because(3,rule_desc('Compromised in Past',3),isCompromised(_h3716,_h3717),[adaptationStep(_h3723,_h3717),isComponent(_h3716,_h3717),isCompromised(_h3716,_h3723)])))))).
+
+:-(mvTrc(isCompromised(_h3716,_h3717,4)),','(mvTrc(canInvoke(_h3722,_h3716,_h3724,_h3717,_h3770)),','(mvTrc(isCompromised(_h3722,_h3717,_h3809)),','(compVulnExists(_h3716,_h3724,_h3735),assert_trace(because(4,rule_desc('Compromised by method invocation of compromised component',4),isCompromised(_h3716,_h3717),[compVulnExists(_h3716,_h3724,_h3735),isCompromised(_h3722,_h3717),canInvoke(_h3722,_h3716,_h3724,_h3717)])))))).
+
+:-(mvTrc(isCompromised(_h3716,_h3717,5)),','(mvTrc(canInvoke(_h3722,_h3716,_h3724,_h3717,_h3768)),','(externalVulnerability(_h3716,_h3731),','(vulnType(_h3731),assert_trace(because(5,rule_desc('Compromised by method invocation of compromised component',4),isCompromised(_h3716,_h3717),[vulnType(_h3731),externalVulnerability(_h3716,_h3731),canInvoke(_h3722,_h3716,_h3724,_h3717)])))))).
+
+:-(mvTrc(isCompromised(_h3716,_h3717,6)),','(isComponent(_h3716,_h3717),','(externalVulnerability(_h3716,_h3729),','(externalInterface(_h3716),assert_trace(because(6,rule_desc('Compromised By External Interface',4),isCompromised(_h3716,_h3717),[externalInterface(_h3716),externalVulnerability(_h3716,_h3729),isComponent(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE19(_h3716,_h3717,7)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe19),','(vulnType(cwe19),assert_trace(because(7,rule_desc('CWE19 Is possible',7),canCWE19(_h3716,_h3717),[vulnType(cwe19),compVulnExists(_h3716,_h3729,cwe19),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE19(_h3716,_h3717,8)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe19),','(vulnType(cwe19),assert_trace(because(8,rule_desc('CWE19 Is possible',7),canCWE19(_h3716,_h3717),[vulnType(cwe19),externalVulnerability(_h3716,cwe19),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE20(_h3716,_h3717,9)),','(mvTrc(isCompromised(_h3722,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe20),','(vulnType(cwe20),assert_trace(because(9,rule_desc('CWE20 Is possible',8),canCWE20(_h3716,_h3717),[vulnType(cwe20),compVulnExists(_h3716,_h3729,cwe20),isCompromised(_h3722,_h3717)])))))).
+
+:-(mvTrc(canCWE20(_h3716,_h3717,10)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe20),','(vulnType(cwe20),assert_trace(because(10,rule_desc('CWE20 Is possible',7),canCWE20(_h3716,_h3717),[vulnType(cwe20),externalVulnerability(_h3716,cwe20),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE78(_h3716,_h3717,11)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe78),','(vulnType(cwe78),assert_trace(because(11,rule_desc('CWE78 possible',9),canCWE78(_h3716,_h3717),[vulnType(cwe78),compVulnExists(_h3716,_h3729,cwe78),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE78(_h3716,_h3717,12)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe19),','(vulnType(cwe78),assert_trace(because(12,rule_desc('CWE78 Is possible',7),canCWE78(_h3716,_h3717),[vulnType(cwe78),externalVulnerability(_h3716,cwe19),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE79(_h3716,_h3717,13)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe79),','(vulnType(cwe79),assert_trace(because(13,rule_desc('CWE79 Is possible',10),canCWE79(_h3716,_h3717),[vulnType(cwe79),compVulnExists(_h3716,_h3729,cwe79),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE79(_h3716,_h3717,14)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe79),','(vulnType(cwe79),assert_trace(because(14,rule_desc('CWE79 Is possible',7),canCWE79(_h3716,_h3717),[vulnType(cwe79),externalVulnerability(_h3716,cwe79),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE89(_h3716,_h3717,15)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe89),','(vulnType(cwe89),assert_trace(because(15,rule_desc('CWE89 Is possible',12),canCWE89(_h3716,_h3717),[vulnType(cwe89),compVulnExists(_h3716,_h3729,cwe89),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE89(_h3716,_h3717,16)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe89),','(vulnType(cwe89),assert_trace(because(16,rule_desc('CWE89 Is possible',7),canCWE89(_h3716,_h3717),[vulnType(cwe89),externalVulnerability(_h3716,cwe89),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE93(_h3716,_h3717,17)),','(mvTrc(isCompromised(_h3722,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe93),','(vulnType(cwe93),assert_trace(because(17,rule_desc('CWE93 Is possible',13),canCWE93(_h3716,_h3717),[vulnType(cwe93),compVulnExists(_h3716,_h3729,cwe93),isCompromised(_h3722,_h3717)])))))).
+
+:-(mvTrc(canCWE93(_h3716,_h3717,18)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe93),','(vulnType(cwe93),assert_trace(because(18,rule_desc('CWE93 Is possible',7),canCWE93(_h3716,_h3717),[vulnType(cwe93),externalVulnerability(_h3716,cwe93),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE98(_h3716,_h3717,19)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe98),','(vulnType(cwe98),assert_trace(because(19,rule_desc('CWE98 possible',14),canCWE98(_h3716,_h3717),[vulnType(cwe98),compVulnExists(_h3716,_h3729,cwe98),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE98(_h3716,_h3717,20)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe98),','(vulnType(cwe98),assert_trace(because(20,rule_desc('CWE79 Is possible',7),canCWE98(_h3716,_h3717),[vulnType(cwe98),externalVulnerability(_h3716,cwe98),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE119(_h3716,_h3717,21)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe119),','(vulnType(cwe119),assert_trace(because(21,rule_desc('CWE93 Is possible',15),canCWE119(_h3716,_h3717),[vulnType(cwe119),compVulnExists(_h3716,_h3729,cwe119),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE119(_h3716,_h3717,22)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe119),','(vulnType(cwe119),assert_trace(because(22,rule_desc('CWE119 Is possible',7),canCWE119(_h3716,_h3717),[vulnType(cwe119),externalVulnerability(_h3716,cwe119),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE200(_h3716,_h3717,23)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe200),','(vulnType(cwe200),assert_trace(because(23,rule_desc('CWE200 possible',17),canCWE200(_h3716,_h3717),[vulnType(cwe200),compVulnExists(_h3716,_h3729,cwe200),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE200(_h3716,_h3717,24)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe200),','(vulnType(cwe200),assert_trace(because(24,rule_desc('CWE200 Is possible',7),canCWE200(_h3716,_h3717),[vulnType(cwe200),externalVulnerability(_h3716,cwe200),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE264(_h3716,_h3717,25)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe264),','(vulnType(cwe264),assert_trace(because(25,rule_desc('CWE264 Is possible',18),canCWE264(_h3716,_h3717),[vulnType(cwe264),compVulnExists(_h3716,_h3729,cwe264),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE264(_h3716,_h3717,26)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe264),','(vulnType(cwe264),assert_trace(because(26,rule_desc('CWE264 Is possible',7),canCWE264(_h3716,_h3717),[vulnType(cwe264),externalVulnerability(_h3716,cwe264),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE284(_h3716,_h3717,27)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe284),','(vulnType(cwe284),assert_trace(because(27,rule_desc('CWE284 Is possible',19),canCWE284(_h3716,_h3717),[vulnType(cwe284),compVulnExists(_h3716,_h3729,cwe284),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE284(_h3716,_h3717,28)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe284),','(vulnType(cwe284),assert_trace(because(28,rule_desc('CWE284 Is possible',7),canCWE284(_h3716,_h3717),[vulnType(cwe284),externalVulnerability(_h3716,cwe284),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE287(_h3716,_h3717,29)),','(mvTrc(isCompromised(_h3722,_h3717,_h3766)),','(compVulnExists(_h3716,cwe287),','(vulnType(cwe287),assert_trace(because(29,rule_desc('CWE287 Is possible',20),canCWE287(_h3716,_h3717),[vulnType(cwe287),compVulnExists(_h3716,cwe287),isCompromised(_h3722,_h3717)])))))).
+
+:-(mvTrc(canCWE287(_h3716,_h3717,30)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe287),','(vulnType(cwe287),assert_trace(because(30,rule_desc('CWE287 Is possible',7),canCWE287(_h3716,_h3717),[vulnType(cwe287),externalVulnerability(_h3716,cwe287),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE310(_h3716,_h3717,31)),','(mvTrc(isCompromised(_h3722,_h3717,_h3766)),','(compVulnExists(_h3716,cwe310),','(vulnType(cwe310),assert_trace(because(31,rule_desc('CWE310 Is possible',21),canCWE310(_h3716,_h3717),[vulnType(cwe310),compVulnExists(_h3716,cwe310),isCompromised(_h3722,_h3717)])))))).
+
+:-(mvTrc(canCWE310(_h3716,_h3717,32)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe310),','(vulnType(cwe310),assert_trace(because(32,rule_desc('CWE310 Is possible',7),canCWE310(_h3716,_h3717),[vulnType(cwe310),externalVulnerability(_h3716,cwe310),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE362(_h3716,_h3717,33)),','(mvTrc(isCompromised(_h3722,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe362),','(vulnType(cwe362),assert_trace(because(33,rule_desc('CWE362 Is possible',22),canCWE362(_h3716,_h3717),[vulnType(cwe362),compVulnExists(_h3716,_h3729,cwe362),isCompromised(_h3722,_h3717)])))))).
+
+:-(mvTrc(canCWE362(_h3716,_h3717,34)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe362),','(vulnType(cwe362),assert_trace(because(34,rule_desc('CWE79 Is possible',7),canCWE362(_h3716,_h3717),[vulnType(cwe362),externalVulnerability(_h3716,cwe362),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE384(_h3716,_h3717,35)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe384),','(vulnType(cwe384),assert_trace(because(35,rule_desc('CWE384 possible',23),canCWE384(_h3716,_h3717),[vulnType(cwe384),compVulnExists(_h3716,_h3729,cwe384),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE384(_h3716,_h3717,36)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe384),','(vulnType(cwe384),assert_trace(because(36,rule_desc('CWE384 Is possible',7),canCWE384(_h3716,_h3717),[vulnType(cwe384),externalVulnerability(_h3716,cwe384),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE399(_h3716,_h3717,37)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe399),','(vulnType(cwe399),assert_trace(because(37,rule_desc('CWE399 Is possible',24),canCWE399(_h3716,_h3717),[vulnType(cwe399),compVulnExists(_h3716,_h3729,cwe399),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE393(_h3716,_h3717,38)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe399),','(vulnType(cwe399),assert_trace(because(38,rule_desc('CWE399 Is possible',7),canCWE393(_h3716,_h3717),[vulnType(cwe399),externalVulnerability(_h3716,cwe399),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE416(_h3716,_h3717,39)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe416),','(vulnType(cwe416),assert_trace(because(39,rule_desc('CWE416 Is possible',25),canCWE416(_h3716,_h3717),[vulnType(cwe416),compVulnExists(_h3716,_h3729,cwe416),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE416(_h3716,_h3717,40)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe416),','(vulnType(cwe416),assert_trace(because(40,rule_desc('CWE416 Is possible',7),canCWE416(_h3716,_h3717),[vulnType(cwe416),externalVulnerability(_h3716,cwe416),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE476(_h3716,_h3717,41)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe476),','(vulnType(cwe476),assert_trace(because(41,rule_desc('CWE476 Is possible',26),canCWE476(_h3716,_h3717),[vulnType(cwe476),compVulnExists(_h3716,_h3729,cwe476),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE476(_h3716,_h3717,42)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe476),','(vulnType(cwe476),assert_trace(because(42,rule_desc('CWE476 Is possible',7),canCWE476(_h3716,_h3717),[vulnType(cwe476),externalVulnerability(_h3716,cwe476),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE601(_h3716,_h3717,43)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe601),','(vulnType(cwe601),assert_trace(because(43,rule_desc('CWE601 possible',27),canCWE601(_h3716,_h3717),[vulnType(cwe601),compVulnExists(_h3716,_h3729,cwe601),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE601(_h3716,_h3717,44)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe601),','(vulnType(cwe601),assert_trace(because(44,rule_desc('CWE601 Is possible',7),canCWE601(_h3716,_h3717),[vulnType(cwe601),externalVulnerability(_h3716,cwe601),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE787(_h3716,_h3717,45)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe787),','(vulnType(cwe787),assert_trace(because(45,rule_desc('CWE787 Is possible',28),canCWE787(_h3716,_h3717),[vulnType(cwe787),compVulnExists(_h3716,_h3729,cwe787),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE787(_h3716,_h3717,46)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe787),','(vulnType(cwe787),assert_trace(because(46,rule_desc('CWE787 Is possible',7),canCWE787(_h3716,_h3717),[vulnType(cwe787),externalVulnerability(_h3716,cwe787),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE862(_h3716,_h3717,47)),','(mvTrc(isCompromised(_h3716,_h3717,_h3767)),','(compVulnExists(_h3716,_h3729,cwe862),','(vulnType(cwe862),assert_trace(because(47,rule_desc('CWE862 possible',29),canCWE862(_h3716,_h3717),[vulnType(cwe862),compVulnExists(_h3716,_h3729,cwe862),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(canCWE862(_h3716,_h3717,48)),','(mvTrc(isCompromised(_h3716,_h3717,_h3766)),','(externalVulnerability(_h3716,cwe862),','(vulnType(cwe862),assert_trace(because(48,rule_desc('CWE862 Is possible',7),canCWE862(_h3716,_h3717),[vulnType(cwe862),externalVulnerability(_h3716,cwe862),isCompromised(_h3716,_h3717)])))))).
+
+:-(mvTrc(httpRSpl(_h3716,_h3717,49)),','(mvTrc(canCWE19(_h3716,_h3717,_h3764)),assert_trace(because(49,rule_desc('Http Resource Spill',30),httpRSpl(_h3716,_h3717),[canCWE19(_h3716,_h3717)])))).
+
+:-(mvTrc(httpRSpl(_h3716,_h3717,50)),','(mvTrc(canCWE93(_h3716,_h3717,_h3764)),assert_trace(because(50,rule_desc('Http Resource Spill',30),httpRSpl(_h3716,_h3717),[canCWE93(_h3716,_h3717)])))).
+
+:-(mvTrc(dos(_h3716,_h3717,51)),','(mvTrc(canCWE20(_h3716,_h3717,_h3764)),assert_trace(because(51,rule_desc('dos attack by improper input validation',30),dos(_h3716,_h3717),[canCWE20(_h3716,_h3717)])))).
+
+:-(mvTrc(dos(_h3716,_h3717,52)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(52,rule_desc('dos attack by race condition',31),dos(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(dos(_h3716,_h3717,53)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(53,rule_desc('dos attack by resource managment error',32),dos(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(dos(_h3716,_h3717,54)),','(mvTrc(canCWE787(_h3716,_h3717,_h3764)),assert_trace(because(54,rule_desc('dos attack by out of bounds write',33),dos(_h3716,_h3717),[canCWE787(_h3716,_h3717)])))).
+
+:-(mvTrc(informationDiscosure(_h3716,_h3717,55)),','(mvTrc(canCWE20(_h3716,_h3717,_h3764)),assert_trace(because(55,rule_desc('Information Disclosure by Improper Input Validation',34),informationDiscosure(_h3716,_h3717),[canCWE20(_h3716,_h3717)])))).
+
+:-(mvTrc(informationDiscosure(_h3716,_h3717,56)),','(mvTrc(canCWE200(_h3716,_h3717,_h3764)),assert_trace(because(56,rule_desc('Information Disclosure by Information Exposure',35),informationDiscosure(_h3716,_h3717),[canCWE200(_h3716,_h3717)])))).
+
+:-(mvTrc(informationDiscosure(_h3716,_h3717,57)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(57,rule_desc('Information Disclosure via Race Condition',36),informationDiscosure(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(commandInjection(_h3716,_h3717,58)),','(mvTrc(canCWE78(_h3716,_h3717,_h3764)),assert_trace(because(58,rule_desc('Command Injection via OS',37),commandInjection(_h3716,_h3717),[canCWE78(_h3716,_h3717)])))).
+
+:-(mvTrc(xss(_h3716,_h3717,59)),','(mvTrc(canCWE78(_h3716,_h3717,_h3764)),assert_trace(because(59,rule_desc('cross site scripting ',38),xss(_h3716,_h3717),[canCWE78(_h3716,_h3717)])))).
+
+:-(mvTrc(sqlInjection(_h3716,_h3717,60)),','(mvTrc(canCWE89(_h3716,_h3717,_h3764)),assert_trace(because(60,rule_desc('sql injection vuln',39),sqlInjection(_h3716,_h3717),[canCWE89(_h3716,_h3717)])))).
+
+:-(mvTrc(fileInclusion(_h3716,_h3717,61)),','(mvTrc(canCWE98(_h3716,_h3717,_h3764)),assert_trace(because(61,rule_desc('Php File Inclusion',40),fileInclusion(_h3716,_h3717),[canCWE98(_h3716,_h3717)])))).
+
+:-(mvTrc(overflow(_h3716,_h3717,62)),','(mvTrc(canCWE119(_h3716,_h3717,_h3764)),assert_trace(because(62,rule_desc('Overflow by out of bounds operation',41),overflow(_h3716,_h3717),[canCWE119(_h3716,_h3717)])))).
+
+:-(mvTrc(overflow(_h3716,_h3717,63)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(63,rule_desc('Overflow by race condition',42),overflow(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(unauthorizedAccess(_h3716,_h3717,64)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(64,rule_desc('unauthorized Access by Improper Access Control',43),unauthorizedAccess(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(bypass(_h3716,_h3717,65)),','(mvTrc(canCWE264(_h3716,_h3717,_h3764)),assert_trace(because(65,rule_desc('bypassing permision, access control or privilege',44),bypass(_h3716,_h3717),[canCWE264(_h3716,_h3717)])))).
+
+:-(mvTrc(bypass(_h3716,_h3717,66)),','(mvTrc(canCWE264(_h3716,_h3717,_h3764)),assert_trace(because(66,rule_desc('bypassing through improper authentication',45),bypass(_h3716,_h3717),[canCWE264(_h3716,_h3717)])))).
+
+:-(mvTrc(sessionFixation(_h3716,_h3717,67)),','(mvTrc(canCWE384(_h3716,_h3717,_h3764)),assert_trace(because(67,rule_desc('Session Fixation',46),sessionFixation(_h3716,_h3717),[canCWE384(_h3716,_h3717)])))).
+
+:-(mvTrc(crash(_h3716,_h3717,68)),','(mvTrc(canCWE416(_h3716,_h3717,_h3764)),assert_trace(because(68,rule_desc('crash  by use after free',47),crash(_h3716,_h3717),[canCWE416(_h3716,_h3717)])))).
+
+:-(mvTrc(crash(_h3716,_h3717,69)),','(mvTrc(canCWE476(_h3716,_h3717,_h3764)),assert_trace(because(69,rule_desc('crash  by NULL pointer dereference',48),crash(_h3716,_h3717),[canCWE476(_h3716,_h3717)])))).
+
+:-(mvTrc(headerInjection(_h3716,_h3717,70)),','(mvTrc(canCWE601(_h3716,_h3717,_h3764)),assert_trace(because(70,rule_desc('header injection by open redirection',49),headerInjection(_h3716,_h3717),[canCWE601(_h3716,_h3717)])))).
+
+:-(mvTrc(idor(_h3716,_h3717,71)),','(mvTrc(canCWE862(_h3716,_h3717,_h3764)),assert_trace(because(71,rule_desc('idor by missing authorization',50),idor(_h3716,_h3717),[canCWE862(_h3716,_h3717)])))).
+
+:-(mvTrc(codeExecution(_h3716,_h3717,72)),','(mvTrc(canCWE89(_h3716,_h3717,_h3764)),assert_trace(because(72,rule_desc('Code Execution via SQL Injection',50),codeExecution(_h3716,_h3717),[canCWE89(_h3716,_h3717)])))).
+
+:-(mvTrc(codeExecution(_h3716,_h3717,73)),','(mvTrc(canCWE119(_h3716,_h3717,_h3764)),assert_trace(because(73,rule_desc('Code Execution by out of bounds operation',50),codeExecution(_h3716,_h3717),[canCWE119(_h3716,_h3717)])))).
+
+:-(mvTrc(codeExecution(_h3716,_h3717,74)),','(mvTrc(canCWE362(_h3716,_h3717,_h3764)),assert_trace(because(74,rule_desc('Code Execution by race condition',50),codeExecution(_h3716,_h3717),[canCWE362(_h3716,_h3717)])))).
+
+:-(mvTrc(codeExecution(_h3716,_h3717,75)),','(mvTrc(canCWE416(_h3716,_h3717,_h3764)),assert_trace(because(75,rule_desc('Code Execution by use after free',50),codeExecution(_h3716,_h3717),[canCWE416(_h3716,_h3717)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,76)),','(mvTrc(informationDiscosure(_h3716,_h3719,_h3763)),assert_trace(because(76,rule_desc('Loss of Confidentiality due to information disclosure',55),confidentialityCompromised(_h3716),[informationDiscosure(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,77)),','(mvTrc(codeExecution(_h3716,_h3719,_h3763)),assert_trace(because(77,rule_desc('Loss of Confidentiality due to Code Execution',55),confidentialityCompromised(_h3716),[codeExecution(_h3716,_h3719)])))).
+
+:-(mvTrc(integrityCompromised(_h3716,78)),','(mvTrc(codeExecution(_h3716,_h3719,_h3763)),assert_trace(because(78,rule_desc('Loss of Confidentiality due to Code Execution',55),integrityCompromised(_h3716),[codeExecution(_h3716,_h3719)])))).
+
+:-(mvTrc(availabilityCompromised(_h3716,79)),','(mvTrc(codeExecution(_h3716,_h3719,_h3763)),assert_trace(because(79,rule_desc('Loss of Confidentiality due to Code Execution',55),availabilityCompromised(_h3716),[codeExecution(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,80)),','(mvTrc(unauthorizedAccess(_h3716,_h3719,_h3763)),assert_trace(because(80,rule_desc('Loss of Confidentiality due to unauthorized access',56),confidentialityCompromised(_h3716),[unauthorizedAccess(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,81)),','(mvTrc(idor(_h3716,_h3719,_h3763)),assert_trace(because(81,rule_desc('Loss of Confidentiality due to idor',57),confidentialityCompromised(_h3716),[idor(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,82)),','(mvTrc(sessionFixation(_h3716,_h3719,_h3763)),assert_trace(because(82,rule_desc('Loss of Confidentiality due to information disclosure',58),confidentialityCompromised(_h3716),[sessionFixation(_h3716,_h3719)])))).
+
+:-(mvTrc(integrityCompromised(_h3716,83)),','(mvTrc(headerInjection(_h3716,_h3719,_h3763)),assert_trace(because(83,rule_desc('Loss of Integrity due to Header Injection',60),integrityCompromised(_h3716),[headerInjection(_h3716,_h3719)])))).
+
+:-(mvTrc(integrityCompromised(_h3716,84)),','(mvTrc(fileInclusion(_h3716,_h3719,_h3763)),assert_trace(because(84,rule_desc('Loss of Integrity due to Command Injection',62),integrityCompromised(_h3716),[fileInclusion(_h3716,_h3719)])))).
+
+:-(mvTrc(availabilityCompromised(_h3716,85)),','(mvTrc(dos(_h3716,_h3719,_h3763)),assert_trace(because(85,rule_desc('Loss of Availability due to Denial of Service',63),availabilityCompromised(_h3716),[dos(_h3716,_h3719)])))).
+
+:-(mvTrc(availabilityCompromised(_h3716,86)),','(mvTrc(crash(_h3716,_h3719,_h3763)),assert_trace(because(86,rule_desc('Loss of Availability due to Crash',64),availabilityCompromised(_h3716),[crash(_h3716,_h3719)])))).
+
+:-(mvTrc(maliciousSite(s1,_h3717,87)),','(mvTrc(codeExecution(s1,_h3717,_h3761)),','(mvTrc(fileInclusion(s1,_h3726,_h3799)),assert_trace(because(87,rule_desc('Malicious Page Inclusion',50),maliciousSite(s1,_h3717),[fileInclusion(s1,_h3726),codeExecution(s1,_h3717)]))))).
+
+:-(mvTrc(maliciousSite(s1,_h3717,88)),','(mvTrc(commandInjection(s1,_h3717,_h3761)),','(mvTrc(fileInclusion(s1,_h3717,_h3799)),assert_trace(because(88,rule_desc('Malicious Page Inclusion',50),maliciousSite(s1,_h3717),[fileInclusion(s1,_h3717),commandInjection(s1,_h3717)]))))).
+
+:-(mvTrc(dataExtraction(s1,_h3717,89)),','(mvTrc(informationDiscosure(s1,_h3717,_h3761)),','(mvTrc(idor(s1,_h3717,_h3799)),assert_trace(because(89,rule_desc('Disclosing file through idor',50),dataExtraction(s1,_h3717),[idor(s1,_h3717),informationDiscosure(s1,_h3717)]))))).
+
+:-(mvTrc(newsInjection(s1,_h3717,90)),','(mvTrc(sqlInjection(mysql,_h3717,_h3761)),','(mvTrc(fileInclusion(s1,_h3717,_h3799)),assert_trace(because(90,rule_desc('Injecting File via SQLInjection',50),newsInjection(s1,_h3717),[fileInclusion(s1,_h3717),sqlInjection(mysql,_h3717)]))))).
+
+:-(mvTrc(newsInjection(s1,_h3717,91)),','(mvTrc(codeExecution(mysql,_h3717,_h3761)),','(mvTrc(fileInclusion(s1,_h3717,_h3799)),assert_trace(because(91,rule_desc('Injecting File via code execution and xss',50),newsInjection(s1,_h3717),[fileInclusion(s1,_h3717),codeExecution(mysql,_h3717)]))))).
+
+:-(mvTrc(maliciousRedirect(lbproxy,_h3717,92)),','(mvTrc(headerInjection(s1,_h3717,_h3761)),','(mvTrc(httpRSpl(lbproxy,_h3717,_h3799)),assert_trace(because(92,rule_desc('Malicious redirection via header injection and httpRSpl',50),maliciousRedirect(lbproxy,_h3717),[httpRSpl(lbproxy,_h3717),headerInjection(s1,_h3717)]))))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,93)),','(mvTrc(maliciousSite(_h3716,_h3719,_h3763)),assert_trace(because(93,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55),confidentialityCompromised(_h3716),[maliciousSite(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,94)),','(mvTrc(dataExtraction(_h3716,_h3719,_h3763)),assert_trace(because(94,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55),confidentialityCompromised(_h3716),[dataExtraction(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,95)),','(mvTrc(newsInjection(_h3716,_h3719,_h3763)),assert_trace(because(95,rule_desc('Loss of Confidentiality due to Malicious Page Injection',55),confidentialityCompromised(_h3716),[newsInjection(_h3716,_h3719)])))).
+
+:-(mvTrc(integrityCompromised(_h3716,96)),','(mvTrc(newsInjection(_h3716,_h3719,_h3763)),assert_trace(because(96,rule_desc('Loss of Integrity due to News Injection',55),integrityCompromised(_h3716),[newsInjection(_h3716,_h3719)])))).
+
+:-(mvTrc(confidentialityCompromised(_h3716,97)),','(mvTrc(maliciousRedirect(_h3716,_h3719,_h3763)),assert_trace(because(97,rule_desc('Loss of Confidentiality due to Malicious Redirect',55),confidentialityCompromised(_h3716),[maliciousRedirect(_h3716,_h3719)])))).
+
+:-(mvTrc(integrityCompromised(_h3716,98)),','(mvTrc(maliciousRedirect(_h3716,_h3719,_h3763)),assert_trace(because(98,rule_desc('Loss of Integrity due to Malicious  Redirect',55),integrityCompromised(_h3716),[maliciousRedirect(_h3716,_h3719)])))).
+
+:-(mvTrc(systemCompromised(_h3716,99)),','(mvTrc(integrityCompromised(_h3716,_h3762)),assert_trace(because(99,rule_desc('System Compromised due to Integrity being compromised',65),systemCompromised(_h3716),[integrityCompromised(_h3716)])))).
+
+:-(mvTrc(systemCompromised(_h3716,100)),','(mvTrc(confidentialityCompromised(_h3716,_h3762)),assert_trace(because(100,rule_desc('System Compromised due to Confidentiality being compromised',66),systemCompromised(_h3716),[confidentialityCompromised(_h3716)])))).
+
+:-(mvTrc(systemCompromised(_h3716,101)),','(mvTrc(availabilityCompromised(_h3716,_h3762)),assert_trace(because(101,rule_desc('System Compromised due to Availability being compromised',67),systemCompromised(_h3716),[availabilityCompromised(_h3716)])))).
+
+:-(mvTrc(systemDown(_h3716,102)),','(mvTrc(systemCompromised(_h3721,_h3758)),','(theSystem(_h3716),assert_trace(because(102,rule_desc('Blame Component',1),systemDown(_h3716),[theSystem(_h3716),systemCompromised(_h3721)]))))).
+

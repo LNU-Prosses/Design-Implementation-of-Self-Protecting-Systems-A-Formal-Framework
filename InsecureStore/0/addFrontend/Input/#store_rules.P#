@@ -1,0 +1,260 @@
+x/******************************************************/
+/****       Primitive Predicates                  *****/
+/******************************************************/
+
+primitive(adaptationConfiguration(_configuration)).
+/*Adaptation Steps*/
+primitive(adaptationStep(_prev,_next)).
+
+/*internal component vulnerabilities*/
+primitive(isComponent(_component,_step)).
+primitive(vulnType(_vulnType)).
+primitive(methodInvocation(_methodName,_compFrom,_compTo,_step)).
+primitive(compVulnExists(_component,_methodName,_vulnType)).
+
+/*external component vulnerabilities*/
+primitive(extComponent(_component)).
+primitive(externalVulnerability(_extComponent,_vulnType)).
+
+/*Interfacing internal to externalComponents */
+primitive(canCauseExternalVulnerability(_intComponent,_vulnType,_method)).
+primitive(externalInvocation(_extComponent,_intComponent,_method)).
+primitive(attackerLocated(_component,_adaptationStep)).
+meta(attackGoal(_)).
+
+/*External Components being accessible outside the managed system*/
+primitive(externalInterface(_excomponent)).
+
+
+/* The system predicate for aggregation trick */
+primitive(theSystem(_system)).
+
+/******************************************************/
+/****       Derived Predicates                  *****/
+/******************************************************/
+
+/*Exploitation Phase*/
+derived(canInvoke(_compFrom, _compTo,_methodName,_adaptationStep)).
+derived(isCompromised(_component,_adaptationStep,_reason)).
+
+
+/*Vulnerabilities Enabling Attacks to InsecureDocumentStore*/
+derived(canInjectCommand(_component,_adaptationStep)).
+derived(canXSS(_component,_adaptationStep)).
+derived(badConfiguration(_component,_adaptationStep)).
+derived(canPrivEsc(_component,_adaptationStep)).
+derived(canSpoofUsr(_component,_adaptationStep)).
+/*Concrete Attacks to the Store */
+derived(canLeakDoc(_component,_adaptationStep)).
+derived(canDeleteDoc(_component,_adaptationStep)).
+derived(canFakeDoc(_component,_adaptationStep)).
+
+/* Effects of attacks to InsecureDocumentStore */
+derived(confidentialityCompromised(_component)).
+derived(integrityCompromised(_component)).
+derived(availabilityCompromised(_component)).
+derived(systemCompromised(_component)).
+/* Trick to gather all causes for the system's downfal */
+derived(systemDown(_system)).
+
+
+/******************************************************/
+/****         Tabling Predicates                  *****/
+/*   All derived predicates should be tabled          */
+/******************************************************/
+/* Exploit Chains*/
+:- table isCompromised/3.
+:- table canInvoke/4.
+/* Vulns */
+:- table canInjectCommand/1.
+:- table canXSS/1.
+:- table canPrivEsc/2.
+:- table badConfiguration/2.
+:- table canSpoofUsr/2.
+/* Attacks */
+:- table canLeakDoc/2.
+:- table canDeleteDoc/2.
+:- table canFakeDoc/2.
+/* Effects */
+:- table confidentialityCompromised/1.
+:- table integrityCompromised/1.
+:- table availabilityCompromised/1.
+:- table systemCompromised/1.
+:- table systeDown/1.
+
+
+/******************************************************/
+/****         Interaction Rules                   *****/
+/******************************************************/
+
+
+
+
+
+
+
+/****** Section  canInvoke*******/
+interaction_rule(
+    (canInvoke(CompFrom, CompTo,MethodName,AS) :-
+	 canInvoke(CompFrom,CompNext,_,AS),
+	 canInvoke(CompNext,CompTo,MethodName,AS)),
+    rule_desc('Indirect Method Invocation',1)).
+
+
+interaction_rule(
+    (canInvoke(CompFrom,CompTo,MethodName,AS) :-
+	 methodInvocation(MethodName,CompFrom,CompTo,AS)),
+    rule_desc('Direct Method Invocation', 2)).
+
+
+/******** Section isCompromised ********/
+
+interaction_rule(
+    (isCompromised(Component,AS,entrypoint):-
+	 attackerLocated(Component,AS)),
+    rule_desc('Attacker Controlled Component',3)).
+
+interaction_rule(
+    (isCompromised(Component,AS,Reason):-
+	 isCompromised(Component,ASP,Reason),
+	 isComponent(Component,AS),
+	 adaptationStep(ASP,AS)),
+    rule_desc('Compromised in Past',3)).
+
+
+
+interaction_rule(
+    (
+	isCompromised(Component,AS,MethodName):-
+	    canInvoke(ComponentPrev,Component,MethodName,AS),
+	    isCompromised(ComponentPrev,AS,_),
+	    compVulnExists(Component,MethodName,_)),
+    rule_desc('Compromised by method invocation of compromised component',4)).
+
+
+/**** Section can* refering to vulnerability enablement ****/
+interaction_rule(
+    (canXSS(Component,AS):-
+	 isCompromised(Component,AS,Reason),
+	 compVulnExists(Component,_,xss),
+	 vulnType(xss))
+    ,rule_desc('XSS possible',1)).
+
+interaction_rule(
+    (canInjectCommand(Component,AS):-
+	 isCompromised(Component,AS,Reason),
+	 compVulnExists(Component,_,sqlinjection),
+	 vulnType(sqlinjection))
+    ,rule_desc('SQL Injection possible',1)).
+
+interaction_rule(
+    (canAuthBypass(Component,AS):-
+	 isCompromised(Component,AS,Reason),
+	 compVulnExists(Component,_,authbypass),
+	 vulnType(authbypass))
+    ,rule_desc('Authentication bypassing is possible',1)).
+
+
+interaction_rule(
+    (canInjectCommand(Component,AS):-
+	 isCompromised(Component,AS,Reason),
+	 compVulnExists(Component,_,cmdinjection),
+	 vulnType(cmdinjection))
+    ,rule_desc('Command Injection possible',1)).
+
+
+interaction_rule(
+		 (badConfiguration(Component):-
+	 externalVulnerability(Component,badConfig),
+	 vulnType(badConfig))
+		 ,rule_desc('Bad external component Configuration',1)).
+
+
+
+
+
+
+interaction_rule(
+    (canPrivEsc(Component,AS):-
+	 canInjectCommand(Component,AS))
+    ,rule_desc('Privilege Escalation due to SQLInjection and BadConfiguration',1)).
+
+interaction_rule(
+    (canPrivEsc(Component,AS):-
+	 canInjectCommand(Component,AS),
+	 isComponent(Component,AS))
+    ,rule_desc('Privilege Escalation due to SQLInjection only in internal component',1)).
+
+
+interaction_rule(
+    (canSpoofUsr(Component,AS):-
+	 canPrivEsc(Component,AS)
+    )
+    ,rule_desc('User Spoofing Due to Privilege Escalation',1)).
+
+/**** Section Concrete Attacks *****/
+interaction_rule(
+    (canLeakDoc(Component,AS):-
+	 canPrivEsc(Component,AS))
+    ,rule_desc('DocumentLeakage Due to Privilege Escalation',1)).
+
+interaction_rule(
+    (canDeleteDoc(Component,AS):-
+	 canSpoofUsr(Component,AS),
+	 canLeakDoc(Component,AS))
+    ,rule_desc('DocumentDeletion Due to Privilege Escalation and Document Leakage',1)).
+
+interaction_rule(
+    (canFakeDoc(Component,AS):-
+	 canInjectCommand(Component,AS),
+	 badConfiguration(Component))
+    ,rule_desc('Making/Tampering with a document due to bad config and injection',1)).
+
+/**** Section Attack Effects *****/
+
+
+interaction_rule(
+    (
+	confidentialityCompromised(Component):-
+	    canLeakDoc(Component,_)
+    )
+    ,rule_desc('Loss of Confidentiality due to documentLeak',1)).
+
+interaction_rule(
+    (
+	integrityCompromised(Component):-
+	    canDeleteDoc(Component,_)
+    )
+    ,rule_desc('Loss of Confidentiality due to documentDeletion',1)).
+
+interaction_rule(
+    (
+	integrityCompromised(Component):-
+	    canFakeDoc(Component,_)
+    )
+    ,rule_desc('Loss of Confidentiality due to documentDeletion',1)).
+
+/***** Section System Down => AttackGoal *****/
+
+interaction_rule(
+    (
+	systemCompromised(Component):-
+	    integrityCompromised(Component)
+    )
+    ,rule_desc('System Compromised due to Integrity being compromised',1)).
+
+
+interaction_rule(
+    (
+	systemCompromised(Component):-
+	    confidentialityCompromised(Component)
+    )
+    ,rule_desc('System Compromised due to Confidentiality being compromised',1)).
+
+interaction_rule(
+    (
+	systemDown(System):-
+	      systemCompromised(_any),
+		 theSystem(System)
+    )
+    ,rule_desc('Blame Component',1)).

@@ -1,0 +1,1139 @@
+1,"systemDown(_)","OR",0
+2,"RULE 102 (Blame Component)","AND",0
+3,"theSystem(_)","LEAF",1
+2,3,-1
+4,"systemCompromised(c0)","OR",0
+5,"RULE 100 (System Compromised due to Confidentiality being compromised)","AND",0
+6,"confidentialityCompromised(c0)","OR",0
+7,"RULE 76 (Loss of Confidentiality due to information disclosure)","AND",0
+8,"informationDiscosure(c0,0)","OR",0
+9,"RULE 55 (Information Disclosure by Improper Input Validation)","AND",0
+10,"canCWE20(c0,0)","OR",0
+11,"RULE 9 (CWE20 Is possible)","AND",0
+12,"vulnType(cwe20)","LEAF",1
+11,12,-1
+13,"compVulnExists(c0,connect,cwe20)","LEAF",1
+11,13,-1
+14,"isCompromised(c0,0)","OR",0
+15,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+16,"compVulnExists(c0,connect,cwe19)","LEAF",1
+15,16,-1
+17,"isCompromised(web,0)","OR",0
+18,"RULE 2 (Attacker Controlled Component)","AND",0
+19,"attackerLocated(web,0)","LEAF",1
+18,19,-1
+17,18,-1
+15,17,-1
+20,"canInvoke(web,c0,connect,0)","OR",0
+21,"RULE 1 (Direct Method Invocation)","AND",0
+22,"methodInvocation(web,c0,connect,0)","LEAF",1
+21,22,-1
+20,21,-1
+15,20,-1
+14,15,-1
+23,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+23,13,-1
+23,17,-1
+23,20,-1
+14,23,-1
+24,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+25,"compVulnExists(c0,connect,cwe264)","LEAF",1
+24,25,-1
+24,17,-1
+24,20,-1
+14,24,-1
+26,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+27,"compVulnExists(c0,connect,cwe287)","LEAF",1
+26,27,-1
+26,17,-1
+26,20,-1
+14,26,-1
+28,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+29,"compVulnExists(c0,connect,cwe310)","LEAF",1
+28,29,-1
+28,17,-1
+28,20,-1
+14,28,-1
+30,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+31,"compVulnExists(c0,connect,cwe362)","LEAF",1
+30,31,-1
+30,17,-1
+30,20,-1
+14,30,-1
+32,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+33,"compVulnExists(c0,connect,cwe399)","LEAF",1
+32,33,-1
+32,17,-1
+32,20,-1
+14,32,-1
+34,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+35,"compVulnExists(c0,connect,cwe416)","LEAF",1
+34,35,-1
+34,17,-1
+34,20,-1
+14,34,-1
+36,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+37,"compVulnExists(c0,connect,cwe476)","LEAF",1
+36,37,-1
+36,17,-1
+36,20,-1
+14,36,-1
+38,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+39,"compVulnExists(c0,connect,cwe787)","LEAF",1
+38,39,-1
+38,17,-1
+38,20,-1
+14,38,-1
+40,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+41,"compVulnExists(c0,connect,cwe79)","LEAF",1
+40,41,-1
+40,17,-1
+40,20,-1
+14,40,-1
+42,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+43,"compVulnExists(c0,connect,cwe93)","LEAF",1
+42,43,-1
+42,17,-1
+42,20,-1
+14,42,-1
+11,14,-1
+10,11,-1
+44,"RULE 9 (CWE20 Is possible)","AND",0
+44,12,-1
+44,13,-1
+45,"isCompromised(lbproxy,0)","OR",0
+46,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+47,"vulnType(cwe19)","LEAF",1
+46,47,-1
+48,"externalVulnerability(lbproxy,cwe19)","LEAF",1
+46,48,-1
+49,"canInvoke(c0,lbproxy,conn,0)","OR",0
+50,"RULE 1 (Direct Method Invocation)","AND",0
+51,"methodInvocation(c0,lbproxy,conn,0)","LEAF",1
+50,51,-1
+49,50,-1
+46,49,-1
+45,46,-1
+52,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+52,47,-1
+52,48,-1
+53,"canInvoke(web,lbproxy,conn,0)","OR",0
+54,"RULE 0 (Indirect Method Invocation)","AND",0
+54,49,-1
+54,20,-1
+53,54,-1
+52,53,-1
+45,52,-1
+55,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+55,12,-1
+56,"externalVulnerability(lbproxy,cwe20)","LEAF",1
+55,56,-1
+55,49,-1
+45,55,-1
+57,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+57,12,-1
+57,56,-1
+57,53,-1
+45,57,-1
+58,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+59,"vulnType(cwe264)","LEAF",1
+58,59,-1
+60,"externalVulnerability(lbproxy,cwe264)","LEAF",1
+58,60,-1
+58,49,-1
+45,58,-1
+61,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+61,59,-1
+61,60,-1
+61,53,-1
+45,61,-1
+62,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+63,"vulnType(cwe287)","LEAF",1
+62,63,-1
+64,"externalVulnerability(lbproxy,cwe287)","LEAF",1
+62,64,-1
+62,49,-1
+45,62,-1
+65,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+65,63,-1
+65,64,-1
+65,53,-1
+45,65,-1
+66,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+67,"vulnType(cwe310)","LEAF",1
+66,67,-1
+68,"externalVulnerability(lbproxy,cwe310)","LEAF",1
+66,68,-1
+66,49,-1
+45,66,-1
+69,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+69,67,-1
+69,68,-1
+69,53,-1
+45,69,-1
+70,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+71,"vulnType(cwe362)","LEAF",1
+70,71,-1
+72,"externalVulnerability(lbproxy,cwe362)","LEAF",1
+70,72,-1
+70,49,-1
+45,70,-1
+73,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+73,71,-1
+73,72,-1
+73,53,-1
+45,73,-1
+74,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+75,"vulnType(cwe399)","LEAF",1
+74,75,-1
+76,"externalVulnerability(lbproxy,cwe399)","LEAF",1
+74,76,-1
+74,49,-1
+45,74,-1
+77,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+77,75,-1
+77,76,-1
+77,53,-1
+45,77,-1
+78,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+79,"vulnType(cwe416)","LEAF",1
+78,79,-1
+80,"externalVulnerability(lbproxy,cwe416)","LEAF",1
+78,80,-1
+78,49,-1
+45,78,-1
+81,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+81,79,-1
+81,80,-1
+81,53,-1
+45,81,-1
+82,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+83,"vulnType(cwe476)","LEAF",1
+82,83,-1
+84,"externalVulnerability(lbproxy,cwe476)","LEAF",1
+82,84,-1
+82,49,-1
+45,82,-1
+85,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+85,83,-1
+85,84,-1
+85,53,-1
+45,85,-1
+86,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+87,"vulnType(cwe787)","LEAF",1
+86,87,-1
+88,"externalVulnerability(lbproxy,cwe787)","LEAF",1
+86,88,-1
+86,49,-1
+45,86,-1
+89,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+89,87,-1
+89,88,-1
+89,53,-1
+45,89,-1
+90,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+91,"vulnType(cwe79)","LEAF",1
+90,91,-1
+92,"externalVulnerability(lbproxy,cwe79)","LEAF",1
+90,92,-1
+90,49,-1
+45,90,-1
+93,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+93,91,-1
+93,92,-1
+93,53,-1
+45,93,-1
+94,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+95,"vulnType(cwe93)","LEAF",1
+94,95,-1
+96,"externalVulnerability(lbproxy,cwe93)","LEAF",1
+94,96,-1
+94,49,-1
+45,94,-1
+97,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+97,95,-1
+97,96,-1
+97,53,-1
+45,97,-1
+98,"RULE 6 (Compromised By External Interface)","AND",0
+99,"externalInterface(lbproxy)","LEAF",1
+98,99,-1
+98,48,-1
+100,"isComponent(lbproxy,0)","LEAF",1
+98,100,-1
+45,98,-1
+101,"RULE 6 (Compromised By External Interface)","AND",0
+101,99,-1
+101,56,-1
+101,100,-1
+45,101,-1
+102,"RULE 6 (Compromised By External Interface)","AND",0
+102,99,-1
+102,60,-1
+102,100,-1
+45,102,-1
+103,"RULE 6 (Compromised By External Interface)","AND",0
+103,99,-1
+103,64,-1
+103,100,-1
+45,103,-1
+104,"RULE 6 (Compromised By External Interface)","AND",0
+104,99,-1
+104,68,-1
+104,100,-1
+45,104,-1
+105,"RULE 6 (Compromised By External Interface)","AND",0
+105,99,-1
+105,72,-1
+105,100,-1
+45,105,-1
+106,"RULE 6 (Compromised By External Interface)","AND",0
+106,99,-1
+106,76,-1
+106,100,-1
+45,106,-1
+107,"RULE 6 (Compromised By External Interface)","AND",0
+107,99,-1
+107,80,-1
+107,100,-1
+45,107,-1
+108,"RULE 6 (Compromised By External Interface)","AND",0
+108,99,-1
+108,84,-1
+108,100,-1
+45,108,-1
+109,"RULE 6 (Compromised By External Interface)","AND",0
+109,99,-1
+109,88,-1
+109,100,-1
+45,109,-1
+110,"RULE 6 (Compromised By External Interface)","AND",0
+110,99,-1
+110,92,-1
+110,100,-1
+45,110,-1
+111,"RULE 6 (Compromised By External Interface)","AND",0
+111,99,-1
+111,96,-1
+111,100,-1
+45,111,-1
+44,45,-1
+10,44,-1
+112,"RULE 9 (CWE20 Is possible)","AND",0
+112,12,-1
+112,13,-1
+113,"isCompromised(mysql,0)","OR",0
+114,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+115,"compVulnExists(mysql,load,cwe200)","LEAF",1
+114,115,-1
+114,14,-1
+116,"canInvoke(c0,mysql,load,0)","OR",0
+117,"RULE 0 (Indirect Method Invocation)","AND",0
+118,"canInvoke(lbproxy,mysql,load,0)","OR",0
+119,"RULE 0 (Indirect Method Invocation)","AND",0
+120,"canInvoke(s0,mysql,load,0)","OR",0
+121,"RULE 1 (Direct Method Invocation)","AND",0
+122,"methodInvocation(s0,mysql,load,0)","LEAF",1
+121,122,-1
+120,121,-1
+119,120,-1
+123,"canInvoke(lbproxy,s0,conn,0)","OR",0
+124,"RULE 1 (Direct Method Invocation)","AND",0
+125,"methodInvocation(lbproxy,s0,conn,0)","LEAF",1
+124,125,-1
+123,124,-1
+119,123,-1
+118,119,-1
+117,118,-1
+117,49,-1
+116,117,-1
+126,"RULE 0 (Indirect Method Invocation)","AND",0
+126,120,-1
+127,"canInvoke(c0,s0,conn,0)","OR",0
+128,"RULE 0 (Indirect Method Invocation)","AND",0
+128,123,-1
+128,49,-1
+127,128,-1
+126,127,-1
+116,126,-1
+129,"RULE 0 (Indirect Method Invocation)","AND",0
+129,120,-1
+130,"canInvoke(c0,s0,echo,0)","OR",0
+131,"RULE 1 (Direct Method Invocation)","AND",0
+132,"methodInvocation(c0,s0,echo,0)","LEAF",1
+131,132,-1
+130,131,-1
+129,130,-1
+116,129,-1
+133,"RULE 0 (Indirect Method Invocation)","AND",0
+133,120,-1
+134,"canInvoke(c0,s0,fgets,0)","OR",0
+135,"RULE 1 (Direct Method Invocation)","AND",0
+136,"methodInvocation(c0,s0,fgets,0)","LEAF",1
+135,136,-1
+134,135,-1
+133,134,-1
+116,133,-1
+137,"RULE 0 (Indirect Method Invocation)","AND",0
+137,120,-1
+138,"canInvoke(c0,s0,header,0)","OR",0
+139,"RULE 1 (Direct Method Invocation)","AND",0
+140,"methodInvocation(c0,s0,header,0)","LEAF",1
+139,140,-1
+138,139,-1
+137,138,-1
+116,137,-1
+141,"RULE 0 (Indirect Method Invocation)","AND",0
+141,120,-1
+142,"canInvoke(c0,s0,imagecreatefrompng,0)","OR",0
+143,"RULE 1 (Direct Method Invocation)","AND",0
+144,"methodInvocation(c0,s0,imagecreatefrompng,0)","LEAF",1
+143,144,-1
+142,143,-1
+141,142,-1
+116,141,-1
+145,"RULE 0 (Indirect Method Invocation)","AND",0
+145,120,-1
+146,"canInvoke(c0,s0,include,0)","OR",0
+147,"RULE 1 (Direct Method Invocation)","AND",0
+148,"methodInvocation(c0,s0,include,0)","LEAF",1
+147,148,-1
+146,147,-1
+145,146,-1
+116,145,-1
+149,"RULE 0 (Indirect Method Invocation)","AND",0
+149,120,-1
+150,"canInvoke(c0,s0,setcookie,0)","OR",0
+151,"RULE 1 (Direct Method Invocation)","AND",0
+152,"methodInvocation(c0,s0,setcookie,0)","LEAF",1
+151,152,-1
+150,151,-1
+149,150,-1
+116,149,-1
+153,"RULE 0 (Indirect Method Invocation)","AND",0
+153,120,-1
+154,"canInvoke(c0,s0,shell_exec,0)","OR",0
+155,"RULE 1 (Direct Method Invocation)","AND",0
+156,"methodInvocation(c0,s0,shell_exec,0)","LEAF",1
+155,156,-1
+154,155,-1
+153,154,-1
+116,153,-1
+114,116,-1
+113,114,-1
+157,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+157,115,-1
+157,45,-1
+157,118,-1
+113,157,-1
+158,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+158,115,-1
+159,"isCompromised(s0,0)","OR",0
+160,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+161,"compVulnExists(s0,echo,cwe79)","LEAF",1
+160,161,-1
+160,14,-1
+160,130,-1
+159,160,-1
+162,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+162,161,-1
+162,17,-1
+163,"canInvoke(web,s0,echo,0)","OR",0
+164,"RULE 0 (Indirect Method Invocation)","AND",0
+164,130,-1
+164,20,-1
+163,164,-1
+162,163,-1
+159,162,-1
+165,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+166,"compVulnExists(s0,fgets,cwe200)","LEAF",1
+165,166,-1
+165,14,-1
+165,134,-1
+159,165,-1
+167,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+167,166,-1
+167,17,-1
+168,"canInvoke(web,s0,fgets,0)","OR",0
+169,"RULE 0 (Indirect Method Invocation)","AND",0
+169,134,-1
+169,20,-1
+168,169,-1
+167,168,-1
+159,167,-1
+170,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+171,"compVulnExists(s0,header,cwe601)","LEAF",1
+170,171,-1
+170,14,-1
+170,138,-1
+159,170,-1
+172,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+172,171,-1
+172,17,-1
+173,"canInvoke(web,s0,header,0)","OR",0
+174,"RULE 0 (Indirect Method Invocation)","AND",0
+174,138,-1
+174,20,-1
+173,174,-1
+172,173,-1
+159,172,-1
+175,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+176,"compVulnExists(s0,imagecreatefrompng,cwe200)","LEAF",1
+175,176,-1
+175,14,-1
+175,142,-1
+159,175,-1
+177,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+177,176,-1
+177,17,-1
+178,"canInvoke(web,s0,imagecreatefrompng,0)","OR",0
+179,"RULE 0 (Indirect Method Invocation)","AND",0
+179,142,-1
+179,20,-1
+178,179,-1
+177,178,-1
+159,177,-1
+180,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+181,"compVulnExists(s0,include,cwe98)","LEAF",1
+180,181,-1
+180,14,-1
+180,146,-1
+159,180,-1
+182,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+182,181,-1
+182,17,-1
+183,"canInvoke(web,s0,include,0)","OR",0
+184,"RULE 0 (Indirect Method Invocation)","AND",0
+184,146,-1
+184,20,-1
+183,184,-1
+182,183,-1
+159,182,-1
+185,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+186,"compVulnExists(s0,setcookie,cwe384)","LEAF",1
+185,186,-1
+185,14,-1
+185,150,-1
+159,185,-1
+187,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+187,186,-1
+187,17,-1
+188,"canInvoke(web,s0,setcookie,0)","OR",0
+189,"RULE 0 (Indirect Method Invocation)","AND",0
+189,150,-1
+189,20,-1
+188,189,-1
+187,188,-1
+159,187,-1
+190,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+191,"compVulnExists(s0,shell_exec,cwe78)","LEAF",1
+190,191,-1
+190,14,-1
+190,154,-1
+159,190,-1
+192,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+192,191,-1
+192,17,-1
+193,"canInvoke(web,s0,shell_exec,0)","OR",0
+194,"RULE 0 (Indirect Method Invocation)","AND",0
+194,154,-1
+194,20,-1
+193,194,-1
+192,193,-1
+159,192,-1
+158,159,-1
+158,120,-1
+113,158,-1
+195,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+195,115,-1
+195,17,-1
+196,"canInvoke(web,mysql,load,0)","OR",0
+197,"RULE 0 (Indirect Method Invocation)","AND",0
+197,116,-1
+197,20,-1
+196,197,-1
+198,"RULE 0 (Indirect Method Invocation)","AND",0
+198,118,-1
+198,53,-1
+196,198,-1
+199,"RULE 0 (Indirect Method Invocation)","AND",0
+199,120,-1
+200,"canInvoke(web,s0,conn,0)","OR",0
+201,"RULE 0 (Indirect Method Invocation)","AND",0
+201,127,-1
+201,20,-1
+200,201,-1
+202,"RULE 0 (Indirect Method Invocation)","AND",0
+202,123,-1
+202,53,-1
+200,202,-1
+199,200,-1
+196,199,-1
+203,"RULE 0 (Indirect Method Invocation)","AND",0
+203,120,-1
+203,163,-1
+196,203,-1
+204,"RULE 0 (Indirect Method Invocation)","AND",0
+204,120,-1
+204,168,-1
+196,204,-1
+205,"RULE 0 (Indirect Method Invocation)","AND",0
+205,120,-1
+205,173,-1
+196,205,-1
+206,"RULE 0 (Indirect Method Invocation)","AND",0
+206,120,-1
+206,178,-1
+196,206,-1
+207,"RULE 0 (Indirect Method Invocation)","AND",0
+207,120,-1
+207,183,-1
+196,207,-1
+208,"RULE 0 (Indirect Method Invocation)","AND",0
+208,120,-1
+208,188,-1
+196,208,-1
+209,"RULE 0 (Indirect Method Invocation)","AND",0
+209,120,-1
+209,193,-1
+196,209,-1
+195,196,-1
+113,195,-1
+210,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+211,"compVulnExists(mysql,load,cwe284)","LEAF",1
+210,211,-1
+210,14,-1
+210,116,-1
+113,210,-1
+212,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+212,211,-1
+212,45,-1
+212,118,-1
+113,212,-1
+213,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+213,211,-1
+213,159,-1
+213,120,-1
+113,213,-1
+214,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+214,211,-1
+214,17,-1
+214,196,-1
+113,214,-1
+215,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+216,"compVulnExists(mysql,load,cwe89)","LEAF",1
+215,216,-1
+215,14,-1
+215,116,-1
+113,215,-1
+217,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+217,216,-1
+217,45,-1
+217,118,-1
+113,217,-1
+218,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+218,216,-1
+218,159,-1
+218,120,-1
+113,218,-1
+219,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+219,216,-1
+219,17,-1
+219,196,-1
+113,219,-1
+220,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+221,"compVulnExists(mysql,load,dwe119)","LEAF",1
+220,221,-1
+220,14,-1
+220,116,-1
+113,220,-1
+222,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+222,221,-1
+222,45,-1
+222,118,-1
+113,222,-1
+223,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+223,221,-1
+223,159,-1
+223,120,-1
+113,223,-1
+224,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+224,221,-1
+224,17,-1
+224,196,-1
+113,224,-1
+225,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+226,"vulnType(cwe119)","LEAF",1
+225,226,-1
+227,"externalVulnerability(mysql,cwe119)","LEAF",1
+225,227,-1
+225,116,-1
+113,225,-1
+228,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+228,226,-1
+228,227,-1
+228,118,-1
+113,228,-1
+229,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+229,226,-1
+229,227,-1
+229,120,-1
+113,229,-1
+230,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+230,226,-1
+230,227,-1
+230,196,-1
+113,230,-1
+231,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+232,"vulnType(cwe200)","LEAF",1
+231,232,-1
+233,"externalVulnerability(mysql,cwe200)","LEAF",1
+231,233,-1
+231,116,-1
+113,231,-1
+234,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+234,232,-1
+234,233,-1
+234,118,-1
+113,234,-1
+235,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+235,232,-1
+235,233,-1
+235,120,-1
+113,235,-1
+236,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+236,232,-1
+236,233,-1
+236,196,-1
+113,236,-1
+237,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+238,"vulnType(cwe89)","LEAF",1
+237,238,-1
+239,"externalVulnerability(mysql,cwe89)","LEAF",1
+237,239,-1
+237,116,-1
+113,237,-1
+240,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+240,238,-1
+240,239,-1
+240,118,-1
+113,240,-1
+241,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+241,238,-1
+241,239,-1
+241,120,-1
+113,241,-1
+242,"RULE 5 (Compromised by method invocation of compromised component)","AND",0
+242,238,-1
+242,239,-1
+242,196,-1
+113,242,-1
+243,"RULE 6 (Compromised By External Interface)","AND",0
+244,"externalInterface(mysql)","LEAF",1
+243,244,-1
+243,227,-1
+245,"isComponent(mysql,0)","LEAF",1
+243,245,-1
+113,243,-1
+246,"RULE 6 (Compromised By External Interface)","AND",0
+246,244,-1
+246,233,-1
+246,245,-1
+113,246,-1
+247,"RULE 6 (Compromised By External Interface)","AND",0
+247,244,-1
+247,239,-1
+247,245,-1
+113,247,-1
+112,113,-1
+10,112,-1
+248,"RULE 9 (CWE20 Is possible)","AND",0
+248,12,-1
+248,13,-1
+248,159,-1
+10,248,-1
+249,"RULE 9 (CWE20 Is possible)","AND",0
+249,12,-1
+249,13,-1
+249,17,-1
+10,249,-1
+9,10,-1
+8,9,-1
+250,"RULE 57 (Information Disclosure via Race Condition)","AND",0
+251,"canCWE362(c0,0)","OR",0
+252,"RULE 33 (CWE362 Is possible)","AND",0
+252,71,-1
+252,31,-1
+252,14,-1
+251,252,-1
+253,"RULE 33 (CWE362 Is possible)","AND",0
+253,71,-1
+253,31,-1
+253,45,-1
+251,253,-1
+254,"RULE 33 (CWE362 Is possible)","AND",0
+254,71,-1
+254,31,-1
+254,113,-1
+251,254,-1
+255,"RULE 33 (CWE362 Is possible)","AND",0
+255,71,-1
+255,31,-1
+255,159,-1
+251,255,-1
+256,"RULE 33 (CWE362 Is possible)","AND",0
+256,71,-1
+256,31,-1
+256,17,-1
+251,256,-1
+250,251,-1
+8,250,-1
+7,8,-1
+6,7,-1
+257,"RULE 77 (Loss of Confidentiality due to Code Execution)","AND",0
+258,"codeExecution(c0,0)","OR",0
+259,"RULE 74 (Code Execution by race condition)","AND",0
+259,251,-1
+258,259,-1
+260,"RULE 75 (Code Execution by use after free)","AND",0
+261,"canCWE416(c0,0)","OR",0
+262,"RULE 39 (CWE416 Is possible)","AND",0
+262,79,-1
+262,35,-1
+262,14,-1
+261,262,-1
+260,261,-1
+258,260,-1
+257,258,-1
+6,257,-1
+263,"RULE 80 (Loss of Confidentiality due to unauthorized access)","AND",0
+264,"unauthorizedAccess(c0,0)","OR",0
+265,"RULE 64 (unauthorized Access by Improper Access Control)","AND",0
+265,251,-1
+264,265,-1
+263,264,-1
+6,263,-1
+5,6,-1
+4,5,-1
+266,"RULE 101 (System Compromised due to Availability being compromised)","AND",0
+267,"availabilityCompromised(c0)","OR",0
+268,"RULE 79 (Loss of Confidentiality due to Code Execution)","AND",0
+268,258,-1
+267,268,-1
+269,"RULE 85 (Loss of Availability due to Denial of Service)","AND",0
+270,"dos(c0,0)","OR",0
+271,"RULE 51 (dos attack by improper input validation)","AND",0
+271,10,-1
+270,271,-1
+272,"RULE 52 (dos attack by race condition)","AND",0
+272,251,-1
+270,272,-1
+273,"RULE 53 (dos attack by resource managment error)","AND",0
+273,251,-1
+270,273,-1
+274,"RULE 54 (dos attack by out of bounds write)","AND",0
+275,"canCWE787(c0,0)","OR",0
+276,"RULE 45 (CWE787 Is possible)","AND",0
+276,87,-1
+276,39,-1
+276,14,-1
+275,276,-1
+274,275,-1
+270,274,-1
+269,270,-1
+267,269,-1
+277,"RULE 86 (Loss of Availability due to Crash)","AND",0
+278,"crash(c0,0)","OR",0
+279,"RULE 68 (crash by use after free)","AND",0
+279,261,-1
+278,279,-1
+280,"RULE 69 (crash by NULL pointer dereference)","AND",0
+281,"canCWE476(c0,0)","OR",0
+282,"RULE 41 (CWE476 Is possible)","AND",0
+282,83,-1
+282,37,-1
+282,14,-1
+281,282,-1
+280,281,-1
+278,280,-1
+277,278,-1
+267,277,-1
+266,267,-1
+4,266,-1
+283,"RULE 99 (System Compromised due to Integrity being compromised)","AND",0
+284,"integrityCompromised(c0)","OR",0
+285,"RULE 78 (Loss of Confidentiality due to Code Execution)","AND",0
+285,258,-1
+284,285,-1
+283,284,-1
+4,283,-1
+2,4,-1
+1,2,-1
+286,"RULE 102 (Blame Component)","AND",0
+286,3,-1
+287,"systemCompromised(lbproxy)","OR",0
+288,"RULE 100 (System Compromised due to Confidentiality being compromised)","AND",0
+289,"confidentialityCompromised(lbproxy)","OR",0
+290,"RULE 76 (Loss of Confidentiality due to information disclosure)","AND",0
+291,"informationDiscosure(lbproxy,0)","OR",0
+292,"RULE 55 (Information Disclosure by Improper Input Validation)","AND",0
+293,"canCWE20(lbproxy,0)","OR",0
+294,"RULE 10 (CWE20 Is possible)","AND",0
+294,12,-1
+294,56,-1
+294,45,-1
+293,294,-1
+292,293,-1
+291,292,-1
+295,"RULE 57 (Information Disclosure via Race Condition)","AND",0
+296,"canCWE362(lbproxy,0)","OR",0
+297,"RULE 34 (CWE79 Is possible)","AND",0
+297,71,-1
+297,72,-1
+297,45,-1
+296,297,-1
+295,296,-1
+291,295,-1
+290,291,-1
+289,290,-1
+298,"RULE 77 (Loss of Confidentiality due to Code Execution)","AND",0
+299,"codeExecution(lbproxy,0)","OR",0
+300,"RULE 74 (Code Execution by race condition)","AND",0
+300,296,-1
+299,300,-1
+301,"RULE 75 (Code Execution by use after free)","AND",0
+302,"canCWE416(lbproxy,0)","OR",0
+303,"RULE 40 (CWE416 Is possible)","AND",0
+303,79,-1
+303,80,-1
+303,45,-1
+302,303,-1
+301,302,-1
+299,301,-1
+298,299,-1
+289,298,-1
+304,"RULE 80 (Loss of Confidentiality due to unauthorized access)","AND",0
+305,"unauthorizedAccess(lbproxy,0)","OR",0
+306,"RULE 64 (unauthorized Access by Improper Access Control)","AND",0
+306,296,-1
+305,306,-1
+304,305,-1
+289,304,-1
+288,289,-1
+287,288,-1
+307,"RULE 101 (System Compromised due to Availability being compromised)","AND",0
+308,"availabilityCompromised(lbproxy)","OR",0
+309,"RULE 79 (Loss of Confidentiality due to Code Execution)","AND",0
+309,299,-1
+308,309,-1
+310,"RULE 85 (Loss of Availability due to Denial of Service)","AND",0
+311,"dos(lbproxy,0)","OR",0
+312,"RULE 51 (dos attack by improper input validation)","AND",0
+312,293,-1
+311,312,-1
+313,"RULE 52 (dos attack by race condition)","AND",0
+313,296,-1
+311,313,-1
+314,"RULE 53 (dos attack by resource managment error)","AND",0
+314,296,-1
+311,314,-1
+315,"RULE 54 (dos attack by out of bounds write)","AND",0
+316,"canCWE787(lbproxy,0)","OR",0
+317,"RULE 46 (CWE787 Is possible)","AND",0
+317,87,-1
+317,88,-1
+317,45,-1
+316,317,-1
+315,316,-1
+311,315,-1
+310,311,-1
+308,310,-1
+318,"RULE 86 (Loss of Availability due to Crash)","AND",0
+319,"crash(lbproxy,0)","OR",0
+320,"RULE 68 (crash by use after free)","AND",0
+320,302,-1
+319,320,-1
+321,"RULE 69 (crash by NULL pointer dereference)","AND",0
+322,"canCWE476(lbproxy,0)","OR",0
+323,"RULE 42 (CWE476 Is possible)","AND",0
+323,83,-1
+323,84,-1
+323,45,-1
+322,323,-1
+321,322,-1
+319,321,-1
+318,319,-1
+308,318,-1
+307,308,-1
+287,307,-1
+324,"RULE 99 (System Compromised due to Integrity being compromised)","AND",0
+325,"integrityCompromised(lbproxy)","OR",0
+326,"RULE 78 (Loss of Confidentiality due to Code Execution)","AND",0
+326,299,-1
+325,326,-1
+324,325,-1
+287,324,-1
+286,287,-1
+1,286,-1
+327,"RULE 102 (Blame Component)","AND",0
+327,3,-1
+328,"systemCompromised(mysql)","OR",0
+329,"RULE 100 (System Compromised due to Confidentiality being compromised)","AND",0
+330,"confidentialityCompromised(mysql)","OR",0
+331,"RULE 76 (Loss of Confidentiality due to information disclosure)","AND",0
+332,"informationDiscosure(mysql,0)","OR",0
+333,"RULE 56 (Information Disclosure by Information Exposure)","AND",0
+334,"canCWE200(mysql,0)","OR",0
+335,"RULE 23 (CWE200 possible)","AND",0
+335,232,-1
+335,115,-1
+335,113,-1
+334,335,-1
+336,"RULE 24 (CWE200 Is possible)","AND",0
+336,232,-1
+336,233,-1
+336,113,-1
+334,336,-1
+333,334,-1
+332,333,-1
+331,332,-1
+330,331,-1
+337,"RULE 77 (Loss of Confidentiality due to Code Execution)","AND",0
+338,"codeExecution(mysql,0)","OR",0
+339,"RULE 72 (Code Execution via SQL Injection)","AND",0
+340,"canCWE89(mysql,0)","OR",0
+341,"RULE 15 (CWE89 Is possible)","AND",0
+341,238,-1
+341,216,-1
+341,113,-1
+340,341,-1
+342,"RULE 16 (CWE89 Is possible)","AND",0
+342,238,-1
+342,239,-1
+342,113,-1
+340,342,-1
+339,340,-1
+338,339,-1
+343,"RULE 73 (Code Execution by out of bounds operation)","AND",0
+344,"canCWE119(mysql,0)","OR",0
+345,"RULE 22 (CWE119 Is possible)","AND",0
+345,226,-1
+345,227,-1
+345,113,-1
+344,345,-1
+343,344,-1
+338,343,-1
+337,338,-1
+330,337,-1
+329,330,-1
+328,329,-1
+346,"RULE 101 (System Compromised due to Availability being compromised)","AND",0
+347,"availabilityCompromised(mysql)","OR",0
+348,"RULE 79 (Loss of Confidentiality due to Code Execution)","AND",0
+348,338,-1
+347,348,-1
+346,347,-1
+328,346,-1
+349,"RULE 99 (System Compromised due to Integrity being compromised)","AND",0
+350,"integrityCompromised(mysql)","OR",0
+351,"RULE 78 (Loss of Confidentiality due to Code Execution)","AND",0
+351,338,-1
+350,351,-1
+349,350,-1
+328,349,-1
+327,328,-1
+1,327,-1
+352,"RULE 102 (Blame Component)","AND",0
+352,3,-1
+353,"systemCompromised(s0)","OR",0
+354,"RULE 100 (System Compromised due to Confidentiality being compromised)","AND",0
+355,"confidentialityCompromised(s0)","OR",0
+356,"RULE 76 (Loss of Confidentiality due to information disclosure)","AND",0
+357,"informationDiscosure(s0,0)","OR",0
+358,"RULE 56 (Information Disclosure by Information Exposure)","AND",0
+359,"canCWE200(s0,0)","OR",0
+360,"RULE 23 (CWE200 possible)","AND",0
+360,232,-1
+360,166,-1
+360,159,-1
+359,360,-1
+361,"RULE 23 (CWE200 possible)","AND",0
+361,232,-1
+362,"compVulnExists(s0,imagecreatefromgif,cwe200)","LEAF",1
+361,362,-1
+361,159,-1
+359,361,-1
+363,"RULE 23 (CWE200 possible)","AND",0
+363,232,-1
+363,176,-1
+363,159,-1
+359,363,-1
+358,359,-1
+357,358,-1
+356,357,-1
+355,356,-1
+364,"RULE 81 (Loss of Confidentiality due to idor)","AND",0
+365,"idor(s0,0)","OR",0
+366,"RULE 71 (idor by missing authorization)","AND",0
+367,"canCWE862(s0,0)","OR",0
+368,"RULE 47 (CWE862 possible)","AND",0
+369,"vulnType(cwe862)","LEAF",1
+368,369,-1
+370,"compVulnExists(s0,fopen,cwe862)","LEAF",1
+368,370,-1
+368,159,-1
+367,368,-1
+366,367,-1
+365,366,-1
+364,365,-1
+355,364,-1
+371,"RULE 82 (Loss of Confidentiality due to information disclosure)","AND",0
+372,"sessionFixation(s0,0)","OR",0
+373,"RULE 67 (Session Fixation)","AND",0
+374,"canCWE384(s0,0)","OR",0
+375,"RULE 35 (CWE384 possible)","AND",0
+376,"vulnType(cwe384)","LEAF",1
+375,376,-1
+375,186,-1
+375,159,-1
+374,375,-1
+373,374,-1
+372,373,-1
+371,372,-1
+355,371,-1
+354,355,-1
+353,354,-1
+377,"RULE 99 (System Compromised due to Integrity being compromised)","AND",0
+378,"integrityCompromised(s0)","OR",0
+379,"RULE 83 (Loss of Integrity due to Header Injection)","AND",0
+380,"headerInjection(s0,0)","OR",0
+381,"RULE 70 (header injection by open redirection)","AND",0
+382,"canCWE601(s0,0)","OR",0
+383,"RULE 43 (CWE601 possible)","AND",0
+384,"vulnType(cwe601)","LEAF",1
+383,384,-1
+383,171,-1
+383,159,-1
+382,383,-1
+381,382,-1
+380,381,-1
+379,380,-1
+378,379,-1
+385,"RULE 84 (Loss of Integrity due to Command Injection)","AND",0
+386,"fileInclusion(s0,0)","OR",0
+387,"RULE 61 (Php File Inclusion)","AND",0
+388,"canCWE98(s0,0)","OR",0
+389,"RULE 19 (CWE98 possible)","AND",0
+390,"vulnType(cwe98)","LEAF",1
+389,390,-1
+389,181,-1
+389,159,-1
+388,389,-1
+387,388,-1
+386,387,-1
+385,386,-1
+378,385,-1
+377,378,-1
+353,377,-1
+352,353,-1
+1,352,-1

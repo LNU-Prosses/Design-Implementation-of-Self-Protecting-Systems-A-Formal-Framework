@@ -1,0 +1,1306 @@
+1,"systemDown(insecureDocumentStore)","OR",0
+2,"RULE 21 (Blame Component)","AND",0
+3,"theSystem(insecureDocumentStore)","LEAF",1
+2,3,-1
+4,"systemCompromised(accountManager)","OR",0
+5,"RULE 19 (System Compromised due to Integrity being compromised)","AND",0
+6,"integrityCompromised(accountManager)","OR",0
+7,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+8,"canDeleteDoc(accountManager,0)","OR",0
+9,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+10,"canLeakDoc(accountManager,0)","OR",0
+11,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+12,"canPrivEsc(accountManager,0)","OR",0
+13,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+14,"canInjectCommand(accountManager,0)","OR",0
+15,"RULE 6 (SQL Injection possible)","AND",0
+16,"vulnType(sqlinjection)","LEAF",1
+15,16,-1
+17,"compVulnExists(accountManager,userLookUp,sqlinjection)","LEAF",1
+15,17,-1
+18,"isCompromised(accountManager,0,userLookUp)","OR",0
+19,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+19,17,-1
+20,"isCompromised(backend,0,login)","OR",0
+21,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+22,"compVulnExists(backend,login,sqlinjection)","LEAF",1
+21,22,-1
+23,"isCompromised(frontend0,0,connect)","OR",0
+24,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+25,"compVulnExists(frontend0,connect,authbypass)","LEAF",1
+24,25,-1
+26,"isCompromised(web,0,entrypoint)","OR",0
+27,"RULE 2 (Attacker Controlled Component)","AND",0
+28,"attackerLocated(web,0)","LEAF",1
+27,28,-1
+26,27,-1
+24,26,-1
+29,"canInvoke(web,frontend0,connect,0)","OR",0
+30,"RULE 1 (Direct Method Invocation)","AND",0
+31,"methodInvocation(connect,web,frontend0,0)","LEAF",1
+30,31,-1
+29,30,-1
+24,29,-1
+23,24,-1
+21,23,-1
+32,"canInvoke(frontend0,backend,login,0)","OR",0
+33,"RULE 1 (Direct Method Invocation)","AND",0
+34,"methodInvocation(login,frontend0,backend,0)","LEAF",1
+33,34,-1
+32,33,-1
+21,32,-1
+20,21,-1
+35,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+35,22,-1
+35,26,-1
+36,"canInvoke(web,backend,login,0)","OR",0
+37,"RULE 0 (Indirect Method Invocation)","AND",0
+37,32,-1
+37,29,-1
+36,37,-1
+35,36,-1
+20,35,-1
+19,20,-1
+38,"canInvoke(backend,accountManager,userLookUp,0)","OR",0
+39,"RULE 1 (Direct Method Invocation)","AND",0
+40,"methodInvocation(userLookUp,backend,accountManager,0)","LEAF",1
+39,40,-1
+38,39,-1
+19,38,-1
+18,19,-1
+41,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+41,17,-1
+41,23,-1
+42,"canInvoke(frontend0,accountManager,userLookUp,0)","OR",0
+43,"RULE 0 (Indirect Method Invocation)","AND",0
+43,38,-1
+43,32,-1
+42,43,-1
+41,42,-1
+18,41,-1
+44,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+44,17,-1
+44,26,-1
+45,"canInvoke(web,accountManager,userLookUp,0)","OR",0
+46,"RULE 0 (Indirect Method Invocation)","AND",0
+46,38,-1
+46,36,-1
+45,46,-1
+47,"RULE 0 (Indirect Method Invocation)","AND",0
+47,42,-1
+47,29,-1
+45,47,-1
+44,45,-1
+18,44,-1
+15,18,-1
+14,15,-1
+13,14,-1
+12,13,-1
+48,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+49,"isComponent(accountManager,0)","LEAF",1
+48,49,-1
+48,14,-1
+12,48,-1
+11,12,-1
+10,11,-1
+9,10,-1
+50,"canSpoofUsr(accountManager,0)","OR",0
+51,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+51,12,-1
+50,51,-1
+9,50,-1
+8,9,-1
+7,8,-1
+6,7,-1
+52,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+53,"canDeleteDoc(accountManager,1)","OR",0
+54,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+55,"canLeakDoc(accountManager,1)","OR",0
+56,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+57,"canPrivEsc(accountManager,1)","OR",0
+58,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+59,"canInjectCommand(accountManager,1)","OR",0
+60,"RULE 6 (SQL Injection possible)","AND",0
+60,16,-1
+60,17,-1
+61,"isCompromised(accountManager,1,userLookUp)","OR",0
+62,"RULE 3 (Compromised in Past)","AND",0
+63,"adaptationStep(0,1)","LEAF",1
+62,63,-1
+64,"isComponent(accountManager,1)","LEAF",1
+62,64,-1
+62,18,-1
+61,62,-1
+65,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+65,17,-1
+66,"isCompromised(backend,1,login)","OR",0
+67,"RULE 3 (Compromised in Past)","AND",0
+67,63,-1
+68,"isComponent(backend,1)","LEAF",1
+67,68,-1
+67,20,-1
+66,67,-1
+69,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+69,22,-1
+70,"isCompromised(frontend0,1,connect)","OR",0
+71,"RULE 3 (Compromised in Past)","AND",0
+71,63,-1
+72,"isComponent(frontend0,1)","LEAF",1
+71,72,-1
+71,23,-1
+70,71,-1
+73,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+73,25,-1
+74,"isCompromised(web,1,entrypoint)","OR",0
+75,"RULE 3 (Compromised in Past)","AND",0
+75,63,-1
+76,"isComponent(web,1)","LEAF",1
+75,76,-1
+75,26,-1
+74,75,-1
+73,74,-1
+77,"canInvoke(web,frontend0,connect,1)","OR",0
+78,"RULE 1 (Direct Method Invocation)","AND",0
+79,"methodInvocation(connect,web,frontend0,1)","LEAF",1
+78,79,-1
+77,78,-1
+73,77,-1
+70,73,-1
+69,70,-1
+80,"canInvoke(frontend0,backend,login,1)","OR",0
+81,"RULE 1 (Direct Method Invocation)","AND",0
+82,"methodInvocation(login,frontend0,backend,1)","LEAF",1
+81,82,-1
+80,81,-1
+69,80,-1
+66,69,-1
+83,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+83,22,-1
+84,"isCompromised(frontend1,1,connect)","OR",0
+85,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+86,"compVulnExists(frontend1,connect,authbypass)","LEAF",1
+85,86,-1
+85,74,-1
+87,"canInvoke(web,frontend1,connect,1)","OR",0
+88,"RULE 1 (Direct Method Invocation)","AND",0
+89,"methodInvocation(connect,web,frontend1,1)","LEAF",1
+88,89,-1
+87,88,-1
+85,87,-1
+84,85,-1
+83,84,-1
+90,"canInvoke(frontend1,backend,login,1)","OR",0
+91,"RULE 1 (Direct Method Invocation)","AND",0
+92,"methodInvocation(login,frontend1,backend,1)","LEAF",1
+91,92,-1
+90,91,-1
+83,90,-1
+66,83,-1
+93,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+93,22,-1
+93,74,-1
+94,"canInvoke(web,backend,login,1)","OR",0
+95,"RULE 0 (Indirect Method Invocation)","AND",0
+95,80,-1
+95,77,-1
+94,95,-1
+96,"RULE 0 (Indirect Method Invocation)","AND",0
+96,90,-1
+96,87,-1
+94,96,-1
+93,94,-1
+66,93,-1
+65,66,-1
+97,"canInvoke(backend,accountManager,userLookUp,1)","OR",0
+98,"RULE 1 (Direct Method Invocation)","AND",0
+99,"methodInvocation(userLookUp,backend,accountManager,1)","LEAF",1
+98,99,-1
+97,98,-1
+65,97,-1
+61,65,-1
+100,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+100,17,-1
+100,70,-1
+101,"canInvoke(frontend0,accountManager,userLookUp,1)","OR",0
+102,"RULE 0 (Indirect Method Invocation)","AND",0
+102,97,-1
+102,80,-1
+101,102,-1
+100,101,-1
+61,100,-1
+103,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+103,17,-1
+103,84,-1
+104,"canInvoke(frontend1,accountManager,userLookUp,1)","OR",0
+105,"RULE 0 (Indirect Method Invocation)","AND",0
+105,97,-1
+105,90,-1
+104,105,-1
+103,104,-1
+61,103,-1
+106,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+106,17,-1
+106,74,-1
+107,"canInvoke(web,accountManager,userLookUp,1)","OR",0
+108,"RULE 0 (Indirect Method Invocation)","AND",0
+108,97,-1
+108,94,-1
+107,108,-1
+109,"RULE 0 (Indirect Method Invocation)","AND",0
+109,101,-1
+109,77,-1
+107,109,-1
+110,"RULE 0 (Indirect Method Invocation)","AND",0
+110,104,-1
+110,87,-1
+107,110,-1
+106,107,-1
+61,106,-1
+60,61,-1
+59,60,-1
+58,59,-1
+57,58,-1
+111,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+111,64,-1
+111,59,-1
+57,111,-1
+56,57,-1
+55,56,-1
+54,55,-1
+112,"canSpoofUsr(accountManager,1)","OR",0
+113,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+113,57,-1
+112,113,-1
+54,112,-1
+53,54,-1
+52,53,-1
+6,52,-1
+114,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+115,"canDeleteDoc(accountManager,2)","OR",0
+116,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+117,"canLeakDoc(accountManager,2)","OR",0
+118,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+119,"canPrivEsc(accountManager,2)","OR",0
+120,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+121,"canInjectCommand(accountManager,2)","OR",0
+122,"RULE 6 (SQL Injection possible)","AND",0
+122,16,-1
+122,17,-1
+123,"isCompromised(accountManager,2,userLookUp)","OR",0
+124,"RULE 3 (Compromised in Past)","AND",0
+125,"adaptationStep(1,2)","LEAF",1
+124,125,-1
+126,"isComponent(accountManager,2)","LEAF",1
+124,126,-1
+124,61,-1
+123,124,-1
+127,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+127,17,-1
+128,"isCompromised(backend,2,login)","OR",0
+129,"RULE 3 (Compromised in Past)","AND",0
+129,125,-1
+130,"isComponent(backend,2)","LEAF",1
+129,130,-1
+129,66,-1
+128,129,-1
+131,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+131,22,-1
+132,"isCompromised(frontend0,2,connect)","OR",0
+133,"RULE 3 (Compromised in Past)","AND",0
+133,125,-1
+134,"isComponent(frontend0,2)","LEAF",1
+133,134,-1
+133,70,-1
+132,133,-1
+135,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+135,25,-1
+136,"isCompromised(web,2,entrypoint)","OR",0
+137,"RULE 3 (Compromised in Past)","AND",0
+137,125,-1
+138,"isComponent(web,2)","LEAF",1
+137,138,-1
+137,74,-1
+136,137,-1
+135,136,-1
+139,"canInvoke(web,frontend0,connect,2)","OR",0
+140,"RULE 1 (Direct Method Invocation)","AND",0
+141,"methodInvocation(connect,web,frontend0,2)","LEAF",1
+140,141,-1
+139,140,-1
+135,139,-1
+132,135,-1
+131,132,-1
+142,"canInvoke(frontend0,backend,login,2)","OR",0
+143,"RULE 1 (Direct Method Invocation)","AND",0
+144,"methodInvocation(login,frontend0,backend,2)","LEAF",1
+143,144,-1
+142,143,-1
+131,142,-1
+128,131,-1
+145,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+145,22,-1
+146,"isCompromised(frontend1,2,connect)","OR",0
+147,"RULE 3 (Compromised in Past)","AND",0
+147,125,-1
+148,"isComponent(frontend1,2)","LEAF",1
+147,148,-1
+147,84,-1
+146,147,-1
+149,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+149,86,-1
+149,136,-1
+150,"canInvoke(web,frontend1,connect,2)","OR",0
+151,"RULE 1 (Direct Method Invocation)","AND",0
+152,"methodInvocation(connect,web,frontend1,2)","LEAF",1
+151,152,-1
+150,151,-1
+149,150,-1
+146,149,-1
+145,146,-1
+153,"canInvoke(frontend1,backend,login,2)","OR",0
+154,"RULE 1 (Direct Method Invocation)","AND",0
+155,"methodInvocation(login,frontend1,backend,2)","LEAF",1
+154,155,-1
+153,154,-1
+145,153,-1
+128,145,-1
+156,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+156,22,-1
+157,"isCompromised(frontend2,2,connect)","OR",0
+158,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+159,"compVulnExists(frontend2,connect,authbypass)","LEAF",1
+158,159,-1
+158,136,-1
+160,"canInvoke(web,frontend2,connect,2)","OR",0
+161,"RULE 1 (Direct Method Invocation)","AND",0
+162,"methodInvocation(connect,web,frontend2,2)","LEAF",1
+161,162,-1
+160,161,-1
+158,160,-1
+157,158,-1
+156,157,-1
+163,"canInvoke(frontend2,backend,login,2)","OR",0
+164,"RULE 1 (Direct Method Invocation)","AND",0
+165,"methodInvocation(login,frontend2,backend,2)","LEAF",1
+164,165,-1
+163,164,-1
+156,163,-1
+128,156,-1
+166,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+166,22,-1
+166,136,-1
+167,"canInvoke(web,backend,login,2)","OR",0
+168,"RULE 0 (Indirect Method Invocation)","AND",0
+168,142,-1
+168,139,-1
+167,168,-1
+169,"RULE 0 (Indirect Method Invocation)","AND",0
+169,153,-1
+169,150,-1
+167,169,-1
+170,"RULE 0 (Indirect Method Invocation)","AND",0
+170,163,-1
+170,160,-1
+167,170,-1
+166,167,-1
+128,166,-1
+127,128,-1
+171,"canInvoke(backend,accountManager,userLookUp,2)","OR",0
+172,"RULE 1 (Direct Method Invocation)","AND",0
+173,"methodInvocation(userLookUp,backend,accountManager,2)","LEAF",1
+172,173,-1
+171,172,-1
+127,171,-1
+123,127,-1
+174,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+174,17,-1
+174,132,-1
+175,"canInvoke(frontend0,accountManager,userLookUp,2)","OR",0
+176,"RULE 0 (Indirect Method Invocation)","AND",0
+176,171,-1
+176,142,-1
+175,176,-1
+174,175,-1
+123,174,-1
+177,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+177,17,-1
+177,146,-1
+178,"canInvoke(frontend1,accountManager,userLookUp,2)","OR",0
+179,"RULE 0 (Indirect Method Invocation)","AND",0
+179,171,-1
+179,153,-1
+178,179,-1
+177,178,-1
+123,177,-1
+180,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+180,17,-1
+180,157,-1
+181,"canInvoke(frontend2,accountManager,userLookUp,2)","OR",0
+182,"RULE 0 (Indirect Method Invocation)","AND",0
+182,171,-1
+182,163,-1
+181,182,-1
+180,181,-1
+123,180,-1
+183,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+183,17,-1
+183,136,-1
+184,"canInvoke(web,accountManager,userLookUp,2)","OR",0
+185,"RULE 0 (Indirect Method Invocation)","AND",0
+185,171,-1
+185,167,-1
+184,185,-1
+186,"RULE 0 (Indirect Method Invocation)","AND",0
+186,175,-1
+186,139,-1
+184,186,-1
+187,"RULE 0 (Indirect Method Invocation)","AND",0
+187,178,-1
+187,150,-1
+184,187,-1
+188,"RULE 0 (Indirect Method Invocation)","AND",0
+188,181,-1
+188,160,-1
+184,188,-1
+183,184,-1
+123,183,-1
+122,123,-1
+121,122,-1
+120,121,-1
+119,120,-1
+189,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+189,126,-1
+189,121,-1
+119,189,-1
+118,119,-1
+117,118,-1
+116,117,-1
+190,"canSpoofUsr(accountManager,2)","OR",0
+191,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+191,119,-1
+190,191,-1
+116,190,-1
+115,116,-1
+114,115,-1
+6,114,-1
+5,6,-1
+4,5,-1
+192,"RULE 20 (System Compromised due to Confidentiality being compromised)","AND",0
+193,"confidentialityCompromised(accountManager)","OR",0
+194,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+194,10,-1
+193,194,-1
+195,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+195,55,-1
+193,195,-1
+196,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+196,117,-1
+193,196,-1
+192,193,-1
+4,192,-1
+2,4,-1
+1,2,-1
+197,"RULE 21 (Blame Component)","AND",0
+197,3,-1
+198,"systemCompromised(backend)","OR",0
+199,"RULE 19 (System Compromised due to Integrity being compromised)","AND",0
+200,"integrityCompromised(backend)","OR",0
+201,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+202,"canDeleteDoc(backend,0)","OR",0
+203,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+204,"canLeakDoc(backend,0)","OR",0
+205,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+206,"canPrivEsc(backend,0)","OR",0
+207,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+208,"canInjectCommand(backend,0)","OR",0
+209,"RULE 6 (SQL Injection possible)","AND",0
+209,16,-1
+209,22,-1
+209,20,-1
+208,209,-1
+207,208,-1
+206,207,-1
+210,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+211,"isComponent(backend,0)","LEAF",1
+210,211,-1
+210,208,-1
+206,210,-1
+205,206,-1
+204,205,-1
+203,204,-1
+212,"canSpoofUsr(backend,0)","OR",0
+213,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+213,206,-1
+212,213,-1
+203,212,-1
+202,203,-1
+201,202,-1
+200,201,-1
+214,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+215,"canDeleteDoc(backend,1)","OR",0
+216,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+217,"canLeakDoc(backend,1)","OR",0
+218,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+219,"canPrivEsc(backend,1)","OR",0
+220,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+221,"canInjectCommand(backend,1)","OR",0
+222,"RULE 6 (SQL Injection possible)","AND",0
+222,16,-1
+222,22,-1
+222,66,-1
+221,222,-1
+220,221,-1
+219,220,-1
+223,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+223,68,-1
+223,221,-1
+219,223,-1
+218,219,-1
+217,218,-1
+216,217,-1
+224,"canSpoofUsr(backend,1)","OR",0
+225,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+225,219,-1
+224,225,-1
+216,224,-1
+215,216,-1
+214,215,-1
+200,214,-1
+226,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+227,"canDeleteDoc(backend,2)","OR",0
+228,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+229,"canLeakDoc(backend,2)","OR",0
+230,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+231,"canPrivEsc(backend,2)","OR",0
+232,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+233,"canInjectCommand(backend,2)","OR",0
+234,"RULE 6 (SQL Injection possible)","AND",0
+234,16,-1
+234,22,-1
+234,128,-1
+233,234,-1
+232,233,-1
+231,232,-1
+235,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+235,130,-1
+235,233,-1
+231,235,-1
+230,231,-1
+229,230,-1
+228,229,-1
+236,"canSpoofUsr(backend,2)","OR",0
+237,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+237,231,-1
+236,237,-1
+228,236,-1
+227,228,-1
+226,227,-1
+200,226,-1
+199,200,-1
+198,199,-1
+238,"RULE 20 (System Compromised due to Confidentiality being compromised)","AND",0
+239,"confidentialityCompromised(backend)","OR",0
+240,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+240,204,-1
+239,240,-1
+241,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+241,217,-1
+239,241,-1
+242,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+242,229,-1
+239,242,-1
+238,239,-1
+198,238,-1
+197,198,-1
+1,197,-1
+243,"RULE 21 (Blame Component)","AND",0
+243,3,-1
+244,"systemCompromised(databaseManager)","OR",0
+245,"RULE 19 (System Compromised due to Integrity being compromised)","AND",0
+246,"integrityCompromised(databaseManager)","OR",0
+247,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+248,"canDeleteDoc(databaseManager,0)","OR",0
+249,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+250,"canLeakDoc(databaseManager,0)","OR",0
+251,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+252,"canPrivEsc(databaseManager,0)","OR",0
+253,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+254,"canInjectCommand(databaseManager,0)","OR",0
+255,"RULE 6 (SQL Injection possible)","AND",0
+255,16,-1
+256,"compVulnExists(databaseManager,executeQuery,sqlinjection)","LEAF",1
+255,256,-1
+257,"isCompromised(databaseManager,0,executeQuery)","OR",0
+258,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+258,256,-1
+258,18,-1
+259,"canInvoke(accountManager,databaseManager,executeQuery,0)","OR",0
+260,"RULE 1 (Direct Method Invocation)","AND",0
+261,"methodInvocation(executeQuery,accountManager,databaseManager,0)","LEAF",1
+260,261,-1
+259,260,-1
+258,259,-1
+257,258,-1
+262,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+262,256,-1
+262,20,-1
+263,"canInvoke(backend,databaseManager,executeQuery,0)","OR",0
+264,"RULE 0 (Indirect Method Invocation)","AND",0
+264,259,-1
+264,38,-1
+263,264,-1
+265,"RULE 0 (Indirect Method Invocation)","AND",0
+266,"canInvoke(documentManager,databaseManager,executeQuery,0)","OR",0
+267,"RULE 1 (Direct Method Invocation)","AND",0
+268,"methodInvocation(executeQuery,documentManager,databaseManager,0)","LEAF",1
+267,268,-1
+266,267,-1
+265,266,-1
+269,"canInvoke(backend,documentManager,docLookUp,0)","OR",0
+270,"RULE 1 (Direct Method Invocation)","AND",0
+271,"methodInvocation(docLookUp,backend,documentManager,0)","LEAF",1
+270,271,-1
+269,270,-1
+265,269,-1
+263,265,-1
+262,263,-1
+257,262,-1
+272,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+272,256,-1
+273,"isCompromised(documentManager,0,docLookUp)","OR",0
+274,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+275,"compVulnExists(documentManager,docLookUp,cmdinjection)","LEAF",1
+274,275,-1
+274,20,-1
+274,269,-1
+273,274,-1
+276,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+276,275,-1
+276,23,-1
+277,"canInvoke(frontend0,documentManager,docLookUp,0)","OR",0
+278,"RULE 0 (Indirect Method Invocation)","AND",0
+278,269,-1
+278,32,-1
+277,278,-1
+276,277,-1
+273,276,-1
+279,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+279,275,-1
+279,26,-1
+280,"canInvoke(web,documentManager,docLookUp,0)","OR",0
+281,"RULE 0 (Indirect Method Invocation)","AND",0
+281,269,-1
+281,36,-1
+280,281,-1
+282,"RULE 0 (Indirect Method Invocation)","AND",0
+282,277,-1
+282,29,-1
+280,282,-1
+279,280,-1
+273,279,-1
+272,273,-1
+272,266,-1
+257,272,-1
+283,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+283,256,-1
+283,23,-1
+284,"canInvoke(frontend0,databaseManager,executeQuery,0)","OR",0
+285,"RULE 0 (Indirect Method Invocation)","AND",0
+285,259,-1
+285,42,-1
+284,285,-1
+286,"RULE 0 (Indirect Method Invocation)","AND",0
+286,263,-1
+286,32,-1
+284,286,-1
+287,"RULE 0 (Indirect Method Invocation)","AND",0
+287,266,-1
+287,277,-1
+284,287,-1
+283,284,-1
+257,283,-1
+288,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+288,256,-1
+288,26,-1
+289,"canInvoke(web,databaseManager,executeQuery,0)","OR",0
+290,"RULE 0 (Indirect Method Invocation)","AND",0
+290,259,-1
+290,45,-1
+289,290,-1
+291,"RULE 0 (Indirect Method Invocation)","AND",0
+291,263,-1
+291,36,-1
+289,291,-1
+292,"RULE 0 (Indirect Method Invocation)","AND",0
+292,266,-1
+292,280,-1
+289,292,-1
+293,"RULE 0 (Indirect Method Invocation)","AND",0
+293,284,-1
+293,29,-1
+289,293,-1
+288,289,-1
+257,288,-1
+255,257,-1
+254,255,-1
+253,254,-1
+252,253,-1
+294,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+295,"isComponent(databaseManager,0)","LEAF",1
+294,295,-1
+294,254,-1
+252,294,-1
+251,252,-1
+250,251,-1
+249,250,-1
+296,"canSpoofUsr(databaseManager,0)","OR",0
+297,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+297,252,-1
+296,297,-1
+249,296,-1
+248,249,-1
+247,248,-1
+246,247,-1
+298,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+299,"canDeleteDoc(databaseManager,1)","OR",0
+300,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+301,"canLeakDoc(databaseManager,1)","OR",0
+302,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+303,"canPrivEsc(databaseManager,1)","OR",0
+304,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+305,"canInjectCommand(databaseManager,1)","OR",0
+306,"RULE 6 (SQL Injection possible)","AND",0
+306,16,-1
+306,256,-1
+307,"isCompromised(databaseManager,1,executeQuery)","OR",0
+308,"RULE 3 (Compromised in Past)","AND",0
+308,63,-1
+309,"isComponent(databaseManager,1)","LEAF",1
+308,309,-1
+308,257,-1
+307,308,-1
+310,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+310,256,-1
+310,61,-1
+311,"canInvoke(accountManager,databaseManager,executeQuery,1)","OR",0
+312,"RULE 1 (Direct Method Invocation)","AND",0
+313,"methodInvocation(executeQuery,accountManager,databaseManager,1)","LEAF",1
+312,313,-1
+311,312,-1
+310,311,-1
+307,310,-1
+314,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+314,256,-1
+314,66,-1
+315,"canInvoke(backend,databaseManager,executeQuery,1)","OR",0
+316,"RULE 0 (Indirect Method Invocation)","AND",0
+316,311,-1
+316,97,-1
+315,316,-1
+317,"RULE 0 (Indirect Method Invocation)","AND",0
+318,"canInvoke(documentManager,databaseManager,executeQuery,1)","OR",0
+319,"RULE 1 (Direct Method Invocation)","AND",0
+320,"methodInvocation(executeQuery,documentManager,databaseManager,1)","LEAF",1
+319,320,-1
+318,319,-1
+317,318,-1
+321,"canInvoke(backend,documentManager,docLookUp,1)","OR",0
+322,"RULE 1 (Direct Method Invocation)","AND",0
+323,"methodInvocation(docLookUp,backend,documentManager,1)","LEAF",1
+322,323,-1
+321,322,-1
+317,321,-1
+315,317,-1
+314,315,-1
+307,314,-1
+324,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+324,256,-1
+325,"isCompromised(documentManager,1,docLookUp)","OR",0
+326,"RULE 3 (Compromised in Past)","AND",0
+326,63,-1
+327,"isComponent(documentManager,1)","LEAF",1
+326,327,-1
+326,273,-1
+325,326,-1
+328,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+328,275,-1
+328,66,-1
+328,321,-1
+325,328,-1
+329,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+329,275,-1
+329,70,-1
+330,"canInvoke(frontend0,documentManager,docLookUp,1)","OR",0
+331,"RULE 0 (Indirect Method Invocation)","AND",0
+331,321,-1
+331,80,-1
+330,331,-1
+329,330,-1
+325,329,-1
+332,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+332,275,-1
+332,84,-1
+333,"canInvoke(frontend1,documentManager,docLookUp,1)","OR",0
+334,"RULE 0 (Indirect Method Invocation)","AND",0
+334,321,-1
+334,90,-1
+333,334,-1
+332,333,-1
+325,332,-1
+335,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+335,275,-1
+335,74,-1
+336,"canInvoke(web,documentManager,docLookUp,1)","OR",0
+337,"RULE 0 (Indirect Method Invocation)","AND",0
+337,321,-1
+337,94,-1
+336,337,-1
+338,"RULE 0 (Indirect Method Invocation)","AND",0
+338,330,-1
+338,77,-1
+336,338,-1
+339,"RULE 0 (Indirect Method Invocation)","AND",0
+339,333,-1
+339,87,-1
+336,339,-1
+335,336,-1
+325,335,-1
+324,325,-1
+324,318,-1
+307,324,-1
+340,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+340,256,-1
+340,70,-1
+341,"canInvoke(frontend0,databaseManager,executeQuery,1)","OR",0
+342,"RULE 0 (Indirect Method Invocation)","AND",0
+342,311,-1
+342,101,-1
+341,342,-1
+343,"RULE 0 (Indirect Method Invocation)","AND",0
+343,315,-1
+343,80,-1
+341,343,-1
+344,"RULE 0 (Indirect Method Invocation)","AND",0
+344,318,-1
+344,330,-1
+341,344,-1
+340,341,-1
+307,340,-1
+345,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+345,256,-1
+345,84,-1
+346,"canInvoke(frontend1,databaseManager,executeQuery,1)","OR",0
+347,"RULE 0 (Indirect Method Invocation)","AND",0
+347,311,-1
+347,104,-1
+346,347,-1
+348,"RULE 0 (Indirect Method Invocation)","AND",0
+348,315,-1
+348,90,-1
+346,348,-1
+349,"RULE 0 (Indirect Method Invocation)","AND",0
+349,318,-1
+349,333,-1
+346,349,-1
+345,346,-1
+307,345,-1
+350,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+350,256,-1
+350,74,-1
+351,"canInvoke(web,databaseManager,executeQuery,1)","OR",0
+352,"RULE 0 (Indirect Method Invocation)","AND",0
+352,311,-1
+352,107,-1
+351,352,-1
+353,"RULE 0 (Indirect Method Invocation)","AND",0
+353,315,-1
+353,94,-1
+351,353,-1
+354,"RULE 0 (Indirect Method Invocation)","AND",0
+354,318,-1
+354,336,-1
+351,354,-1
+355,"RULE 0 (Indirect Method Invocation)","AND",0
+355,341,-1
+355,77,-1
+351,355,-1
+356,"RULE 0 (Indirect Method Invocation)","AND",0
+356,346,-1
+356,87,-1
+351,356,-1
+350,351,-1
+307,350,-1
+306,307,-1
+305,306,-1
+304,305,-1
+303,304,-1
+357,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+357,309,-1
+357,305,-1
+303,357,-1
+302,303,-1
+301,302,-1
+300,301,-1
+358,"canSpoofUsr(databaseManager,1)","OR",0
+359,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+359,303,-1
+358,359,-1
+300,358,-1
+299,300,-1
+298,299,-1
+246,298,-1
+360,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+361,"canDeleteDoc(databaseManager,2)","OR",0
+362,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+363,"canLeakDoc(databaseManager,2)","OR",0
+364,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+365,"canPrivEsc(databaseManager,2)","OR",0
+366,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+367,"canInjectCommand(databaseManager,2)","OR",0
+368,"RULE 6 (SQL Injection possible)","AND",0
+368,16,-1
+368,256,-1
+369,"isCompromised(databaseManager,2,executeQuery)","OR",0
+370,"RULE 3 (Compromised in Past)","AND",0
+370,125,-1
+371,"isComponent(databaseManager,2)","LEAF",1
+370,371,-1
+370,307,-1
+369,370,-1
+372,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+372,256,-1
+372,123,-1
+373,"canInvoke(accountManager,databaseManager,executeQuery,2)","OR",0
+374,"RULE 1 (Direct Method Invocation)","AND",0
+375,"methodInvocation(executeQuery,accountManager,databaseManager,2)","LEAF",1
+374,375,-1
+373,374,-1
+372,373,-1
+369,372,-1
+376,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+376,256,-1
+376,128,-1
+377,"canInvoke(backend,databaseManager,executeQuery,2)","OR",0
+378,"RULE 0 (Indirect Method Invocation)","AND",0
+378,373,-1
+378,171,-1
+377,378,-1
+379,"RULE 0 (Indirect Method Invocation)","AND",0
+380,"canInvoke(documentManager,databaseManager,executeQuery,2)","OR",0
+381,"RULE 1 (Direct Method Invocation)","AND",0
+382,"methodInvocation(executeQuery,documentManager,databaseManager,2)","LEAF",1
+381,382,-1
+380,381,-1
+379,380,-1
+383,"canInvoke(backend,documentManager,docLookUp,2)","OR",0
+384,"RULE 1 (Direct Method Invocation)","AND",0
+385,"methodInvocation(docLookUp,backend,documentManager,2)","LEAF",1
+384,385,-1
+383,384,-1
+379,383,-1
+377,379,-1
+376,377,-1
+369,376,-1
+386,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+386,256,-1
+387,"isCompromised(documentManager,2,docLookUp)","OR",0
+388,"RULE 3 (Compromised in Past)","AND",0
+388,125,-1
+389,"isComponent(documentManager,2)","LEAF",1
+388,389,-1
+388,325,-1
+387,388,-1
+390,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+390,275,-1
+390,128,-1
+390,383,-1
+387,390,-1
+391,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+391,275,-1
+391,132,-1
+392,"canInvoke(frontend0,documentManager,docLookUp,2)","OR",0
+393,"RULE 0 (Indirect Method Invocation)","AND",0
+393,383,-1
+393,142,-1
+392,393,-1
+391,392,-1
+387,391,-1
+394,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+394,275,-1
+394,146,-1
+395,"canInvoke(frontend1,documentManager,docLookUp,2)","OR",0
+396,"RULE 0 (Indirect Method Invocation)","AND",0
+396,383,-1
+396,153,-1
+395,396,-1
+394,395,-1
+387,394,-1
+397,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+397,275,-1
+397,157,-1
+398,"canInvoke(frontend2,documentManager,docLookUp,2)","OR",0
+399,"RULE 0 (Indirect Method Invocation)","AND",0
+399,383,-1
+399,163,-1
+398,399,-1
+397,398,-1
+387,397,-1
+400,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+400,275,-1
+400,136,-1
+401,"canInvoke(web,documentManager,docLookUp,2)","OR",0
+402,"RULE 0 (Indirect Method Invocation)","AND",0
+402,383,-1
+402,167,-1
+401,402,-1
+403,"RULE 0 (Indirect Method Invocation)","AND",0
+403,392,-1
+403,139,-1
+401,403,-1
+404,"RULE 0 (Indirect Method Invocation)","AND",0
+404,395,-1
+404,150,-1
+401,404,-1
+405,"RULE 0 (Indirect Method Invocation)","AND",0
+405,398,-1
+405,160,-1
+401,405,-1
+400,401,-1
+387,400,-1
+386,387,-1
+386,380,-1
+369,386,-1
+406,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+406,256,-1
+406,132,-1
+407,"canInvoke(frontend0,databaseManager,executeQuery,2)","OR",0
+408,"RULE 0 (Indirect Method Invocation)","AND",0
+408,373,-1
+408,175,-1
+407,408,-1
+409,"RULE 0 (Indirect Method Invocation)","AND",0
+409,377,-1
+409,142,-1
+407,409,-1
+410,"RULE 0 (Indirect Method Invocation)","AND",0
+410,380,-1
+410,392,-1
+407,410,-1
+406,407,-1
+369,406,-1
+411,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+411,256,-1
+411,146,-1
+412,"canInvoke(frontend1,databaseManager,executeQuery,2)","OR",0
+413,"RULE 0 (Indirect Method Invocation)","AND",0
+413,373,-1
+413,178,-1
+412,413,-1
+414,"RULE 0 (Indirect Method Invocation)","AND",0
+414,377,-1
+414,153,-1
+412,414,-1
+415,"RULE 0 (Indirect Method Invocation)","AND",0
+415,380,-1
+415,395,-1
+412,415,-1
+411,412,-1
+369,411,-1
+416,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+416,256,-1
+416,157,-1
+417,"canInvoke(frontend2,databaseManager,executeQuery,2)","OR",0
+418,"RULE 0 (Indirect Method Invocation)","AND",0
+418,373,-1
+418,181,-1
+417,418,-1
+419,"RULE 0 (Indirect Method Invocation)","AND",0
+419,377,-1
+419,163,-1
+417,419,-1
+420,"RULE 0 (Indirect Method Invocation)","AND",0
+420,380,-1
+420,398,-1
+417,420,-1
+416,417,-1
+369,416,-1
+421,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+421,256,-1
+421,136,-1
+422,"canInvoke(web,databaseManager,executeQuery,2)","OR",0
+423,"RULE 0 (Indirect Method Invocation)","AND",0
+423,373,-1
+423,184,-1
+422,423,-1
+424,"RULE 0 (Indirect Method Invocation)","AND",0
+424,377,-1
+424,167,-1
+422,424,-1
+425,"RULE 0 (Indirect Method Invocation)","AND",0
+425,380,-1
+425,401,-1
+422,425,-1
+426,"RULE 0 (Indirect Method Invocation)","AND",0
+426,407,-1
+426,139,-1
+422,426,-1
+427,"RULE 0 (Indirect Method Invocation)","AND",0
+427,412,-1
+427,150,-1
+422,427,-1
+428,"RULE 0 (Indirect Method Invocation)","AND",0
+428,417,-1
+428,160,-1
+422,428,-1
+421,422,-1
+369,421,-1
+368,369,-1
+367,368,-1
+366,367,-1
+365,366,-1
+429,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+429,371,-1
+429,367,-1
+365,429,-1
+364,365,-1
+363,364,-1
+362,363,-1
+430,"canSpoofUsr(databaseManager,2)","OR",0
+431,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+431,365,-1
+430,431,-1
+362,430,-1
+361,362,-1
+360,361,-1
+246,360,-1
+245,246,-1
+244,245,-1
+432,"RULE 20 (System Compromised due to Confidentiality being compromised)","AND",0
+433,"confidentialityCompromised(databaseManager)","OR",0
+434,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+434,250,-1
+433,434,-1
+435,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+435,301,-1
+433,435,-1
+436,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+436,363,-1
+433,436,-1
+432,433,-1
+244,432,-1
+243,244,-1
+1,243,-1
+437,"RULE 21 (Blame Component)","AND",0
+437,3,-1
+438,"systemCompromised(documentManager)","OR",0
+439,"RULE 19 (System Compromised due to Integrity being compromised)","AND",0
+440,"integrityCompromised(documentManager)","OR",0
+441,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+442,"canDeleteDoc(documentManager,0)","OR",0
+443,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+444,"canLeakDoc(documentManager,0)","OR",0
+445,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+446,"canPrivEsc(documentManager,0)","OR",0
+447,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+448,"canInjectCommand(documentManager,0)","OR",0
+449,"RULE 8 (Command Injection possible)","AND",0
+450,"vulnType(cmdinjection)","LEAF",1
+449,450,-1
+449,275,-1
+449,273,-1
+448,449,-1
+447,448,-1
+446,447,-1
+451,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+452,"isComponent(documentManager,0)","LEAF",1
+451,452,-1
+451,448,-1
+446,451,-1
+445,446,-1
+444,445,-1
+443,444,-1
+453,"canSpoofUsr(documentManager,0)","OR",0
+454,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+454,446,-1
+453,454,-1
+443,453,-1
+442,443,-1
+441,442,-1
+440,441,-1
+455,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+456,"canDeleteDoc(documentManager,1)","OR",0
+457,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+458,"canLeakDoc(documentManager,1)","OR",0
+459,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+460,"canPrivEsc(documentManager,1)","OR",0
+461,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+462,"canInjectCommand(documentManager,1)","OR",0
+463,"RULE 8 (Command Injection possible)","AND",0
+463,450,-1
+463,275,-1
+463,325,-1
+462,463,-1
+461,462,-1
+460,461,-1
+464,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+464,327,-1
+464,462,-1
+460,464,-1
+459,460,-1
+458,459,-1
+457,458,-1
+465,"canSpoofUsr(documentManager,1)","OR",0
+466,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+466,460,-1
+465,466,-1
+457,465,-1
+456,457,-1
+455,456,-1
+440,455,-1
+467,"RULE 17 (Loss of Confidentiality due to documentDeletion)","AND",0
+468,"canDeleteDoc(documentManager,2)","OR",0
+469,"RULE 14 (DocumentDeletion Due to Privilege Escalation and Document Leakage)","AND",0
+470,"canLeakDoc(documentManager,2)","OR",0
+471,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+472,"canPrivEsc(documentManager,2)","OR",0
+473,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+474,"canInjectCommand(documentManager,2)","OR",0
+475,"RULE 8 (Command Injection possible)","AND",0
+475,450,-1
+475,275,-1
+475,387,-1
+474,475,-1
+473,474,-1
+472,473,-1
+476,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+476,389,-1
+476,474,-1
+472,476,-1
+471,472,-1
+470,471,-1
+469,470,-1
+477,"canSpoofUsr(documentManager,2)","OR",0
+478,"RULE 12 (User Spoofing Due to Privilege Escalation)","AND",0
+478,472,-1
+477,478,-1
+469,477,-1
+468,469,-1
+467,468,-1
+440,467,-1
+439,440,-1
+438,439,-1
+479,"RULE 20 (System Compromised due to Confidentiality being compromised)","AND",0
+480,"confidentialityCompromised(documentManager)","OR",0
+481,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+481,444,-1
+480,481,-1
+482,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+482,458,-1
+480,482,-1
+483,"RULE 16 (Loss of Confidentiality due to documentLeak)","AND",0
+483,470,-1
+480,483,-1
+479,480,-1
+438,479,-1
+437,438,-1
+1,437,-1

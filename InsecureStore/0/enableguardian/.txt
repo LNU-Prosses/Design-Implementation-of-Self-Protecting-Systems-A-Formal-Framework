@@ -1,0 +1,146 @@
+1,"systemDown(insecureDocumentStore)","OR",0
+2,"RULE 16 (Blame Component)","AND",0
+3,"theSystem(insecureDocumentStore)","LEAF",1
+2,3,-1
+4,"systemCompromised(backend)","OR",0
+5,"RULE 15 (System Compromised due to Confidentiality being compromised)","AND",0
+6,"confidentialityCompromised(backend)","OR",0
+7,"RULE 14 (Loss of Confidentiality due to documentLeak)","AND",0
+8,"canLeakDoc(backend,0)","OR",0
+9,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+10,"canPrivEsc(backend,0)","OR",0
+11,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+12,"canInjectCommand(backend,0)","OR",0
+13,"RULE 6 (SQL Injection possible)","AND",0
+14,"vulnType(sqlinjection)","LEAF",1
+13,14,-1
+15,"compVulnExists(backend,login,sqlinjection)","LEAF",1
+13,15,-1
+16,"isCompromised(backend,0,login)","OR",0
+17,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+17,15,-1
+18,"isCompromised(frontend0,0,connect)","OR",0
+19,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+20,"compVulnExists(frontend0,connect,authbypass)","LEAF",1
+19,20,-1
+21,"isCompromised(web,0,entrypoint)","OR",0
+22,"RULE 2 (Attacker Controlled Component)","AND",0
+23,"attackerLocated(web,0)","LEAF",1
+22,23,-1
+21,22,-1
+19,21,-1
+24,"canInvoke(web,frontend0,connect,0)","OR",0
+25,"RULE 1 (Direct Method Invocation)","AND",0
+26,"methodInvocation(connect,web,frontend0,0)","LEAF",1
+25,26,-1
+24,25,-1
+19,24,-1
+18,19,-1
+17,18,-1
+27,"canInvoke(frontend0,backend,login,0)","OR",0
+28,"RULE 1 (Direct Method Invocation)","AND",0
+29,"methodInvocation(login,frontend0,backend,0)","LEAF",1
+28,29,-1
+27,28,-1
+17,27,-1
+16,17,-1
+30,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+30,15,-1
+30,21,-1
+31,"canInvoke(web,backend,login,0)","OR",0
+32,"RULE 0 (Indirect Method Invocation)","AND",0
+32,27,-1
+32,24,-1
+31,32,-1
+30,31,-1
+16,30,-1
+13,16,-1
+12,13,-1
+11,12,-1
+10,11,-1
+33,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+34,"isComponent(backend,0)","LEAF",1
+33,34,-1
+33,12,-1
+10,33,-1
+9,10,-1
+8,9,-1
+7,8,-1
+6,7,-1
+35,"RULE 14 (Loss of Confidentiality due to documentLeak)","AND",0
+36,"canLeakDoc(backend,1)","OR",0
+37,"RULE 13 (DocumentLeakage Due to Privilege Escalation)","AND",0
+38,"canPrivEsc(backend,1)","OR",0
+39,"RULE 10 (Privilege Escalation due to SQLInjection and BadConfiguration)","AND",0
+40,"canInjectCommand(backend,1)","OR",0
+41,"RULE 6 (SQL Injection possible)","AND",0
+41,14,-1
+41,15,-1
+42,"isCompromised(backend,1,login)","OR",0
+43,"RULE 3 (Compromised in Past)","AND",0
+44,"adaptationStep(0,1)","LEAF",1
+43,44,-1
+45,"isComponent(backend,1)","LEAF",1
+43,45,-1
+43,16,-1
+42,43,-1
+46,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+46,15,-1
+47,"isCompromised(frontend0,1,connect)","OR",0
+48,"RULE 3 (Compromised in Past)","AND",0
+48,44,-1
+49,"isComponent(frontend0,1)","LEAF",1
+48,49,-1
+48,18,-1
+47,48,-1
+50,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+50,20,-1
+51,"isCompromised(web,1,entrypoint)","OR",0
+52,"RULE 3 (Compromised in Past)","AND",0
+52,44,-1
+53,"isComponent(web,1)","LEAF",1
+52,53,-1
+52,21,-1
+51,52,-1
+50,51,-1
+54,"canInvoke(web,frontend0,connect,1)","OR",0
+55,"RULE 1 (Direct Method Invocation)","AND",0
+56,"methodInvocation(connect,web,frontend0,1)","LEAF",1
+55,56,-1
+54,55,-1
+50,54,-1
+47,50,-1
+46,47,-1
+57,"canInvoke(frontend0,backend,login,1)","OR",0
+58,"RULE 1 (Direct Method Invocation)","AND",0
+59,"methodInvocation(login,frontend0,backend,1)","LEAF",1
+58,59,-1
+57,58,-1
+46,57,-1
+42,46,-1
+60,"RULE 4 (Compromised by method invocation of compromised component)","AND",0
+60,15,-1
+60,51,-1
+61,"canInvoke(web,backend,login,1)","OR",0
+62,"RULE 0 (Indirect Method Invocation)","AND",0
+62,57,-1
+62,54,-1
+61,62,-1
+60,61,-1
+42,60,-1
+41,42,-1
+40,41,-1
+39,40,-1
+38,39,-1
+63,"RULE 11 (Privilege Escalation due to SQLInjection only in internal component)","AND",0
+63,45,-1
+63,40,-1
+38,63,-1
+37,38,-1
+36,37,-1
+35,36,-1
+6,35,-1
+5,6,-1
+4,5,-1
+2,4,-1
+1,2,-1
